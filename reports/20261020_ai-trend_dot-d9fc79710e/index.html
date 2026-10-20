@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI・ITトレンド日次ダイジェスト — 2026年10月20日 | Explainer</title>
+  <style>
+
+    :root {
+      color-scheme: light;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "Noto Sans JP", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, "JetBrains Mono", "Roboto Mono", monospace;
+      --bg: #F2F2F7;
+      --bg-warm: #F5F5F7;
+      --surface: #FFFFFF;
+      --surface-2: #F5F5F7;
+      --label: #1D1D1F;
+      --label-2: #6E6E73;
+      --label-3: #8E8E93;
+      --border: rgba(60, 60, 67, 0.14);
+      --separator: rgba(60, 60, 67, 0.22);
+      --fill: rgba(120, 120, 128, 0.12);
+      --fill-2: rgba(120, 120, 128, 0.2);
+      --accent: #C96442;
+      --accent-hover: #B85638;
+      --accent-soft: rgba(201, 100, 66, 0.1);
+      --link: #C96442;
+      --action: #C96442;
+      --on-action: #FFFFFF;
+      --on-accent: #FFFFFF;
+      --star: #FF9F0A;
+      --star-stroke: #C26A00;
+      --success: #248A3D;
+      --danger: #D70015;
+      --nav-bg: rgba(255, 255, 255, 0.78);
+      --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+      --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+      --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+      --radius-control: 10px;
+      --radius-card: 14px;
+      --radius-sheet: 20px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-emphasized: cubic-bezier(0.32, 0.72, 0, 1);
+      /* Editorial aliases for shared widget and Markdown styles */
+      --font-body: var(--font);
+      --font-display: var(--font);
+      --font-mono: var(--mono);
+      --ink: var(--label);
+      --ink-soft: var(--label);
+      --muted: var(--label-2);
+      --primary: var(--label);
+      --secondary: var(--label-2);
+      --tertiary: var(--link);
+      --neutral: var(--fill);
+      --background: var(--bg);
+      --on-primary: #FFFFFF;
+      --on-surface: var(--label);
+      --on-background: var(--label);
+      --shadow-sm: var(--shadow-1);
+      --shadow-md: var(--shadow-2);
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #000000;
+      --bg-warm: #1C1C1E;
+      --surface: #1C1C1E;
+      --surface-2: #2C2C2E;
+      --label: #F5F5F7;
+      --label-2: #98989D;
+      --label-3: #7C7C80;
+      --border: rgba(255, 255, 255, 0.1);
+      --separator: rgba(84, 84, 88, 0.65);
+      --fill: rgba(120, 120, 128, 0.24);
+      --fill-2: rgba(120, 120, 128, 0.36);
+      --accent: #E07A5A;
+      --accent-hover: #F08B6A;
+      --accent-soft: rgba(224, 122, 90, 0.12);
+      --link: #E07A5A;
+      --action: #E07A5A;
+      --on-action: #000000;
+      --on-accent: #FFFFFF;
+      --star: #FFB340;
+      --star-stroke: #FFB340;
+      --success: #30D158;
+      --danger: #FF6961;
+      --nav-bg: rgba(28, 28, 30, 0.78);
+      --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+      --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+      --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #000000;
+        --bg-warm: #1C1C1E;
+        --surface: #1C1C1E;
+        --surface-2: #2C2C2E;
+        --label: #F5F5F7;
+        --label-2: #98989D;
+        --label-3: #7C7C80;
+        --border: rgba(255, 255, 255, 0.1);
+        --separator: rgba(84, 84, 88, 0.65);
+        --fill: rgba(120, 120, 128, 0.24);
+        --fill-2: rgba(120, 120, 128, 0.36);
+        --accent: #E07A5A;
+        --accent-hover: #F08B6A;
+        --accent-soft: rgba(224, 122, 90, 0.12);
+        --link: #E07A5A;
+        --action: #E07A5A;
+        --on-action: #000000;
+        --on-accent: #FFFFFF;
+        --star: #FFB340;
+        --star-stroke: #FFB340;
+        --success: #30D158;
+        --danger: #FF6961;
+        --nav-bg: rgba(28, 28, 30, 0.78);
+        --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+        --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+        --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* App bar: one 52px row. Title block on the left, actions on the right. */
+    .page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: calc(52px + env(safe-area-inset-top));
+      margin: 0;
+      padding: env(safe-area-inset-top) max(12px, env(safe-area-inset-right)) 0 max(8px, env(safe-area-inset-left));
+      border-bottom: 1px solid var(--separator);
+      background: var(--nav-bg);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      color: var(--label);
+      font-family: var(--font);
+    }
+    .page-nav-brand {
+      display: flex;
+      min-width: 0;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      line-height: 1.2;
+    }
+    .app-bar-home {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 2px;
+      height: 36px;
+      padding: 0 10px 0 4px;
+      border-radius: var(--radius-control);
+      color: var(--link);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .app-bar-home:hover { background: var(--fill); }
+    .app-bar-home .app-icon { flex: 0 0 auto; }
+    .app-bar-divider {
+      flex: 0 0 auto;
+      width: 1px;
+      height: 20px;
+      background: var(--separator);
+    }
+    .app-bar-actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 2px;
+    }
+    .app-bar-actions:empty { display: none; }
+    /* Icon buttons: header actions, docked widget buttons and menus share one look. */
+    .app-icon-btn,
+    [data-explainer-dock-slot] > button,
+    [data-explainer-dock-slot] > a {
+      position: relative;
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 150ms var(--ease), color 150ms var(--ease);
+    }
+    .app-icon-btn:hover,
+    [data-explainer-dock-slot] > button:hover,
+    [data-explainer-dock-slot] > a:hover { background: var(--fill); }
+    .app-icon-btn:active,
+    [data-explainer-dock-slot] > button:active { background: var(--fill-2); }
+    .app-icon-btn[aria-expanded="true"],
+    [data-explainer-dock-slot] > button[aria-expanded="true"] { background: var(--fill); color: var(--link); }
+    [data-explainer-dock-slot] > button[data-active="true"] { color: var(--star-stroke); }
+    [data-explainer-dock-slot] > button[data-active="true"] svg { fill: var(--star); }
+    [data-explainer-dock-slot] > button[hidden] { display: none; }
+    [data-explainer-dock-slot] svg { display: block; width: 20px; height: 20px; }
+    :is(.app-icon-btn, .app-bar-home, [data-explainer-dock-slot] > button, .app-menu-item, .app-segmented button):focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    /* Document switcher: the title with a chevron. The title scrolls horizontally so the
+       full text can be read; a transparent native select covers the chevron, so keyboard,
+       screen readers and the mobile picker keep working. */
+    .doc-switcher-wrap {
+      position: relative;
+      display: flex;
+      width: 100%;
+      align-self: flex-start;
+    }
+    .doc-switcher-label:hover {
+      background: var(--fill);
+    }
+    .doc-switcher-wrap:has(.doc-switcher:focus-visible) .doc-switcher-label {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    .doc-switcher-label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 6px;
+      color: var(--label);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .doc-switcher-text {
+      min-width: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .doc-switcher-text::-webkit-scrollbar { display: none; }
+    .doc-switcher-label .app-icon {
+      flex: 0 0 auto;
+      color: var(--label-2);
+      stroke-width: 2.4;
+    }
+    /* タイトルは横スクロールで全文を読めるようにする。ピッカーはシェブロン
+       （右端の透明なセレクト）から開き、タップは JS が同じセレクトへ渡す。
+       WebKit は option の文字列をページ幅に数えるので、overflow: hidden で閉じる。 */
+    .doc-switcher {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 30px;
+      height: 32px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      opacity: 0;
+      font-size: 16px;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+    .app-bar-title-text {
+      overflow: hidden;
+      padding: 0 6px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .markdown-viewer-document {
+      display: flex;
+      max-width: 100%;
+      min-width: 0;
+      align-items: center;
+      padding: 0 6px;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .markdown-viewer-document-copy {
+      overflow: hidden;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .markdown-viewer-document-copy:hover { color: var(--label); }
+    .markdown-viewer-document-copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+    /* Menus (appearance, more). A button toggles a small popover card. */
+    .app-menu { position: relative; flex: 0 0 auto; }
+    .app-menu-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      z-index: 60;
+      display: grid;
+      gap: 4px;
+      width: 272px;
+      max-width: calc(100vw - 24px);
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      -webkit-backdrop-filter: saturate(180%) blur(30px);
+      backdrop-filter: saturate(180%) blur(30px);
+      box-shadow: var(--shadow-3);
+      color: var(--label);
+      font-family: var(--font);
+      transform-origin: top right;
+      animation: app-menu-in 180ms var(--ease-emphasized);
+    }
+    .app-menu-panel[hidden] { display: none; }
+    @keyframes app-menu-in {
+      from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+      to { opacity: 1; transform: none; }
+    }
+    .app-menu-section { display: grid; gap: 6px; padding: 6px 8px 8px; }
+    .app-menu-section + .app-menu-section,
+    .app-menu-list { border-top: 1px solid var(--separator); }
+    .app-menu-section:first-child { border-top: 0; }
+    .app-menu-label {
+      margin: 0;
+      color: var(--label-2);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .app-menu-list { display: grid; padding-top: 4px; }
+    .app-menu-list:first-child { border-top: 0; padding-top: 0; }
+    .app-menu-list:empty { display: none; }
+    .app-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 40px;
+      margin: 0;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      font-size: 0.875rem;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .app-menu-item:hover { background: var(--fill); }
+    .app-menu-item .app-icon, .app-menu-item svg { flex: 0 0 auto; width: 18px; height: 18px; color: var(--label-2); }
+    .app-menu-item:disabled { opacity: 0.5; cursor: wait; }
+    .app-segmented {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      gap: 2px;
+      padding: 2px;
+      border-radius: 9px;
+      background: var(--fill);
+    }
+    .app-segmented button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 30px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .app-segmented button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .app-segmented button[aria-pressed="true"],
+    .app-segmented button[aria-checked="true"] {
+      background: var(--surface);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+      font-weight: 600;
+    }
+    .app-segmented .text-size-control__label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--label-2);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+    @media (max-width: 599px) {
+      .page-nav { gap: 4px; padding-right: max(6px, env(safe-area-inset-right)); padding-left: max(4px, env(safe-area-inset-left)); }
+      .app-bar-home { width: 40px; height: 40px; justify-content: center; padding: 0; }
+      .app-bar-home-label, .app-bar-divider, .markdown-viewer-document { display: none; }
+      .app-icon-btn, [data-explainer-dock-slot] > button, [data-explainer-dock-slot] > a { width: 38px; height: 40px; }
+      .app-bar-actions { gap: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .app-menu-panel { animation: none; }
+    }
+    :root { --markdown-font-scale: 1; --explainer-page-search-top: 62px; }
+    html[data-chrome-hidden="true"] { --explainer-page-search-top: 12px; }
+    * { box-sizing: border-box; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-padding-top: 72px;
+    }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--label);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+    a { color: inherit; }
+    a:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .shell { margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
+    /* Reading surface: a prose column (~44 full-width characters) centred in a wider
+       stage. Tables, diagrams and HMD components break out to the wide column. */
+    .viewer {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 0 max(120px, calc(env(safe-area-inset-bottom) + 104px));
+    }
+    .viewer-chrome {
+      width: min(100%, calc(44em * var(--markdown-font-scale) + 0px));
+      margin: 0 auto 12px;
+      font-size: 1.0625rem;
+    }
+    .viewer-top { display: block; }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+      color: var(--label-2);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.4;
+    }
+    .meta span { min-width: 0; overflow-wrap: anywhere; }
+    .meta-category { color: var(--link); font-weight: 600; }
+    /* WebKit はグリッド内の横スクロール要素（長いコード行など）の中身の幅をページの
+       横幅に数えることがある。本文の外枠で横スクロールを受け止め、ページが横に揺れないようにする。 */
+    .markdown-scroll-stage { min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+    .explainer-companion {
+      display: grid;
+      gap: 4px 16px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      margin: 12px 0 0;
+      padding: 14px 16px;
+      border-radius: var(--radius-card);
+      background: var(--accent-soft);
+      font-size: 0.875rem;
+    }
+    .explainer-companion strong { color: var(--label); }
+    .explainer-companion p { grid-column: 1; margin: 0; color: var(--label-2); }
+    .explainer-companion a {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: var(--action);
+      color: var(--on-action);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    @media (max-width: 599px) {
+      .explainer-companion { grid-template-columns: 1fr; }
+      .explainer-companion a { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 6px; }
+    }
+
+    .markdown-copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(88px, calc(env(safe-area-inset-bottom) + 80px));
+      z-index: 2147483005;
+      max-width: min(360px, calc(100vw - 32px));
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(28, 28, 30, 0.9);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-3);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: center;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .markdown-copy-toast[hidden] { display: none; }
+    .markdown-copy-toast[data-state="error"] { background: rgba(215, 0, 21, 0.92); }
+    
+    .markdown-body {
+      --prose: 44em;
+      display: grid;
+      grid-template-columns:
+        [wide-start] minmax(0, 1fr)
+        [prose-start] minmax(0, var(--prose))
+        [prose-end] minmax(0, 1fr) [wide-end];
+      min-width: 0;
+      max-width: 100%;
+      color: var(--label);
+      font-size: calc(1.0625rem * var(--markdown-font-scale));
+      line-height: 1.8;
+      letter-spacing: 0.01em;
+      overflow-wrap: anywhere;
+      font-feature-settings: "palt" 0;
+    }
+    .markdown-body > * { grid-column: prose; min-width: 0; }
+    .markdown-body > :is(.markdown-table-scroll, .mermaid-shell, .mdx-panes, .mdx-cards, .mdx-board, .mdx-metrics, .mdx-plot, .mdx-svg, .mdx-sandbox, .mdx-tabs, .markdown-embed) {
+      grid-column: wide;
+      justify-self: center;
+      width: fit-content;
+      min-width: min(100%, var(--prose));
+      max-width: 100%;
+    }
+    .markdown-table-scroll {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      border: 1px solid var(--separator);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+    }
+    .markdown-table-scroll > table {
+      width: max-content;
+      min-width: 100%;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+    }
+    /* Phones: a wide comparison table is unreadable behind a horizontal scroll, so each
+       row becomes one card and every field is stacked — label above value, no side-by-side
+       columns. The viewer script copies each header into the data-label of its column.
+       The selectors are qualified with .markdown-body because the later, equally specific
+       `.markdown-body table { width: max-content }` rule would otherwise win and keep
+       the table wider than the screen. */
+    @media (max-width: 640px) {
+      .markdown-body .markdown-table-scroll {
+        overflow-x: visible;
+        border: none;
+        background: transparent;
+      }
+      .markdown-body .markdown-table-scroll > table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        border: none;
+      }
+      .markdown-body .markdown-table-scroll thead { display: none; }
+      .markdown-body .markdown-table-scroll tbody { display: block; }
+      .markdown-body .markdown-table-scroll tr {
+        display: block;
+        margin: 0 0 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface);
+      }
+      .markdown-body .markdown-table-scroll td {
+        display: block;
+        width: auto;
+        padding: 0;
+        border: none;
+        overflow-wrap: anywhere;
+      }
+      .markdown-body .markdown-table-scroll td + td {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .markdown-body .markdown-table-scroll td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        color: var(--muted);
+        font-size: 0.82em;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      .markdown-body .markdown-table-scroll td:not([data-label])::before { content: none; }
+    }
+    /* 読書モード（chrome トグル）: Markdown Viewer 自身の chrome を隠して本文に場所を空ける。
+       注入ウィジェットの浮遊ボタンとトグルは static/library-favorites.css（HTML レポートの
+       iframe でも読み込まれる共有 CSS）が担当する。 */
+    html[data-chrome-hidden="true"] .page-nav,
+    html[data-chrome-hidden="true"] .viewer-chrome,
+    html[data-chrome-hidden="true"] .text-size-control {
+      display: none !important;
+    }
+
+    .markdown-fallback {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+      font-family: var(--mono);
+      font-size: calc(0.92rem * var(--markdown-font-scale));
+    }
+    .markdown-body > *:first-child { margin-top: 0 !important; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+      color: var(--label);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0;
+      margin-top: 2.4em;
+      margin-bottom: 0.6em;
+      scroll-margin-top: 72px;
+    }
+    .markdown-body h1 { margin-top: 0.2em; font-size: 1.9em; line-height: 1.3; letter-spacing: -0.01em; }
+    .markdown-body h2 { padding-bottom: 0.35em; border-bottom: 1px solid var(--separator); font-size: 1.4em; }
+    .markdown-body h3 { font-size: 1.18em; }
+    .markdown-body h4 { font-size: 1em; }
+    .markdown-body strong { font-weight: 700; color: var(--label); }
+    .markdown-body li + li { margin-top: 0.25em; }
+    .markdown-body li > :is(ul, ol) { margin-top: 0.25em; margin-bottom: 0; }
+    .markdown-body p, .markdown-body ul, .markdown-body ol, .markdown-body blockquote, .markdown-body pre, .markdown-body table {
+      margin: 0 0 1rem;
+    }
+    .markdown-body p, .markdown-body li, .markdown-body blockquote, .markdown-body td, .markdown-body th {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .markdown-body ul, .markdown-body ol { padding-left: 1.25rem; }
+    .markdown-body a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    .markdown-body a:hover { text-decoration-thickness: 2px; }
+    .markdown-body blockquote {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-control) var(--radius-control) 0;
+      background: var(--surface-2);
+      color: var(--label);
+    }
+    .markdown-body blockquote > :last-child { margin-bottom: 0; }
+    .markdown-body pre, .markdown-body code {
+      font-family: var(--mono);
+    }
+    .markdown-body pre {
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+      font-size: 0.86em;
+      line-height: 1.6;
+    }
+    .markdown-body pre code {
+      font-size: inherit;
+      background: transparent;
+    }
+    .markdown-body pre code.hljs {
+      padding: 0;
+      background: transparent;
+    }
+    .markdown-body .hljs-comment,
+    .markdown-body .hljs-quote {
+      color: var(--muted);
+      font-style: italic;
+    }
+    .markdown-body .hljs-keyword,
+    .markdown-body .hljs-selector-tag,
+    .markdown-body .hljs-literal,
+    .markdown-body .hljs-section,
+    .markdown-body .hljs-link {
+      color: #6B3FA0;
+    }
+    .markdown-body .hljs-string,
+    .markdown-body .hljs-doctag,
+    .markdown-body .hljs-regexp {
+      color: #3D6B4F;
+    }
+    .markdown-body .hljs-number,
+    .markdown-body .hljs-attr,
+    .markdown-body .hljs-symbol {
+      color: #3D5A80;
+    }
+    .markdown-body .hljs-title,
+    .markdown-body .hljs-title.function_,
+    .markdown-body .hljs-title.class_ {
+      color: #2E6B8A;
+    }
+    .markdown-body .hljs-built_in,
+    .markdown-body .hljs-type,
+    .markdown-body .hljs-params {
+      color: var(--tertiary);
+    }
+    .markdown-body .hljs-variable,
+    .markdown-body .hljs-template-variable,
+    .markdown-body .hljs-name {
+      color: #8A3D5C;
+    }
+    .markdown-body .hljs-meta,
+    .markdown-body .hljs-meta .hljs-keyword {
+      color: #5A4A8A;
+    }
+    .markdown-body pre.markdown-diff {
+      padding: 0;
+    }
+    .markdown-body .markdown-diff code {
+      display: block;
+    }
+    .markdown-body .markdown-diff-line {
+      padding: 0 16px;
+      min-height: 1.45em;
+      white-space: pre;
+    }
+    .markdown-body .markdown-diff-line.is-add {
+      background: #dafbe1;
+      color: #1a7f37;
+    }
+    .markdown-body .markdown-diff-line.is-del {
+      background: #ffebe9;
+      color: #cf222e;
+    }
+    .markdown-body .markdown-diff-line.is-hunk {
+      background: #ddf4ff;
+      color: #0969da;
+    }
+    .markdown-body .markdown-diff-line.is-file {
+      background: var(--bg-warm);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .markdown-body :not(pre) > code {
+      font-size: 0.92em;
+      padding: 0.1em 0.36em;
+      border-radius: 5px;
+      background: var(--fill);
+      white-space: break-spaces;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .markdown-body table {
+      width: max-content;
+      min-width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+    }
+    .markdown-body th, .markdown-body td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--separator);
+      font-size: 0.92em;
+      line-height: 1.6;
+      text-align: left;
+      vertical-align: top;
+    }
+    .markdown-body th { background: var(--surface-2); color: var(--label); font-weight: 600; white-space: nowrap; }
+    .markdown-body tbody tr:last-child td { border-bottom: 0; }
+    .markdown-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+    }
+    .markdown-body svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 1.25rem auto;
+      overflow: visible;
+    }
+    .markdown-body .mdx-plot,
+    .markdown-body .mdx-svg {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+    .markdown-body .mdx-plot > svg {
+      width: max(100%, 520px);
+      max-width: none;
+    }
+    .markdown-body .mdx-svg > svg {
+      width: max(100%, 560px);
+      max-width: none;
+    }
+    .markdown-body hr {
+      margin: 2.4em 0;
+      border: none;
+      border-top: 1px solid var(--separator);
+    }
+    .mermaid-shell {
+      margin: 0 0 1rem;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+    .mermaid-shell figcaption {
+      margin: 0 0 8px;
+      color: var(--label);
+      font-weight: 600;
+    }
+    .mermaid-description {
+      margin: 0 0 8px;
+      color: var(--secondary);
+      font-size: 0.86rem;
+    }
+    .mermaid-canvas {
+      width: 100%;
+    }
+    .mermaid-canvas:has(svg),
+    .explainer-reader-mermaid-zoomable {
+      cursor: zoom-in;
+    }
+    /* サニタイズで style 属性を落とすため Mermaid 自身の幅指定は残らない。
+       固有幅は JS が viewBox から復元して --mermaid-width に入れる。
+       コンテナより広い図は縮小して収め（SVG なので拡大縮小しても粗くならない）、
+       固有幅より大きくは引き伸ばさない。横スクロールはさせない。 */
+    .mermaid-canvas svg {
+      width: 100%;
+      max-width: var(--mermaid-width, 100%);
+      height: auto;
+      margin: 20px 0;
+      overflow: visible;
+    }
+    .markdown-audio {
+      position: relative;
+      margin: 0 0 1.25rem;
+      padding: 14px 16px 16px;
+      border: 0;
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+    }
+    .markdown-audio figcaption {
+      margin: 0 0 10px;
+      color: var(--secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    /* 再生UIは .markdown-audio-controls。audio 要素は再生だけを担う。
+       1px サイズで DOM に残し、メタデータ読み込みと resume を止めない。 */
+    .markdown-audio audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    /* 再生・時間スキップ・シーク・経過/全体・速度を1行に収める */
+    .markdown-audio-controls {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .markdown-audio-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: var(--fill);
+      color: var(--label);
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .markdown-audio-btn:hover { color: var(--link); }
+    .markdown-audio-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    /* 再生/一時停止は必ずどちらか一方だけ。下のアイコンサイズ指定に負けないよう
+       .markdown-audio を付けて詳細度を上げる（両方表示される事故を防ぐ）。 */
+    .markdown-audio .markdown-audio-btn .markdown-audio-btn__icon--pause { display: none; }
+    .markdown-audio-btn[data-playing="true"] { background: var(--accent-soft); color: var(--link); }
+    .markdown-audio .markdown-audio-btn[data-playing="true"] .markdown-audio-btn__icon--play { display: none; }
+    .markdown-audio .markdown-audio-btn[data-playing="true"] .markdown-audio-btn__icon--pause { display: block; }
+    .markdown-audio-skip {
+      width: auto;
+      min-width: 34px;
+      height: 24px;
+      padding: 0 7px;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .markdown-audio-skip:hover { color: var(--label); }
+    .markdown-audio-seek {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .markdown-audio-seek:disabled { cursor: default; }
+    .markdown-audio-time {
+      flex: 0 0 auto;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    /* 再生速度（1 → 1.25 → 1.5 → 1.75 → 2 → 1）。現在の倍率を見せる */
+    .markdown-audio-rate {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-height: 24px;
+      padding: 0 7px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--fill);
+      color: var(--label-2);
+      font: inherit;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .markdown-audio-rate:hover { color: var(--label); }
+    .markdown-audio-rate[data-rate]:not([data-rate="1"]) { color: var(--link); }
+    .markdown-audio .markdown-audio-btn__icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+    .markdown-audio .markdown-audio-rate__icon {
+      display: block;
+      width: 13px;
+      height: 13px;
+      margin: 0;
+    }
+    .markdown-audio-rate-value { min-width: 2.4em; text-align: center; font-variant-numeric: tabular-nums; }
+    .markdown-audio-error {
+      margin: 0 0 1rem;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-warm);
+      color: var(--on-surface);
+    }
+    /* 音声に添える折りたたみ（音声原稿・生成メモ）。HMD の軽い1行に揃える */
+    .markdown-body details.markdown-audio-note {
+      margin: 0 0 6px;
+      padding: 0;
+      border: 1px solid transparent;
+      background: transparent;
+    }
+    .markdown-body details.markdown-audio-note[open] {
+      padding: 0 10px 8px;
+      border-color: var(--separator);
+      background: var(--surface);
+    }
+    .markdown-body details.markdown-audio-note > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--label-2);
+    }
+    .markdown-body details.markdown-audio-note > summary::before {
+      width: 6px;
+      height: 6px;
+      margin: 0 3px 0 1px;
+    }
+    .markdown-audio-cost {
+      margin: 10px 0 0;
+      color: var(--label-2);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+    .markdown-audio-note {
+      margin: 10px 0 8px;
+      color: var(--secondary);
+      font-size: 0.82rem;
+    }
+    .markdown-audio-tracks {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: 8px;
+    }
+    .markdown-audio-tracks li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .markdown-audio-track {
+      flex: 1 1 12rem;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--label);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .markdown-audio-track[aria-current="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .markdown-audio-download {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .markdown-body details {
+      margin: 0 0 6px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: var(--radius-control);
+      background: transparent;
+    }
+    .markdown-body details[open] {
+      padding: 0 10px 8px;
+      border-color: var(--separator);
+      background: var(--surface);
+    }
+    .markdown-body details > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      display: block;
+      line-height: 32px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      list-style: none;
+      cursor: pointer;
+      color: var(--label-2);
+    }
+    .markdown-body details > summary::-webkit-details-marker { display: none; }
+    .markdown-body details > summary::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin: 0 3px 0 1px;
+      border-right: 2px solid var(--label-2);
+      border-bottom: 2px solid var(--label-2);
+      transform: rotate(-45deg);
+      transition: transform 180ms var(--ease);
+    }
+    .markdown-body details[open] > summary::before { transform: rotate(45deg); }
+
+    .markdown-embed {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 1.25rem;
+      padding: 14px 16px 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .markdown-embed > figcaption {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+    .markdown-embed-twitter {
+      max-width: 550px;
+    }
+    .markdown-embed-twitter .twitter-tweet {
+      margin: 0 auto !important;
+    }
+    .markdown-embed-twitter .twitter-tweet > p {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+    .markdown-embed-video-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-video-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .markdown-embed-video-player {
+      display: block;
+      width: 100%;
+      max-height: min(70vh, 720px);
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-html-frame {
+      display: block;
+      width: 100%;
+      min-height: 320px;
+      height: 480px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-fallback {
+      margin: 10px 0 0;
+      color: var(--secondary);
+      font-size: 0.82rem;
+    }
+    .mdx-toc, .mdx-panes, .mdx-cards, .mdx-modal, .mdx-sandbox, .mdx-plot, .mdx-svg {
+      margin: 1.5rem 0;
+    }
+    .mdx-toc {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    /* 小さめの折りたたみ。1行の軽い行にして、開いたときだけ枠を出す。 */
+    .mdx-details.size-sm {
+      margin: 0 0 6px;
+      padding: 0;
+      border-color: transparent;
+      background: transparent;
+    }
+    .mdx-details.size-sm[open] {
+      padding: 0 10px 8px;
+      border-color: var(--border);
+      background: var(--surface);
+    }
+    .mdx-details.size-sm > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--secondary);
+    }
+    .mdx-details.size-sm > summary::before {
+      width: 6px;
+      height: 6px;
+      margin-right: 2px;
+    }
+    .mdx-toc-collapsible { margin: 1.5rem 0; }
+    .mdx-toc-collapsible > nav.mdx-toc { margin: 0; }
+    .mdx-toc h2, .mdx-panes > h3, .mdx-cards > h3, .mdx-board > h3, .mdx-metrics > h3, .mdx-tabs > h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+    .mdx-callout {
+      --mdx-callout-accent: var(--tertiary);
+      margin: 1.5rem 0;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-inline-start: 5px solid var(--mdx-callout-accent);
+      border-radius: 16px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-callout.is-tip { --mdx-callout-accent: #237A4B; }
+    .mdx-callout.is-warning { --mdx-callout-accent: #A65A00; }
+    .mdx-callout.is-danger { --mdx-callout-accent: #B42318; }
+    .mdx-callout.is-note { --mdx-callout-accent: var(--secondary); }
+    .mdx-callout-kind {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin: 0 0 8px;
+      padding: 2px 9px;
+      border: 1px solid color-mix(in srgb, var(--mdx-callout-accent) 55%, var(--border));
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--mdx-callout-accent) 16%, var(--surface));
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .mdx-callout h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .mdx-callout-body > :first-child { margin-top: 0; }
+    .mdx-callout-body > :last-child { margin-bottom: 0; }
+    .mdx-tabs {
+      margin: 1.5rem 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-tab-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .mdx-tab-button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--on-background); cursor: pointer; font: inherit; }
+    .mdx-tab-button[aria-selected="true"] { border-color: var(--tertiary); background: var(--tertiary); color: var(--bg); }
+    .mdx-tab-panel[hidden] { display: none; }
+    .mdx-tab-panels {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .mdx-tab-panel > :first-child { margin-top: 0; }
+    .mdx-tab-panel > :last-child { margin-bottom: 0; }
+    .mdx-toc-list > ul, .mdx-toc-list > ol { margin: 0; padding-left: 1.25rem; }
+    .mdx-toc-list li + li { margin-top: 2px; }
+    .mdx-toc-list li > ul, .mdx-toc-list li > ol { margin: 2px 0 0; padding-left: 1rem; }
+    .mdx-toc-empty { margin: 0; color: var(--secondary); }
+    .mdx-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin: 0 2px;
+      padding: 2px 8px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .mdx-label.size-sm { font-size: 0.68rem; }
+    .mdx-label.tone-neutral { color: var(--primary); }
+    .mdx-label.tone-accent { color: var(--tertiary); }
+    .mdx-label.tone-positive { color: #237A4B; }
+    .mdx-label.tone-warning { color: #A65A00; }
+    .mdx-label.tone-danger { color: #B42318; }
+    .mdx-label.variant-soft { background: var(--neutral); }
+    .mdx-label.variant-solid { color: var(--on-primary); }
+    .mdx-label.tone-neutral.variant-solid { color: var(--bg); background: var(--primary); border-color: var(--primary); }
+    .mdx-label.tone-accent.variant-solid { background: var(--tertiary); border-color: var(--tertiary); }
+    .mdx-label.tone-positive.variant-solid { background: #237A4B; border-color: #237A4B; }
+    .mdx-label.tone-warning.variant-solid { background: #A65A00; border-color: #A65A00; }
+    .mdx-label.tone-danger.variant-solid { background: #B42318; border-color: #B42318; }
+    .mdx-label.variant-outline { border-color: currentColor; }
+    .mdx-text.color-default { color: var(--on-background); }
+    .mdx-text.color-muted { color: var(--secondary); }
+    .mdx-text.color-accent { color: var(--tertiary); }
+    .mdx-text.color-positive { color: #237A4B; }
+    .mdx-text.color-warning { color: #A65A00; }
+    .mdx-text.color-danger { color: #B42318; }
+    .mdx-text.size-xs { font-size: 0.75rem; }
+    .mdx-text.size-sm { font-size: 0.875rem; }
+    .mdx-text.size-lg { font-size: 1.25rem; }
+    .mdx-text.size-xl { font-size: 1.5rem; }
+    .mdx-metrics {
+      margin: 1.5rem 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .mdx-metrics.columns-2 .mdx-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mdx-metric-inline {
+      display: grid;
+      min-width: 0;
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-areas: "value label" "value unit";
+      align-items: baseline;
+      column-gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-metric-value {
+      grid-area: value;
+      min-width: 2.5ch;
+      color: var(--primary);
+      font-size: 1.45rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .mdx-metric-label {
+      grid-area: label;
+      min-width: 0;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+    .mdx-metric-unit {
+      grid-area: unit;
+      min-width: 0;
+      color: var(--secondary);
+      font-size: 0.78rem;
+      overflow-wrap: anywhere;
+    }
+    .mdx-metric-inline.tone-positive { border-color: color-mix(in srgb, #237A4B 55%, var(--border)); }
+    .mdx-metric-inline.tone-warning { border-color: color-mix(in srgb, #A65A00 55%, var(--border)); }
+    .mdx-metric-inline.tone-negative { border-color: color-mix(in srgb, #B42318 55%, var(--border)); }
+    .mdx-panes, .mdx-cards {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-panes-grid, .mdx-cards-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .mdx-panes.columns-3 .mdx-panes-grid, .mdx-cards.columns-3 .mdx-cards-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mdx-pane, .mdx-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .mdx-pane h4, .mdx-card h4 { margin: 0; font-size: 1rem; }
+    .mdx-pane > :first-child, .mdx-card > :first-child { margin-top: 0; }
+    .mdx-pane > :last-child, .mdx-card > :last-child { margin-bottom: 0; }
+    .mdx-card header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .mdx-card-label { padding: 2px 8px; border-radius: 999px; background: var(--neutral); color: var(--secondary); font-size: 0.72rem; font-weight: 700; }
+    .mdx-cards-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
+    .mdx-cards-controls button, .mdx-modal > button, .mdx-modal-dialog button, .mdx-sandbox-actions button {
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--on-surface);
+      font: inherit;
+      cursor: pointer;
+    }
+    .mdx-modal > button, .mdx-sandbox-actions button:first-child { border-color: var(--tertiary); background: var(--tertiary); color: var(--on-primary); }
+    .mdx-cards-controls button:disabled { opacity: 0.45; cursor: default; }
+    .mdx-modal-dialog {
+      width: min(720px, calc(100vw - 32px));
+      max-width: 720px;
+      max-height: calc(100vh - 32px);
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-modal-dialog::backdrop { background: rgba(0, 0, 0, 0.42); }
+    .mdx-modal.size-sm .mdx-modal-dialog { width: min(480px, calc(100vw - 32px)); }
+    .mdx-modal.size-lg .mdx-modal-dialog { width: min(960px, calc(100vw - 32px)); max-width: 960px; }
+    .mdx-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    .mdx-modal-header h3 { margin: 0; font-size: 1.1rem; }
+    .mdx-modal-body { max-height: calc(100vh - 12rem); overflow: auto; padding: 16px; }
+    .mdx-modal-body > :first-child { margin-top: 0; }
+    .mdx-modal-body > :last-child { margin-bottom: 0; }
+    .mdx-sandbox, .mdx-plot, .mdx-svg { padding: 14px 16px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg-warm); }
+    .mdx-plot, .mdx-svg { overflow-x: auto; overscroll-behavior-x: contain; }
+    .mdx-sandbox figcaption, .mdx-plot figcaption, .mdx-svg figcaption { margin-bottom: 8px; color: var(--primary); font-weight: 700; }
+    .mdx-svg-caption { display: grid; gap: 4px; }
+    .mdx-svg-caption span { color: var(--secondary); font-size: 0.86rem; font-weight: 400; }
+    .mdx-sandbox-description { margin: 0 0 12px; color: var(--secondary); font-size: 0.86rem; }
+    .mdx-sandbox-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .mdx-sandbox-canvas { min-height: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+    .mdx-sandbox-frame { display: block; width: 100%; min-height: 160px; border: 0; }
+    .mdx-sandbox-source, .mdx-plot-data { margin-top: 12px; border-top: 1px solid var(--border); }
+    .mdx-sandbox-source pre, .mdx-plot-data pre { max-height: 320px; overflow: auto; }
+    .mdx-plot-svg { display: block; width: 100%; min-width: 520px; height: auto; margin: 0; }
+    .mdx-plot-axis { stroke: var(--secondary); stroke-width: 1; }
+    .mdx-plot-line { stroke: var(--tertiary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .mdx-plot-point, .mdx-plot-bar { fill: var(--tertiary); }
+    .mdx-plot-axis-label { fill: var(--on-background); font-size: 12px; }
+    .math.inline {
+      display: inline-block;
+      max-width: 100%;
+      overflow-x: auto;
+      vertical-align: middle;
+    }
+    .math.block {
+      display: block;
+      max-width: 100%;
+      padding: 0.35rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .markdown-body mjx-container { max-width: 100%; }
+    .markdown-body mjx-container[display="true"] {
+      display: block;
+      padding: 0.35rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .mdx-board { padding: 14px 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--bg-warm); }
+    .mdx-board-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(96px, auto); gap: 12px; }
+    .mdx-board.columns-2 .mdx-board-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mdx-board.columns-3 .mdx-board-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mdx-board.columns-4 .mdx-board-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .mdx-board-panel {
+      min-width: 0;
+      grid-column: var(--mdx-panel-x) / span var(--mdx-panel-w);
+      grid-row: var(--mdx-panel-y) / span var(--mdx-panel-h);
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      overflow: auto;
+      overflow-wrap: anywhere;
+    }
+    .mdx-board-panel h4 { margin-top: 0; }
+    @media (max-width: 640px) {
+      .mdx-toc.mobile-hidden, .mdx-toc-collapsible.mobile-hidden { display: none; }
+      .mdx-toc.mobile-visible { display: block; }
+      .mdx-metrics-grid, .mdx-metrics.columns-2 .mdx-metrics-grid, .mdx-panes-grid, .mdx-panes.columns-3 .mdx-panes-grid, .mdx-board-grid { grid-template-columns: 1fr; }
+      .mdx-board.columns-2 .mdx-board-grid, .mdx-board.columns-3 .mdx-board-grid, .mdx-board.columns-4 .mdx-board-grid { grid-template-columns: 1fr; }
+      .mdx-cards-track, .mdx-cards.columns-3 .mdx-cards-track { display: flex; grid-template-columns: none; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; }
+      .mdx-cards-track .mdx-card { flex: 0 0 min(86vw, 320px); scroll-snap-align: start; }
+      .mdx-board-panel[class*="mdx-panel-x"], .mdx-board-panel[class*="mdx-panel-y"] { grid-column: 1 / -1; grid-row: auto; }
+    }
+
+    @media (max-width: 599px) {
+      .shell { padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+      .viewer { padding-top: 18px; }
+      .markdown-body h1 { font-size: 1.6em; }
+      .markdown-body h2 { font-size: 1.3em; }
+    }
+    [data-theme="dark"] {
+      .markdown-body .hljs-keyword,
+      .markdown-body .hljs-selector-tag,
+      .markdown-body .hljs-literal,
+      .markdown-body .hljs-section,
+      .markdown-body .hljs-link { color: #C4A5D4; }
+      .markdown-body .hljs-string,
+      .markdown-body .hljs-doctag,
+      .markdown-body .hljs-regexp { color: #8FBF9F; }
+      .markdown-body .hljs-number,
+      .markdown-body .hljs-attr,
+      .markdown-body .hljs-symbol { color: #8FA8C8; }
+      .markdown-body .hljs-title,
+      .markdown-body .hljs-title.function_,
+      .markdown-body .hljs-title.class_ { color: #7EB6D0; }
+      .markdown-body .hljs-variable,
+      .markdown-body .hljs-template-variable,
+      .markdown-body .hljs-name { color: #E0A0B8; }
+      .markdown-body .hljs-meta,
+      .markdown-body .hljs-meta .hljs-keyword { color: #B8A8E0; }
+      .markdown-body .markdown-diff-line.is-add {
+        background: rgba(46, 160, 67, 0.18);
+        color: #3fb950;
+      }
+      .markdown-body .markdown-diff-line.is-del {
+        background: rgba(248, 81, 73, 0.18);
+        color: #f85149;
+      }
+      .markdown-body .markdown-diff-line.is-hunk {
+        background: rgba(56, 139, 253, 0.15);
+        color: #79c0ff;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      },
+      startup: { typeset: false },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" defer></script>
+  <script>
+    (function () {
+      const themeKey = 'explainer-editorial-theme';
+      const root = document.documentElement;
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      function storedChoice() {
+        try {
+          const value = localStorage.getItem(themeKey);
+          return value === 'dark' || value === 'light' ? value : 'system';
+        } catch {
+          return 'system';
+        }
+      }
+      // data-theme は常に実効値（light / dark）にする。HTML レポートの iframe と
+      // チャットの shadow host はこの属性を写すので、「自動」でも値を持たせる。
+      function applyTheme(announce) {
+        const choice = storedChoice();
+        const next = choice === 'system' ? (media.matches ? 'dark' : 'light') : choice;
+        const changed = root.dataset.theme !== next;
+        root.dataset.theme = next;
+        for (const button of document.querySelectorAll('[data-theme-choice]')) {
+          button.setAttribute('aria-pressed', button.dataset.themeChoice === choice ? 'true' : 'false');
+        }
+        for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+          const label = next === 'dark' ? 'ライトモードに切り替える' : 'ダークモードに切り替える';
+          button.setAttribute('aria-label', label);
+          button.title = label;
+        }
+        if (announce && changed) {
+          window.dispatchEvent(new CustomEvent('explainer-theme-change', { detail: next }));
+        }
+      }
+      function setChoice(choice) {
+        try {
+          if (choice === 'system') localStorage.removeItem(themeKey);
+          else localStorage.setItem(themeKey, choice);
+        } catch { /* storage 不可でも表示は切り替える */ }
+        applyTheme(true);
+      }
+      function closeMenus(except) {
+        for (const menu of document.querySelectorAll('[data-app-menu]')) {
+          if (menu === except) continue;
+          const button = menu.querySelector(':scope > button');
+          const panel = menu.querySelector(':scope > .app-menu-panel');
+          if (panel && !panel.hidden) {
+            panel.hidden = true;
+            button?.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+      function bindChrome() {
+        for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+          if (button.dataset.themeBound === '1') continue;
+          button.dataset.themeBound = '1';
+          button.addEventListener('click', () => setChoice(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+        }
+        for (const button of document.querySelectorAll('[data-theme-choice]')) {
+          if (button.dataset.themeBound === '1') continue;
+          button.dataset.themeBound = '1';
+          button.addEventListener('click', () => setChoice(button.dataset.themeChoice));
+        }
+        for (const menu of document.querySelectorAll('[data-app-menu]')) {
+          if (menu.dataset.menuBound === '1') continue;
+          menu.dataset.menuBound = '1';
+          const button = menu.querySelector(':scope > button');
+          const panel = menu.querySelector(':scope > .app-menu-panel');
+          if (!button || !panel) continue;
+          button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const open = panel.hidden;
+            closeMenus(menu);
+            panel.hidden = !open;
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+          panel.addEventListener('click', (event) => {
+            // 項目を実行したら閉じる。設定（外観・文字サイズ）は続けて操作できるよう残す。
+            if (event.target.closest('.app-menu-item')) {
+              panel.hidden = true;
+              button.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+        applyTheme(false);
+      }
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest?.('[data-app-menu]')) closeMenus(null);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const open = document.querySelector('[data-app-menu] > .app-menu-panel:not([hidden])');
+        if (!open) return;
+        closeMenus(null);
+        open.parentElement.querySelector(':scope > button')?.focus();
+      });
+      media.addEventListener?.('change', () => {
+        if (storedChoice() === 'system') applyTheme(true);
+      });
+      // 読書モードの状態は描画前に戻す（ちらつきを避ける）
+      try {
+        if (localStorage.getItem('explainer-chrome-hidden') === '1') {
+          root.dataset.chromeHidden = 'true';
+        }
+      } catch { /* storage 不可でも続行 */ }
+
+      applyTheme(false);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindChrome);
+      } else {
+        bindChrome();
+      }
+    })();
+  </script>
+</head>
+<body>
+<header class="public-report-header"><a href="https://ryoma0622.github.io/public-reports/">公開レポート</a><span>AI・ITトレンド日次ダイジェスト — 2026年10月20日</span><div role="group" aria-label="外観"><button type="button" data-theme-toggle aria-label="ダークモードに切り替える" title="ダークモードに切り替える"><svg class="public-theme-light" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="public-theme-dark" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button></div></header><style>.public-report-header{box-sizing:border-box;position:sticky;top:0;z-index:1000;height:52px;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid var(--separator,#ddd);background:var(--bg,#fff);color:var(--label,#111);font:14px/1.4 -apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}.public-report-header>a{color:inherit;text-decoration:none;flex:none}.public-report-header>span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0}.public-report-header>div{display:flex;gap:4px;flex:none}.public-report-header button{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border:0;border-radius:10px;padding:0;cursor:pointer;color:inherit;background:var(--fill,#eee)}.public-report-header button:hover{background:var(--fill-2,#ddd)}.public-report-header button:focus-visible{outline:2px solid var(--accent,#0066cc);outline-offset:2px}.public-report-header .public-theme-light{display:none}html[data-theme="dark"] .public-report-header .public-theme-light{display:block}html[data-theme="dark"] .public-report-header .public-theme-dark{display:none}@media(max-width:480px){.public-report-header{gap:8px;padding:0 10px}.public-report-header>a{font-size:12px}}</style>  <main class="shell">
+    <section class="viewer" aria-label="Markdown document viewer">
+        <div class="viewer-chrome">
+          <div class="viewer-top">
+            <div class="meta">
+              <span class="meta-category">AI トレンド</span>
+              <span aria-hidden="true">·</span>
+              <time>2026-10-20</time>
+            </div>
+          </div>
+        </div>
+        <div class="markdown-scroll-stage" aria-label="ドキュメント本文">
+          <article class="markdown-body" id="markdown-body">
+
+<figure class="markdown-audio" data-markdown-audio data-component="audio"><figcaption>2人の掛け合いによる内容解説（約15分）</figcaption><div class="markdown-audio-controls"><button type="button" class="markdown-audio-btn markdown-audio-play" aria-label="再生" title="再生" aria-pressed="false"><svg class="markdown-audio-btn__icon markdown-audio-btn__icon--play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><g transform="translate(-2.9 0)"><path d="M8.4 5.2v13.6a1 1 0 0 0 1.53.85l11-6.8a1 1 0 0 0 0-1.7l-11-6.8a1 1 0 0 0-1.53.85Z"/></g></svg><svg class="markdown-audio-btn__icon markdown-audio-btn__icon--pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><rect x="7" y="5" width="3.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="3.5" height="14" rx="1.2"/></svg></button><button type="button" class="markdown-audio-btn markdown-audio-skip" data-skip="-10" aria-label="10秒戻す" title="10秒戻す">-10</button><button type="button" class="markdown-audio-btn markdown-audio-skip" data-skip="10" aria-label="10秒進める" title="10秒進める">+10</button><input type="range" class="markdown-audio-seek" min="0" max="0" step="1" value="0" aria-label="再生位置" disabled><span class="markdown-audio-time"><span class="markdown-audio-elapsed">0:00</span> / <span class="markdown-audio-total">--:--</span></span><button type="button" class="markdown-audio-rate" data-rate="1" aria-label="再生速度 1倍" title="押すと再生速度を切り替える（1 → 1.25 → 1.5 → 1.75 → 2 → 1）"><svg class="markdown-audio-rate__icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg><span class="markdown-audio-rate-value">1×</span></button></div><audio class="markdown-audio-player" preload="metadata" src="assets/be5d8f5794abb2ab4a4c.mp3" title="2人の掛け合いによる内容解説"><a href="assets/be5d8f5794abb2ab4a4c.mp3" target="_blank" rel="noopener noreferrer">2人の掛け合いによる内容解説</a></audio></figure><details class="markdown-audio-note">
+<summary>音声原稿</summary>
+<p>Aoi: みなさんこんにちは。10月20日のAI・ITトレンド日次ダイジェストです。</p>
+<p>Ken: こんにちは。まずは本日のAI・LLMニュースとITトレンドの全12項目を順番にダイジェストでお伝えします。なお、今回のレポートでは既報の再掲や公開日未確認のモデル追加を避け、AI分野は7件に絞り込まれています。</p>
+<p>Aoi: 1件目はMiniMaxのM3.1 Flashです。10月19日にAPI提供が開始されました。テキスト・画像・動画入力と100万トークンの文脈長に対応し、Anthropic互換APIでは思考の深さを5段階で指定できますが、思考自体を無効化することはできません。なお、重みの公開は10月23日の予定で、API提供とは日程が分かれています。</p>
+<p>Ken: 2件目はInceptionの拡散型LLM、Mercury 3です。文脈長が前世代の26万トークンから100万トークンへ拡大され、OpenAI互換APIで提供されます。旧モデルのMercury 2および2.5は新規提供を終了し、10月19日より前に利用実績のある既存顧客は11月15日まで、Enterprise顧客は契約に沿って継続されます。</p>
+<p>Aoi: 3件目はCloudflareがWorkers AIでプレビュー公開したClairicです。テキストと最大4枚の画像から自由文を生成せず、文字列や数値、日付、推定分布などを型付きの値として抽出・計算するモデルです。現時点ではホストされたエンドポイントとして提供され、重みは今後公開される予定です。</p>
+<p>Ken: 4件目はTogetherの追加学習サービス、Together Post-Trainingの一般提供開始です。専有GPU上で強化学習や教師ありファインチューニングのループを利用者が自由に制御できます。課金はGPU分単位で、待機や起動・終了の時間は課金されません。</p>
+<p>Aoi: 5件目はGoogleのGemini Notebookにおける新しいワークフローです。Slide DecksとVideo Overviewsを作成する際、いきなり完成物を生成するのではなく、事前に構成案を確認・修正してから生成へ進めるReview機能が追加され、今後1週間かけて世界展開されます。</p>
+<p>Ken: 6件目はMicrosoftによるProject Perceptionの拡張です。ローカルエージェントの検出対象を計60種類に増やし、モデル自身からは変更できない外部の制御境界として、タスクや実行中のリスクに応じてエージェントの権限を動的に縮小・制限する仕組みを発表しました。契約別の提供条件や一律の一般提供開始日は発表本文からは確認できません。</p>
+<p>Aoi: 7件目はCloudflareのAIコードレビューシステムの最適化事例です。プロンプトキャッシュの活用や不要な呼び出しの削減により、平均費用を2.43ドルから0.77ドルへ68パーセント削減し、中央値の所要時間を4分09秒から1分32秒へ短縮しました。ただし品質維持のため、推論量は一律には下げていません。</p>
+<p>Ken: 続いてITトレンドの5件です。1件目はSentryの脆弱性に関するアドバイザリです。ドットのない「ı」を含む類似ドメインと攻撃者のSAMLサーバーを悪用し、被害者のメールドメインに「i」が含まれる場合などにアカウント乗っ取りが可能になるものです。SaaS版は10月14日に修正済みで、自己ホスト版は複数組織を許可している場合などに26.10.0以降への更新や2要素認証の有効化などが案内されていますが、単一組織のみの設定なら対応は不要とされています。なお、影響バージョンのメタデータには22.2.0のみが記載されており、完全な影響範囲は本文から断定できません。</p>
+<p>Aoi: ITの2件目はAtlassianの脆弱性CVE-2026-21589についてです。撤回状態だった公式記録が10月19日に公開へ戻されました。対象のData Center製品で認証なしに特定ファイルを取得される恐れがありますが、ファイル一覧は取得できず正確なパスとファイル名が必要です。CISAの実悪用情報は10月15日付のままで新たな悪用が判明したわけではなく、Confluence 9.2.26や10.2.19、Jira Software 9.12.40、10.3.26、11.3.12といった修正版や対処方針に変更はありません。</p>
+<p>Ken: 3件目はCloudflareのHyperdrive MySQLが一般提供に至るまでの不具合調査レポートです。同一データセンター内のClientとEndpointがキャッシュを共有する条件下で、MySQLの接続ごとの能力交渉の違いから応答形式が食い違い、キャッシュ有効時のみ約0.001パーセントの確率で空の結果が返っていました。現在はHyperdrive側の能力で符号化した共通形式に統一され、接続リセット後に文字コードのutf8mb4を再設定する対策も講じられています。</p>
+<p>Aoi: 4件目はGitHubのCodeQLにおけるビルド追跡の制約です。Appleの一部システムバイナリからIntelコードが削除されることに伴い、Xcode 27環境ではC/C++、C#、Go、Java、Kotlin、Swiftの追跡抽出が利用できず、macOS 27にも制約が生じるほか、Swift 6.4は全プラットフォームで未対応です。Swiftや追跡ビルドを使う場合はmacOS 26以前・Xcode 26以前への固定が案内されており、C/C++、C#、Javaではビルドを追跡しないbuild mode noneも選択可能です。なお、Intel Macのサポート終了は2026年12月中旬の予定です。</p>
+<p>Ken: 5件目はAWSのCodeDeploy agent 2.1.2のリリースです。Apple silicon上のmacOS 15、26、27に対応し、ライフサイクルイベントのログ出力にデプロイIDを1行ずつ記録する修正や、S3からの並列Rangeダウンロード機能が追加されました。ただし並列ダウンロードは既定で無効のため、エージェントの更新だけでは有効になりません。</p>
+<p>Aoi: ここからは、注目のAIニュースを詳しく見ていきます。まずは100万トークンの長文脈に対応する新モデルとして発表されたMiniMax M3.1 FlashとInceptionのMercury 3、そして長文脈のエージェント推論を高速化する論文のDLiteを取り上げます。</p>
+<p>Ken: MiniMax M3.1 FlashとMercury 3はどちらも100万トークン文脈に対応し、価格帯も近いのですが、APIの仕様や方式にはかなり違いがありますね。まずMiniMax M3.1 Flashは、公式X投稿で以前の版であるSpace Bunnyとの関係が明示されたモデルで、料金は100万トークン当たり入力0.15ドル、出力0.60ドル、キャッシュ読み取り0.015ドルです。</p>
+<p>Aoi: 実装上で特に気をつけたいのがAnthropic互換APIでの思考制御です。思考の深さをlow、medium、high、xhigh、maxの5段階から指定でき、省略すると最大のmaxになります。ここでdisabledやnoneを指定して思考を止めようとするとエラーになりますし、思考トークンも出力上限のmax_tokensに含まれるため、上限を小さく設定すると本文が出る前に止まってしまいます。また、ツール利用を続ける際はthinkingを含む応答ブロック全体を履歴へ戻す仕様です。</p>
+<p>Ken: 一方のMercury 3は、自己回帰型ではなく拡散型のLLMです。通常料金は100万トークン当たり入力0.20ドル、出力0.70ドルですが、導入時は50パーセント割引の入力0.10ドル、出力0.35ドル、キャッシュ入力0.01ドルで提供されます。ただし割引の終了日は確認されていません。Inceptionの報告によれば、NVIDIA GPU上で毎秒1,068トークンの処理速度を出しており、音声対話やブラウザー操作のように各ステップで生じる待ち時間の短縮を主な用途に挙げています。</p>
+<p>Aoi: エージェントのようにツール実行結果や会話履歴が長く積み重なる場面では、推論速度の維持が課題になります。これに関連して、今回1件収録されたarXiv論文のDLiteも興味深いアプローチを示しています。</p>
+<p>Ken: Jiaming Xuらの研究ですね。投機的デコードでは、小さな下書きモデルが候補トークンを作って本体モデルが検証しますが、履歴が長くなると下書きモデル側でも全履歴を再処理する負荷が重くなります。DLiteは、本体モデルの隠れ状態を再利用することで下書きモデル側の履歴KVキャッシュを不要にし、現在のブロック内の依存関係だけを小さな逐次ヘッドで補う仕組みです。本体側の履歴キャッシュまでなくすわけではありません。</p>
+<p>Aoi: 評価ではQwen3の4Bと8B、およびNVIDIA H800が用いられており、Qwen3-8BのSWE-Bench設定において、通常のデコードと比べて2.74倍、DSparkでは1.60倍のトークン生成速度の高速化を達成し、一度に受け入れられるトークン数を示す受理長はそれぞれ3.19と1.94でした。ただし、これはトークン生成速度の比較であって、ソフトウェア修正の成功率が同じ倍率で上がったという意味ではない点には注意が必要です。</p>
+<p>Ken: 続いて、モデルにすべてを文章で出力させるのではなく、役割を分担してコストや精度を最適化するCloudflareの2つの発表を詳しく見ていきましょう。まずは新モデルのClairicです。</p>
+<p>Aoi: Clairicの最大の特徴は、自由文の出力トークンを一切生成しないことです。入力テキストと最大4枚の画像を受け取り、文字列、数値、日付、期間、一覧の抽出や計算、さらには推定や時系列予測を行い、型付きの値として返します。</p>
+<p>Ken: 単なる構造化出力と違うのは、文字列には入力内の位置情報を付与し、数値などには信頼度や欠損確率を付け、推定では指定範囲内の中央値と80パーセント区間を返す点ですね。たとえば注文メールから購入額と税を合算し、配送日からの経過日数を計算しつつ、書かれていない追跡番号はnullにする、といった処理ができます。</p>
+<p>Aoi: Cloudflareは、情報抽出をこのClairicに、選択をClefに、そして最後の返信文の作成だけをLLMに任せるという分担構成を例示しています。もっとも、現在のチェックポイントは長い多段計算や多数行の集計は得意ではなく、「型が正しいこと」と「値が正しいこと」は別の性質として設計されています。</p>
+<p>Ken: もう一つのCloudflareの事例は、自社のAIコードレビューシステムの推論コスト最適化です。平均費用を68パーセント削減しつつ所要時間も大幅に縮めたわけですが、どのように無駄を省いたのでしょうか。</p>
+<p>Aoi: 大きく3つの工夫があります。1つ目はプロンプトキャッシュの設計で、共有プロンプトとリポジトリ固有の情報を分離し、共有部分だけにキャッシュ境界を設定しました。2つ目は呼び出し自体の削減で、使えないツールを非表示にし、再レビュー時には変更のない専門レビューを省き、コメント投稿後の不要な最終ターンを止めました。</p>
+<p>Ken: そして3つ目が推論量の見直しですが、ここが一律のコストカットではない重要なポイントですね。コード品質レビューでは、推論量をmediumにするよりhighにした方が実際の修正につながる指摘が多く得られたため、あえてhighを維持しています。性能レビューでもmediumにすると重要な指摘が減ったため検証を続けており、工程ごとに品質を計測しながら最適化しています。</p>
+<p>Aoi: 最後に、学習基盤とセキュリティ制御の動きとして、Together Post-TrainingとMicrosoftのProject Perceptionについて掘り下げます。</p>
+<p>Ken: Togetherの追加学習サービスは、ブラックボックスな学習APIではなく、データ、環境、損失関数、学習の進め方を利用者が自ら制御できるのが特徴です。システムとしては、GPUを確保するModel Resourceの下にTraining Sessionを作り、重みを更新するTrainerと、試行を生成するGeneratorを分離しています。</p>
+<p>Aoi: そのため、教師ありのSFTならGeneratorなしで開始できますし、強化学習のRLでは重み同期のタイミングや非同期実行を選べます。1つのGPU割り当てを複数のLoRA実験で共有することも、一部モデルで全重みを学習することも可能です。なお、B200のGPU時当たり9ドルという導入価格について、公式ブログでは「最初の8週間」、公式Xの長文記事では「6週間」と記載が食い違っているため、適用期間は確定事項としては扱われていません。</p>
+<p>Ken: そして運用段階のエージェント管理として注目されるのが、MicrosoftのProject Perceptionの拡張です。Entra Agent IDと共通レジストリで所有者・動作・権限を一元把握したうえで、モデル自身の判断では書き換えられない外部の制御境界を設けています。</p>
+<p>Aoi: 具体的には、Dynamic Permissionsによって人間の恒常的な権限をそのまま渡すのではなく、組織ポリシーの範囲内で特定のタスクと期間だけに権限を絞ります。さらにDynamic Agent RiskがID、端末、データ、ネットワーク、実行状況などを継続的に評価し、Dynamic Conditional Accessと連携します。リスクが変化した際には、いきなりすべてを遮断するだけでなく、「読み取りを維持したまま書き込みだけ止める」「対象資源を狭める」「人間の確認を要求する」といった段階的な制御を行う設計になっています。</p>
+<p>Ken: 高速・長文脈なモデルの登場と並行して、抽出専用モデルとの役割分担や、工程別の推論量調整、外部からの権限統制など、実用システムとしての緻密な設計が進んでいることがよくわかる内容でした。</p>
+<p>Aoi: それでは、10月20日のAI・ITトレンド日次ダイジェストは以上です。ご聴取ありがとうございました。</p>
+<p>Ken: ありがとうございました。</p>
+<p class="markdown-audio-cost">原稿 gemini-4-argon-contributor: 6,433 + 2,910 = 9,343 トークン / $0.0839（OpenCode Go 利用枠消費の概算（追加請求額ではありません））・再利用（再課金なし） / 音声 gemini-3.8-flash-lite-tts（Flex）: 入力 2,938 / 音声 22,167 トークン / $0.0672（list price 概算） / 合計 $0.1512</p></details>
+<h1 id="aiitトレンド日次ダイジェスト-2026年10月20日">AI・ITトレンド日次ダイジェスト — 2026年10月20日</h1>
+<p><img src="assets/abfa93c519f4e391b361.png" alt="AI・IT新着の利用条件、抽出と生成の分担、学習・権限・レビュー・デコードの仕組みを8パネルで示した手描き図解。" /></p>
+<p>高速な汎用モデルに加え、抽出・判断・文章生成を役割ごとに分担するモデル構成が具体化しつつある。学習基盤では利用者が自ら学習ループを制御できるサービスが一般提供され、運用面ではモデルの権限を外部から統制する仕組みや、キャッシュ・呼び出し回数まで踏み込んだコスト最適化が進んでいる。</p>
+<p><strong>調査基準</strong>：2026年10月19日22:08 UTC／10月20日07:08 JST。対象期間は直前168時間（10月12日22:08〜19日22:08 UTC）。既刊（10月13〜19日）の109見出し・参照URLと照合し、AI/LLM 7件、IT 5件、論文1件、原表示確認済みXシグナル3件を収録した。AI分野は目標9件に対し、既報の再掲や公開日未確認のモデル追加を避け、7件に絞り込んでいる。</p>
+<h2 id="aillmニュース">AI/LLMニュース</h2>
+<h3 id="1-minimax-m31-flash100万トークン文脈と5段階の思考設定">1. MiniMax M3.1 Flash：100万トークン文脈と5段階の思考設定</h3>
+<p>MiniMaxは10月19日、M3.1 FlashのAPI提供を開始した。テキスト・画像・動画の入力に対応し、文脈長は100万トークン。料金は100万トークン当たり入力0.15ドル、出力0.60ドル、キャッシュ読み取り0.015ドルとなっている。重みの公開は10月23日の予定で、APIの提供開始とは日程が異なる。<a href="https://platform.minimax.io/docs/release-notes/models" target="_blank" rel="noopener noreferrer">M1</a> <a href="https://platform.minimax.io/docs/pricing/overview" target="_blank" rel="noopener noreferrer">M2</a> <a href="https://x.com/MiniMax_AI/status/2112150867868541221" target="_blank" rel="noopener noreferrer">X1</a></p>
+<p>Anthropic互換APIでは、思考の深さをlow、medium、high、xhigh、maxから指定でき、省略時はmaxとなる。思考そのものを無効化することはできず、disabledやnoneを指定するとエラーになる。また、思考トークンもmax_tokensに算入されるため、上限が小さいと本文を出力する前に停止する可能性がある。ツール利用を継続する際はthinkingを含む応答ブロック全体を履歴へ戻す仕様となっており、料金だけでなく既存クライアントとの互換条件も事前に確認すべき更新といえる。<a href="https://platform.minimax.io/docs/api-reference/text-anthropic-api" target="_blank" rel="noopener noreferrer">M3</a></p>
+<h3 id="2-mercury-3拡散型llmを100万トークン文脈へ拡大">2. Mercury 3：拡散型LLMを100万トークン文脈へ拡大</h3>
+<p>Inceptionは10月19日、拡散型LLMのMercury 3を正式発表した。文脈長はMercury 2.5の26万トークンから100万トークンへと大幅に拡大され、Inception API、OpenRouter、Baseten、Vercelを通じて提供される。APIはOpenAI互換で利用可能だ。<a href="https://www.inceptionlabs.ai/blog/introducing-mercury-3" target="_blank" rel="noopener noreferrer">I1</a></p>
+<p>通常料金は100万トークン当たり入力0.20ドル・出力0.70ドルだが、導入時は50%割引の入力0.10ドル・出力0.35ドル、キャッシュ入力0.01ドルで提供される（割引終了日は未確認）。同社はNVIDIA GPU上で毎秒1,068トークンの処理速度を報告しており、音声対話やブラウザー操作の各ステップで生じる待ち時間の短縮を主な用途に挙げている。なお、旧モデルのMercury 2／2.5は新規利用者への提供を終了した。10月19日より前に利用実績がある既存顧客は11月15日まで、Enterprise顧客は契約に沿って継続する。<a href="https://www.inceptionlabs.ai/models" target="_blank" rel="noopener noreferrer">I2</a></p>
+<h3 id="3-clairic文章を生成せず型付きの抽出値や予測分布を返す">3. Clairic：文章を生成せず、型付きの抽出値や予測分布を返す</h3>
+<p>Cloudflareは10月19日、Workers AIにおいてClairicのプレビューを公開した。入力テキストと最大4枚の画像から、文字列、数値、日付、期間、一覧を抽出・計算するほか、推定や時系列予測にも対応する。重みは今後公開される予定で、現時点ではホストされたエンドポイントとして提供されている。<a href="https://blog.cloudflare.com/clairic-extraction-model/" target="_blank" rel="noopener noreferrer">C1</a></p>
+<p>特徴は、自由文の出力トークンを生成しない点にある。文字列には入力内の位置情報を、数値などには信頼度や欠損確率を付与し、推定では指定範囲内の中央値と80%区間を返す。たとえば注文メールから購入額と税を合算し、配送日からの経過日数を算出しつつ、記載のない追跡番号はnullとするような処理が可能だ。抽出をClairic、選択をClef、返信文の作成をLLMへと分担させる構成例も示された。現在のチェックポイントは長い多段計算や多数行の集計を得意としておらず、「型が正しいこと」と「値が正しいこと」は別の性質として設計されている。<a href="https://blog.cloudflare.com/clairic-extraction-model/" target="_blank" rel="noopener noreferrer">C1</a></p>
+<h3 id="4-together-post-training専有gpu上で独自のrlsftループを実行">4. Together Post-Training：専有GPU上で独自のRL・SFTループを実行</h3>
+<p>Togetherは10月19日、モデルの追加学習サービスを一般提供（GA）へ移行した。報酬を用いる強化学習（RL）と教師データによるSFTに対応し、データ、環境、損失関数、学習の進め方は利用者が自由に指定できる。複数のLoRA実験でGPU割り当てを共有できるほか、一部モデルでは全重みの学習も選択可能だ。<a href="https://www.together.ai/blog/together-post-training" target="_blank" rel="noopener noreferrer">T1</a> <a href="https://www.together.ai/post-training" target="_blank" rel="noopener noreferrer">T2</a></p>
+<p>システム構成としては、GPUを確保するModel Resourceの下にTraining Sessionを作成し、重みを更新するTrainerと試行を生成するGeneratorを分離している。SFTであればGeneratorなしで開始でき、RLでは重み同期のタイミングや非同期実行を選択できる。課金単位はGPU分で、待機列・起動・終了に要する時間は課金されない。導入価格はB200のGPU時当たり9ドルとされているが、適用期間について公式ブログの実表示では「最初の8週間」、公式X記事では「6週間」と食い違いがあるため、確定事項としては扱わない。<a href="https://www.together.ai/blog/together-post-training" target="_blank" rel="noopener noreferrer">T1</a> <a href="https://www.together.ai/post-training" target="_blank" rel="noopener noreferrer">T2</a> <a href="https://x.com/togethercompute/status/2112229246802301248" target="_blank" rel="noopener noreferrer">X3</a></p>
+<h3 id="5-gemini-notebook生成前にスライドと動画の構成を確認">5. Gemini Notebook：生成前にスライドと動画の構成を確認</h3>
+<p>Googleは10月19日、Slide DecksとVideo Overviewsを対話形式で作成する新しいワークフローを発表した。最初の指示から完成物の生成へ直行する代わりに、取り込んだ資料に基づく主題を事前に確認し、内容・見せ方・形式を調整できる。今後1週間かけて全ユーザーへ世界展開される。<a href="https://blog.google/innovation-and-ai/products/gemini-notebook/co-create-slides-videos/" target="_blank" rel="noopener noreferrer">G1</a></p>
+<p>Reviewを有効にすると、生成前にスライドではoutline notes、動画ではproducer notesを確認できる。「冒頭に要約を加える」「場面の順番を入れ替える」といった修正指示を伝え、Proceedを押すことで完成物が生成される仕組みだ。明確な指示があれば直接レビュー段階へ進み、従来どおり素早く出力したい場合はReviewを使わずStudioから直接生成することもできる。完成後の作り直しだけに頼らず、構成段階へ利用者の判断を組み込める点が今回の変更の核心である。<a href="https://blog.google/innovation-and-ai/products/gemini-notebook/co-create-slides-videos/" target="_blank" rel="noopener noreferrer">G1</a></p>
+<h3 id="6-microsoftエージェントの権限をタスクと実行中のリスクに合わせて縮小">6. Microsoft：エージェントの権限をタスクと実行中のリスクに合わせて縮小</h3>
+<p>Microsoftは10月19日、Project Perceptionを拡張し、エージェント自身の保護機能を追加すると発表した。ローカルエージェントの検出対象を35種類増やして計60種類とし、Entra Agent IDと共通レジストリを用いて所有者・動作・権限を一元的に把握する構成を示している。<a href="https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/" target="_blank" rel="noopener noreferrer">MS1</a></p>
+<p>基本方針は、モデル自身からは変更できない外部の制御境界を設けることだ。Dynamic Permissionsは人間の恒常的な権限を丸ごと委譲するのではなく、組織ポリシーの範囲内で特定のタスクと期間に権限を限定する。さらにDynamic Agent RiskがID・端末・データ・ネットワーク・実行状況などを継続的に評価し、Dynamic Conditional Accessと連携して「読み取りを維持したまま書き込みを止める」「対象資源を狭める」「人間の確認を要求する」といった段階的な制御を行う。なお、発表本文からは各機能の契約別の提供条件や一律のGA開始日までは確認できない。<a href="https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/" target="_blank" rel="noopener noreferrer">MS1</a></p>
+<h3 id="7-cloudflareレビュー費用68減でも推論量を一律には下げない">7. Cloudflare：レビュー費用68%減でも、推論量を一律には下げない</h3>
+<p>Cloudflareは10月19日、自社のAIコードレビューシステムにおいて、平均費用を2.43ドルから0.77ドルへ削減し、中央値の所要時間を4分09秒から1分32秒へ短縮した事例を公開した。プロンプトキャッシュの活用、無駄な呼び出しの削減、モデルと推論量の見直しを組み合わせた結果である。<a href="https://blog.cloudflare.com/obsessive-inference-optimization/" target="_blank" rel="noopener noreferrer">C2</a></p>
+<p>具体的には、共有プロンプトとリポジトリ固有の情報を分離して共有部分だけにキャッシュ境界を設定したほか、使えないツールを非表示にする、再レビュー時に変更のない専門レビューを省く、投稿後の不要な最終ターンを止めるといった対策を講じた。一方で推論量は一律に下げておらず、コード品質レビューではmediumよりhighの方が修正につながる指摘を多く得られたためhighを維持している。性能レビューではmediumにすると重要指摘が減ったため、さらなる検証を続けている。単に安価なモデルへ切り替えるのではなく、費用とレビュー品質の双方を工程別に計測・最適化した事例といえる。<a href="https://blog.cloudflare.com/obsessive-inference-optimization/" target="_blank" rel="noopener noreferrer">C2</a></p>
+<h2 id="論文-arxiv">論文 (arXiv)</h2>
+<h3 id="dlite下書きモデルに履歴を二重保持させない投機的デコード">DLite：下書きモデルに履歴を二重保持させない投機的デコード</h3>
+<p>Jiaming Xuらは、長い会話とツール実行結果が蓄積するエージェント推論において、投機的デコードの下書きモデルが全履歴を再処理する負荷に着目した。提案手法のDLiteは、本体モデルの隠れ状態を再利用することで下書き側の履歴KVキャッシュを不要とし、現在のブロック内の依存関係だけを小さな逐次ヘッドで補う。本体側の履歴キャッシュまでなくす方式ではない。<a href="https://arxiv.org/html/2610.23787v1" target="_blank" rel="noopener noreferrer">P1</a></p>
+<p>学習は履歴を持つ同型教師での準備段階と、本体への整合段階を分ける。Qwen3-4B／8BとNVIDIA H800を用いた評価では、Qwen3-8BのSWE-Bench設定において通常デコード比で2.74倍、DSparkでは1.60倍の高速化を達成した（受理長はそれぞれ3.19と1.94）。ただし、これはあくまでトークン生成速度の比較であり、ソフトウェア修正の成功率が同じ倍率で向上したことを示すものではない。<a href="https://arxiv.org/html/2610.23787v1" target="_blank" rel="noopener noreferrer">P1</a></p>
+<p><strong>採用確認</strong>：2026年10月19日22:03 UTCにクラウドChromeを通じてalphaXiv論文ページの「Like this paper」が8件であることを確認し、原論文v1（10月16日）を実読した。現行ツール一覧にalphaXiv専用MCPは存在しないため公開ページ上で件数を検証しており、Save数などを承認数の代用にはしていない。<a href="https://www.alphaxiv.org/abs/2610.23787" target="_blank" rel="noopener noreferrer">P2</a></p>
+<h2 id="xシグナル">Xシグナル</h2>
+<h3 id="1-minimaxspace-bunnyとの関係と重み公開日を明示">1. MiniMax：Space Bunnyとの関係と重み公開日を明示</h3>
+<p>公式投稿は、Space BunnyがM3.1 Flashの以前の版であることを説明するとともに、API料金と重みの公開予定日を同時に提示した。APIを今すぐ試せる状態と、重みを取得して自前で動かせる状態を明確に区別して把握できる一次発信である。公開は10月19日11:56 UTC、原表示確認は22:06 UTC。<a href="https://x.com/MiniMax_AI/status/2112150867868541221" target="_blank" rel="noopener noreferrer">X1</a></p>
+<h3 id="2-inceptionmercury-3の初版発表を確認">2. Inception：Mercury 3の初版発表を確認</h3>
+<p>100万トークン文脈とAPI提供を案内する公式投稿の初版は、10月19日17:34 UTCに公開された。ページ上には新しい編集版へのリンクも存在するが、編集時刻を初出時刻と混同しない形で確認している。処理速度や他モデルとの比較数値はInceptionによる評価として扱う。原表示確認は22:06 UTC。<a href="https://x.com/_inception_ai/status/2112236045484065269" target="_blank" rel="noopener noreferrer">X2</a></p>
+<h3 id="3-together学習ループを利用者へ開く設計を長文記事で説明">3. Together：学習ループを利用者へ開く設計を長文記事で説明</h3>
+<p>10月19日17:07 UTC公開の公式X記事では、TrainerとGeneratorの役割分担、複数LoRA実験の共有、Tinker互換の移行手順までが詳しく解説されている。公式ブログとこの記事の間で導入価格の適用期間が異なっている点も原表示で確認した。単なる宣伝投稿ではなく、提供仕様を正確に追える技術資料として採用している。原表示確認は22:06〜22:07 UTC。<a href="https://x.com/togethercompute/status/2112229246802301248" target="_blank" rel="noopener noreferrer">X3</a></p>
+<h2 id="itトレンド">ITトレンド</h2>
+<h3 id="1-sentrysamlの類似メール照合でアカウント乗っ取り">1. Sentry：SAMLの類似メール照合でアカウント乗っ取り</h3>
+<p>10月19日15:14:57 UTCに公開されたアドバイザリは、ドットのない「ı」を含む類似ドメインと攻撃者のSAMLサーバーを悪用する脆弱性を報告している。被害者のメールドメインに「i」が含まれることが前提となり、自己ホスト環境ではさらに「複数組織の許可」や「攻撃者が既存アカウントを保有していること」などが条件となる。ユーザー登録は既定で無効化されており、すべての導入環境が同一のリスクを抱えるわけではない。<a href="https://github.com/getsentry/sentry/security/advisories/GHSA-88p9-44cg-fr2q" target="_blank" rel="noopener noreferrer">IT3</a></p>
+<p>SaaS版は10月14日に修正済み。自己ホスト版は26.10.0以降への更新が推奨されているが、単一組織のみを許可する設定であれば対応は不要とされている。パスワード未設定のアカウントがこの確認リンク経由の攻撃対象となるため、本人によるパスワード設定や個人アカウントでの2FA有効化が回避策として示されている。なお、影響バージョンのメタデータには22.2.0のみが記載されており、完全な影響範囲は本文から断定できない。<a href="https://github.com/getsentry/sentry/security/advisories/GHSA-88p9-44cg-fr2q" target="_blank" rel="noopener noreferrer">IT3</a></p>
+<h3 id="2-atlassian撤回されていたcve記録が再公開へ">2. Atlassian：撤回されていたCVE記録が再公開へ</h3>
+<p>CVE-2026-21589の公式記録が10月19日18:26:40 UTC、REJECTED（撤回）からPUBLISHED（公開）へと戻された。既報からの変更点は公式記録のステータスのみであり、新たな実悪用が判明したわけではない（CISAの実悪用情報は10月15日付のまま）。<a href="https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/21xxx/CVE-2026-21589.json" target="_blank" rel="noopener noreferrer">IT4</a></p>
+<p>対象のData Center製品では、認証なしにWebアプリケーション配下の特定ファイルを取得される恐れがある。ただし攻撃には正確なパスとファイル名が必要であり、ファイル一覧の取得を許す脆弱性ではない。修正版はConfluence 9.2.26／10.2.19、Jira Software 9.12.40／10.3.26／11.3.12などで、今回の再公開に伴う変更はない。自組織の利用形態とバージョンに照らしてベンダーの修正条件を確認するという既存の対処方針は変わらない。<a href="https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/21xxx/CVE-2026-21589.json" target="_blank" rel="noopener noreferrer">IT4</a></p>
+<h3 id="3-hyperdrive-mysqlキャッシュする応答を共通形式へ統一">3. Hyperdrive MySQL：キャッシュする応答を共通形式へ統一</h3>
+<p>Cloudflareは10月14日、HyperdriveのMySQL一般提供（GA）に至るまでの不具合調査レポートを公開した。キャッシュ有効時のみ約0.001%の確率で空の結果が返るという現象で、同一データセンター内のClientとEndpointがキャッシュを共有する条件下で発生していた。<a href="https://blog.cloudflare.com/hyperdrive-mysql/" target="_blank" rel="noopener noreferrer">IT2</a></p>
+<p>MySQLでは接続ごとにクライアントとサーバー間で能力（Capability）を交渉するため、結果の終端にEOFとOKのどちらを使うかといった形式が変化する。Clientが利用者向けに変換した応答をそのままキャッシュに保存すると、Endpointが期待する形式と食い違ってしまうのが原因だった。修正後は、どちらが保存する場合でもHyperdrive側の能力で符号化した共通形式に統一されるようになった。あわせて、接続リセット時に文字コードがサーバー既定へ戻る問題に対し、リセット後にutf8mb4を再設定する対策も紹介されている。<a href="https://blog.cloudflare.com/hyperdrive-mysql/" target="_blank" rel="noopener noreferrer">IT2</a></p>
+<h3 id="4-codeqlmacos-27xcode-27のビルド追跡に制約">4. CodeQL：macOS 27・Xcode 27のビルド追跡に制約</h3>
+<p>GitHubは10月19日、Appleの一部システムバイナリからIntelコードが削除されることに伴い、CodeQLのビルド追跡（build tracing）が機能しない組み合わせについて告知した。Xcode 27を導入した環境ではC/C++、C#、Go、Java、Kotlin、Swiftの追跡抽出が利用できず、macOS 27にも制約が生じる。また、Swift 6.4は全プラットフォームで未対応となっている。<a href="https://github.blog/changelog/2026-10-19-codeql-changes-for-macos-27-xcode-27-and-swift-6-4/" target="_blank" rel="noopener noreferrer">IT1</a></p>
+<p>Swiftや追跡ビルドを使用するワークフローについては、macOS 26以前・Xcode 26以前へ固定するよう案内されている。C/C++、C#、Javaに関しては、ビルドを追跡しないbuild mode noneを選択することも可能だ。なお、Intel Macのサポート終了は2026年12月中旬に予定されている。先日Xcode 27ランナーが一般提供されたものの、CodeQLがそのツールチェーンを解析できるかどうかは別問題となる点に注意が必要だ。<a href="https://github.blog/changelog/2026-10-19-codeql-changes-for-macos-27-xcode-27-and-swift-6-4/" target="_blank" rel="noopener noreferrer">IT1</a></p>
+<h3 id="5-codedeploy-agent-212apple-siliconとs3並列ダウンロードに対応">5. CodeDeploy agent 2.1.2：Apple siliconとS3並列ダウンロードに対応</h3>
+<p>AWSの10月13日付リリースノートによると、CodeDeploy agent 2.1.2がApple silicon上のmacOS 15・26・27に対応した。また、S3からアプリケーションリビジョンを取得する際の並列Rangeダウンロード機能が追加されたが、既定では無効となっている。<a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent.html" target="_blank" rel="noopener noreferrer">IT5</a></p>
+<p>あわせて、ライフサイクルイベントのスクリプト出力にデプロイIDを付与し、ログへ1行ずつ記録するよう修正された。OS対応、転送方式、ログの識別性を一括して改善するアップデートだが、エージェントを更新しただけでは並列転送が自動的に有効化されない点には留意したい。各リージョンで導入可能な最新版については公式の確認手順に従う必要がある。<a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent.html" target="_blank" rel="noopener noreferrer">IT5</a></p>
+<h2 id="出典確認記録">出典・確認記録</h2>
+<p>公開日は原典の表示を採用し、UTC時刻が得られない記事は日付のみを記載した。以下のWeb・ブラウザー確認は2026年10月19日22:02〜22:08 UTCに実施。Xの投稿については、公開された本文の実表示をクラウドChromeの正式CDP経路で確認しており、ログイン操作や反応操作は一切行っていない。</p>
+<ul>
+<li><a href="https://platform.minimax.io/docs/release-notes/models" target="_blank" rel="noopener noreferrer">M1</a> MiniMax Models更新履歴、10月19日。</li>
+<li><a href="https://platform.minimax.io/docs/pricing/overview" target="_blank" rel="noopener noreferrer">M2</a> MiniMax公式料金表、観測時点の料金。</li>
+<li><a href="https://platform.minimax.io/docs/api-reference/text-anthropic-api" target="_blank" rel="noopener noreferrer">M3</a> MiniMax Anthropic互換API仕様、観測時点の文脈長・思考制御。</li>
+<li><a href="https://www.inceptionlabs.ai/blog/introducing-mercury-3" target="_blank" rel="noopener noreferrer">I1</a> Inception, Introducing Mercury 3、10月19日、公式本文実表示。</li>
+<li><a href="https://www.inceptionlabs.ai/models" target="_blank" rel="noopener noreferrer">I2</a> Inception Models、料金・旧モデル提供条件の実表示。OpenRouter検索取得のReleased Oct 16表記と正式発表日を区別し、全経路での初回利用日を断定していない。</li>
+<li><a href="https://www.together.ai/blog/together-post-training" target="_blank" rel="noopener noreferrer">T1</a> Together Post-Training、10月19日、公式本文と実表示。期間表記はブログ8週間／X記事6週間。</li>
+<li><a href="https://www.together.ai/post-training" target="_blank" rel="noopener noreferrer">T2</a> Together製品ページ、課金単位・学習構成。</li>
+<li><a href="https://blog.cloudflare.com/clairic-extraction-model/" target="_blank" rel="noopener noreferrer">C1</a> Cloudflare, Introducing Clairic、10月19日、公式全文実表示。</li>
+<li><a href="https://blog.cloudflare.com/obsessive-inference-optimization/" target="_blank" rel="noopener noreferrer">C2</a> Ryan Skidmore / Cloudflare, Cutting our inference bill by 68%、10月19日、公式全文実表示。</li>
+<li><a href="https://blog.google/innovation-and-ai/products/gemini-notebook/co-create-slides-videos/" target="_blank" rel="noopener noreferrer">G1</a> Viraj Doshi・Shan Wang / Google、10月19日、生成前レビューの公式説明。</li>
+<li><a href="https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/" target="_blank" rel="noopener noreferrer">MS1</a> Nadim Abdo / Microsoft、10月19日、エージェント保護の公式説明。</li>
+<li><a href="https://arxiv.org/html/2610.23787v1" target="_blank" rel="noopener noreferrer">P1</a> Jiaming Xuほか、arXiv:2610.23787v1、10月16日。手法と実験本文を確認。</li>
+<li><a href="https://www.alphaxiv.org/abs/2610.23787" target="_blank" rel="noopener noreferrer">P2</a> alphaXiv、Like this paper: 8、10月19日22:03 UTC観測。</li>
+<li><a href="https://github.blog/changelog/2026-10-19-codeql-changes-for-macos-27-xcode-27-and-swift-6-4/" target="_blank" rel="noopener noreferrer">IT1</a> GitHub Changelog、10月19日。</li>
+<li><a href="https://blog.cloudflare.com/hyperdrive-mysql/" target="_blank" rel="noopener noreferrer">IT2</a> Pranoy Dutta / Cloudflare、10月14日。</li>
+<li><a href="https://github.com/getsentry/sentry/security/advisories/GHSA-88p9-44cg-fr2q" target="_blank" rel="noopener noreferrer">IT3</a> Sentry公式GHSA、公開10月19日15:14:57 UTC、更新15:32 UTC。GitHub公式APIで本文取得。</li>
+<li><a href="https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/21xxx/CVE-2026-21589.json" target="_blank" rel="noopener noreferrer">IT4</a> CVEProject公式JSON、初公開10月5日、更新10月19日18:26:40 UTC。本文・対象版・CISA付加情報を確認。</li>
+<li><a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent.html" target="_blank" rel="noopener noreferrer">IT5</a> AWS CodeDeploy公式リリース履歴、2.1.2は10月13日。</li>
+<li><a href="https://x.com/MiniMax_AI/status/2112150867868541221" target="_blank" rel="noopener noreferrer">X1</a> @MiniMax_AI、公開10月19日11:56 UTC。</li>
+<li><a href="https://x.com/_inception_ai/status/2112236045484065269" target="_blank" rel="noopener noreferrer">X2</a> @_inception_ai、初版公開10月19日17:34 UTC。</li>
+<li><a href="https://x.com/togethercompute/status/2112229246802301248" target="_blank" rel="noopener noreferrer">X3</a> @togethercompute、公開10月19日17:07 UTC。</li>
+</ul>
+<p>既刊と同内容のGitHub Actions lockfile、OSSライセンス管理、AI Scan、agentic autofix、Verified botsなどは再録していない。また、件数を満たすために未確認のオープンウェイト公開を補うことはせず、公開予定のものは予定として明記した。公開検索では米欧・中国などの公式発表やコミュニティの発見候補を活用したものの、本文を直接取得できていないページは読了扱いとしていない。</p>
+<h2 id="作成情報">作成情報</h2>
+<p>本文下書き：dot。Macによる日本語推敲の実施結果と使用量は工程別の記録を参照のこと。音声・画像の生成と公開は別工程として記録する。なお、本文の調査・執筆におけるレポート単位の入力・出力・キャッシュ使用量および実課金を取得できる権威ある計測ソースが存在しないため、費用は不明とし、後処理の使用量とは合算しない。</p>
+
+<div class="markdown-table-scroll"><table>
+<thead>
+<tr>
+<th>工程</th>
+<th>モデル</th>
+<th>トークン</th>
+<th>コスト</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本文生成</td>
+<td>未取得</td>
+<td>未取得</td>
+<td>算出不可・計測不能: Dots cloud research and authoring on 2026-10-19 22:02-22:10 UTC has no authoritative report-scoped input, output, cache-token or billing reader; publishing-session usage is excluded.</td>
+</tr>
+<tr>
+<td>推敲</td>
+<td>gemini-4-argon-contributor</td>
+<td>入力 5,244 + 出力 5,570 = 10,814</td>
+<td>$0.1324（OpenCode Go 利用枠消費の概算（追加請求額ではありません））</td>
+</tr>
+<tr>
+<td>音声解説</td>
+<td>gemini-4-argon-contributor＋gemini-3.8-flash-lite-tts</td>
+<td>原稿 9,343 + 音声 25,105 = 34,448</td>
+<td>$0.1512（原稿 OpenCode Go 利用枠消費の概算（追加請求額ではありません）・音声 Flex list price 概算）・再利用（再課金なし） API価格換算。実請求額・月額契約料とは別。本文・画像・対応マッピングは別工程。</td>
+</tr>
+<tr>
+<td>画像生成</td>
+<td>未取得</td>
+<td>未取得</td>
+<td>算出不可・実モデル・品質・画像usage未取得。画像寸法から単価を推測しない。</td>
+</tr>
+<tr>
+<td><strong>算出済み部分合計</strong></td>
+<td></td>
+<td>45,262</td>
+<td><strong>約 $0.2835（算出可能な分の合計）</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+          </article>
+        </div>
+    </section>
+  </main>
+  <div class="markdown-copy-toast" id="markdown-copy-toast" role="status" aria-live="polite" hidden></div>
+  <script>
+
+    const fontScaleKey = "explainer-markdown-font-scale";
+    const fontScaleSteps = [0.25, 0.325, 0.4, 0.475, 0.5, 0.575, 0.65, 0.725, 0.8, 0.85, 0.925, 1.0, 1.075, 1.15, 1.225, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0];
+    const fontScaleDefaultIndex = 11;
+    const textSizeDecrease = document.querySelector('#text-size-decrease');
+    const textSizeIncrease = document.querySelector('#text-size-increase');
+    const textSizeLabel = document.querySelector('#text-size-label');
+    let fontScaleIndex = fontScaleDefaultIndex;
+
+    function applyFontScale(index) {
+      fontScaleIndex = Math.max(0, Math.min(fontScaleSteps.length - 1, index));
+      const scale = fontScaleSteps[fontScaleIndex];
+      document.documentElement.style.setProperty('--markdown-font-scale', String(scale));
+      if (textSizeLabel) {
+        textSizeLabel.textContent = `${Math.round(scale * 100)}%`;
+      }
+      if (textSizeDecrease) {
+        textSizeDecrease.disabled = fontScaleIndex === 0;
+      }
+      if (textSizeIncrease) {
+        textSizeIncrease.disabled = fontScaleIndex === fontScaleSteps.length - 1;
+      }
+      localStorage.setItem(fontScaleKey, String(fontScaleIndex));
+    }
+
+    if (textSizeDecrease && textSizeIncrease) {
+      textSizeDecrease.addEventListener('click', () => applyFontScale(fontScaleIndex - 1));
+      textSizeIncrease.addEventListener('click', () => applyFontScale(fontScaleIndex + 1));
+    }
+    
+
+    const markdownCopyToast = document.querySelector('#markdown-copy-toast');
+    let markdownCopyToastTimer = null;
+
+    function showMarkdownCopyToast(message, state = 'success') {
+      if (!markdownCopyToast) return;
+      markdownCopyToast.textContent = message;
+      markdownCopyToast.dataset.state = state;
+      markdownCopyToast.hidden = false;
+      if (markdownCopyToastTimer) {
+        clearTimeout(markdownCopyToastTimer);
+      }
+      markdownCopyToastTimer = window.setTimeout(() => {
+        markdownCopyToast.hidden = true;
+        markdownCopyToast.textContent = '';
+        markdownCopyToast.dataset.state = '';
+        markdownCopyToastTimer = null;
+      }, 2200);
+    }
+
+    async function copyMarkdownText(value) {
+      const text = typeof value === 'string' ? value : '';
+      if (!text.trim()) throw new Error('コピーできるテキストがありません');
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      if (!ok) throw new Error('copy failed');
+    }
+
+    document.querySelectorAll('button[data-markdown-document-copy]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const label = button.dataset.markdownDocumentCopy === 'path' ? 'パス' : 'タイトル';
+        void copyMarkdownText(button.dataset.copyValue || button.textContent || '')
+          .then(() => showMarkdownCopyToast(`${label}をコピーしました`))
+          .catch(() => showMarkdownCopyToast(`${label}のコピーに失敗しました`, 'error'));
+      });
+    });
+    
+
+    const markdownHighlightSkip = new Set([
+      'mermaid', 'audio', 'diff', 'patch', 'svg', 'plot', 'sandbox-html', 'embed',
+    ]);
+
+    function highlightMarkdownCode() {
+      const hljs = window.hljs;
+      if (!hljs) return;
+      const blocks = document.querySelectorAll('#markdown-body pre code[class*="language-"]');
+      for (const block of blocks) {
+        if (block.closest('.markdown-diff, .mermaid-shell, .markdown-audio, .mdx-svg, .mdx-plot')) {
+          continue;
+        }
+        const languageClass = [...block.classList].find((name) => name.startsWith('language-'));
+        const language = languageClass ? languageClass.slice('language-'.length).toLowerCase() : '';
+        if (markdownHighlightSkip.has(language)) continue;
+        hljs.highlightElement(block);
+      }
+    }
+
+
+    // スマホでは表をカード表示にする（CSS @media max-width:640px）。そのとき各セルの
+    // 先頭に見出しをラベルとして出すため、ヘッダー行の文字を data-label として配る。
+    function labelMarkdownTables() {
+      const tables = document.querySelectorAll('#markdown-body table');
+      for (const table of tables) {
+        const headers = [...table.querySelectorAll('thead th')].map((cell) =>
+          (cell.textContent || '').trim(),
+        );
+        if (headers.length < 2) continue;
+        for (const row of table.querySelectorAll('tbody tr')) {
+          [...row.children].forEach((cell, index) => {
+            const label = headers[index] || '';
+            if (label) cell.setAttribute('data-label', label);
+          });
+        }
+      }
+    }
+
+
+    const markdownAudioRates = [1, 1.25, 1.5, 1.75, 2];
+    let markdownAudioRateIndex = 0;
+
+    function formatMarkdownAudioTime(seconds) {
+      const total = Math.max(0, Math.floor(Number(seconds) || 0));
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const rest = total % 60;
+      const pad = (value) => String(value).padStart(2, '0');
+      return hours ? `${hours}:${pad(minutes)}:${pad(rest)}` : `${minutes}:${pad(rest)}`;
+    }
+
+    // 再生速度は図ごとのプレイヤーで共通。1 → 1.25 → 1.5 → 1.75 → 2 → 1 と巡回する。
+    function applyMarkdownAudioRate() {
+      const rate = markdownAudioRates[markdownAudioRateIndex];
+      for (const audio of document.querySelectorAll('audio.markdown-audio-player')) {
+        // load() で戻らないよう defaultPlaybackRate も揃える
+        audio.defaultPlaybackRate = rate;
+        audio.playbackRate = rate;
+      }
+      for (const button of document.querySelectorAll('button.markdown-audio-rate')) {
+        button.dataset.rate = String(rate);
+        button.setAttribute('aria-label', `再生速度 ${rate}倍`);
+        button.title = `再生速度 ${rate}倍（押すと切り替え）`;
+        const value = button.querySelector('.markdown-audio-rate-value');
+        if (value) value.textContent = `${rate}×`;
+      }
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('button.markdown-audio-rate')) return;
+      event.preventDefault();
+      markdownAudioRateIndex = (markdownAudioRateIndex + 1) % markdownAudioRates.length;
+      applyMarkdownAudioRate();
+    });
+
+    function bindMarkdownAudio(root) {
+      const player = root.querySelector('audio.markdown-audio-player');
+      if (!player) return;
+      const buttons = Array.from(
+        root.querySelectorAll('button.markdown-audio-track[data-audio-src]')
+      );
+      const playButton = root.querySelector('button.markdown-audio-play');
+      const skipButtons = Array.from(root.querySelectorAll('button.markdown-audio-skip[data-skip]'));
+      const seek = root.querySelector('input.markdown-audio-seek');
+      const elapsed = root.querySelector('.markdown-audio-elapsed');
+      const total = root.querySelector('.markdown-audio-total');
+      let index = 0;
+
+      function setPlayState(playing) {
+        if (!playButton) return;
+        playButton.dataset.playing = playing ? 'true' : 'false';
+        playButton.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        const label = playing ? '一時停止' : '再生';
+        playButton.setAttribute('aria-label', label);
+        playButton.title = label;
+      }
+
+      function updateProgress() {
+        const duration = Number.isFinite(player.duration) && player.duration > 0 ? player.duration : 0;
+        if (elapsed) elapsed.textContent = formatMarkdownAudioTime(player.currentTime);
+        if (total && duration > 0) total.textContent = formatMarkdownAudioTime(duration);
+        if (!seek) return;
+        if (duration > 0) {
+          seek.max = String(Math.round(duration));
+          seek.disabled = false;
+        }
+        if (!seek.disabled) seek.value = String(Math.round(player.currentTime));
+      }
+
+      function startPlayback() {
+        const playResult = player.play();
+        if (playResult && typeof playResult.catch === 'function') playResult.catch(() => {});
+      }
+
+      function setCurrent(nextIndex, shouldPlay) {
+        if (nextIndex < 0 || nextIndex >= buttons.length) return;
+        index = nextIndex;
+        const src = buttons[index].getAttribute('data-audio-src') || '';
+        if (!src) return;
+        buttons.forEach((button, i) => {
+          if (i === index) button.setAttribute('aria-current', 'true');
+          else button.removeAttribute('aria-current');
+        });
+        if (player.getAttribute('src') !== src) {
+          player.setAttribute('src', src);
+          player.load();
+        }
+        if (shouldPlay) startPlayback();
+        updateProgress();
+      }
+
+      if (playButton) {
+        playButton.addEventListener('click', () => {
+          if (player.paused) startPlayback();
+          else player.pause();
+        });
+      }
+      skipButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const delta = Number(button.dataset.skip) || 0;
+          const duration = Number.isFinite(player.duration) && player.duration > 0 ? player.duration : 0;
+          const next = Math.max(0, player.currentTime + delta);
+          try {
+            player.currentTime = duration > 0 ? Math.min(duration, next) : next;
+          } catch (error) {
+            /* メタデータ未読込の間はシークできない */
+          }
+          updateProgress();
+        });
+      });
+      if (seek) {
+        seek.addEventListener('input', () => {
+          const value = Number(seek.value);
+          if (Number.isFinite(value)) player.currentTime = value;
+        });
+      }
+      player.addEventListener('play', () => setPlayState(true));
+      player.addEventListener('pause', () => setPlayState(false));
+      for (const name of ['loadedmetadata', 'durationchange', 'timeupdate', 'seeked', 'emptied']) {
+        player.addEventListener(name, updateProgress);
+      }
+
+      buttons.forEach((button, i) => {
+        button.addEventListener('click', () => setCurrent(i, true));
+      });
+      player.addEventListener('ended', () => {
+        setPlayState(false);
+        if (index + 1 < buttons.length) setCurrent(index + 1, true);
+      });
+      if (buttons.length) setCurrent(0, false);
+      applyMarkdownAudioRate();
+      updateProgress();
+    }
+
+    function bindMarkdownAudioPlayers() {
+      document.querySelectorAll('figure[data-markdown-audio]').forEach(bindMarkdownAudio);
+    }
+
+
+    async function renderMarkdownMath() {
+      const root = document.querySelector('#markdown-body');
+      const mathJax = window.MathJax;
+      const mathNodes = root
+        ? Array.from(root.querySelectorAll('.math[data-math-format="tex"]'))
+        : [];
+      if (!root || !mathNodes.length || !mathJax?.typesetPromise) return;
+
+      for (const node of mathNodes) {
+        if (node.dataset.mathPrepared === 'true') continue;
+        const tex = node.textContent || '';
+        node.textContent = node.classList.contains('block')
+          ? `\\[${tex}\\]`
+          : `\\(${tex}\\)`;
+        node.dataset.mathPrepared = 'true';
+      }
+
+      try {
+        await mathJax.typesetPromise([root]);
+      } catch (error) {
+        root.dataset.mathError = error instanceof Error ? error.message : String(error);
+      }
+    }
+
+    function enhanceHybridTabs() {
+      for (const group of document.querySelectorAll('[data-component="tabs"]')) {
+        const list = group.querySelector('[role="tablist"]');
+        const panels = Array.from(group.querySelectorAll('[data-component="tab"]'));
+        const tabsId = group.dataset.tabsId;
+        if (!list || !tabsId || panels.length < 2) continue;
+        const buttons = [];
+        const activate = (index) => {
+          buttons.forEach((button, buttonIndex) => {
+            const selected = buttonIndex === index;
+            button.setAttribute('aria-selected', String(selected));
+            button.tabIndex = selected ? 0 : -1;
+          });
+          panels.forEach((panel, panelIndex) => { panel.hidden = panelIndex !== index; });
+        };
+        panels.forEach((panel, index) => {
+          const tabId = panel.dataset.tabId;
+          const label = panel.dataset.tabLabel;
+          if (!tabId || !label) return;
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'mdx-tab-button';
+          button.id = `tab-${tabsId}-${tabId}`;
+          button.setAttribute('role', 'tab');
+          button.setAttribute('aria-controls', `panel-${tabsId}-${tabId}`);
+          button.textContent = label;
+          panel.id = `panel-${tabsId}-${tabId}`;
+          panel.setAttribute('role', 'tabpanel');
+          panel.setAttribute('aria-labelledby', button.id);
+          button.addEventListener('click', () => activate(index));
+          button.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter', ' '].includes(event.key)) return;
+            event.preventDefault();
+            if (event.key === 'Enter' || event.key === ' ') { activate(index); return; }
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+            buttons[next]?.focus();
+          });
+          buttons.push(button);
+          list.append(button);
+        });
+        if (buttons.length === panels.length) activate(0);
+      }
+    }
+
+    function enhanceHybridToc() {
+      for (const toc of document.querySelectorAll('[data-component="toc"]')) {
+        const host = toc.querySelector('[data-toc="list"]');
+        if (!host) continue;
+        const minLevel = Number(toc.dataset.tocMinLevel || '2');
+        const maxLevel = Number(toc.dataset.tocMaxLevel || '4');
+        const listTag = toc.dataset.tocOrdered === 'true' ? 'ol' : 'ul';
+        const headings = Array.from(document.querySelectorAll('#markdown-body h1, #markdown-body h2, #markdown-body h3, #markdown-body h4, #markdown-body h5, #markdown-body h6')).filter((heading) => {
+          const level = Number(heading.tagName.slice(1));
+          return level >= minLevel && level <= maxLevel && !toc.contains(heading) && heading.dataset.rendererHeading !== 'true' && heading.id;
+        });
+        // 見出しの階層を入れ子リストで表す。各項目は「直前にある、自分より浅い見出し」の子にし、
+        // レベルが飛んでいても同じ規則で深い方へぶら下げる（平坦な一列には戻さない）。
+        const root = { level: 0, item: null, sublist: document.createElement(listTag) };
+        const stack = [root];
+        headings.forEach((heading) => {
+          if (!heading.id) return;
+          const level = Number(heading.tagName.slice(1));
+          while (stack.length > 1 && level <= stack[stack.length - 1].level) stack.pop();
+          const parent = stack[stack.length - 1];
+          if (!parent.sublist) {
+            parent.sublist = document.createElement(listTag);
+            parent.item.append(parent.sublist);
+          }
+          const item = document.createElement('li');
+          item.dataset.tocLevel = String(level);
+          const link = document.createElement('a');
+          link.href = `#${encodeURIComponent(heading.id)}`;
+          // 目次は同一ページ内のスクロール。別タブで開くと先頭が表示されるだけになる。
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const target = document.getElementById(heading.id);
+            if (!target) return;
+            // 折りたたみの中にある見出しは、開かないと位置が定まらない
+            for (let node = target.parentElement; node; node = node.parentElement) {
+              if (node.tagName === 'DETAILS') node.open = true;
+            }
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+            history.replaceState(null, '', `#${encodeURIComponent(heading.id)}`);
+          });
+          link.textContent = heading.textContent || heading.id;
+          item.append(link);
+          parent.sublist.append(item);
+          stack.push({ level, item, sublist: null });
+        });
+        if (headings.length) host.replaceChildren(root.sublist);
+        else { const empty = document.createElement('p'); empty.className = 'mdx-toc-empty'; empty.textContent = '見出しはありません。'; host.replaceChildren(empty); }
+      }
+    }
+
+    function enhanceHybridCards() {
+      const update = () => {
+        const mobile = window.matchMedia('(max-width: 640px)').matches;
+        for (const group of document.querySelectorAll('[data-component="cards"]')) {
+          const track = group.querySelector('[data-card="track"]');
+          const controls = group.querySelector('.mdx-cards-controls');
+          const cards = Array.from(group.querySelectorAll('[data-card="item"]'));
+          if (!track || !controls || cards.length < 2) continue;
+          controls.hidden = !mobile;
+          if (!mobile) continue;
+          const previous = controls.querySelector('[data-card="previous"]');
+          const next = controls.querySelector('[data-card="next"]');
+          const statusNode = controls.querySelector('[data-card="status"]');
+          let current = Number(track.dataset.cardCurrent || '0');
+          const setCurrent = (index, scroll) => {
+            current = Math.max(0, Math.min(cards.length - 1, index));
+            track.dataset.cardCurrent = String(current);
+            statusNode.textContent = `${current + 1} / ${cards.length}`;
+            previous.disabled = current === 0;
+            next.disabled = current === cards.length - 1;
+            if (scroll) cards[current].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest', inline: 'start' });
+          };
+          const syncCurrent = () => {
+            const trackLeft = track.getBoundingClientRect().left;
+            let nearest = 0;
+            let distance = Number.POSITIVE_INFINITY;
+            cards.forEach((card, index) => {
+              const distanceToStart = Math.abs(card.getBoundingClientRect().left - trackLeft);
+              if (distanceToStart < distance) {
+                distance = distanceToStart;
+                nearest = index;
+              }
+            });
+            setCurrent(nearest, false);
+          };
+          if (track.dataset.cardScrollBound !== 'true') {
+            track.addEventListener('scroll', syncCurrent, { passive: true });
+            track.dataset.cardScrollBound = 'true';
+          }
+          previous.onclick = () => setCurrent(current - 1, true);
+          next.onclick = () => setCurrent(current + 1, true);
+          setCurrent(current, false);
+        }
+      };
+      update();
+      window.addEventListener('resize', update, { passive: true });
+    }
+
+    function prepareHybridSandboxSource(source) {
+      const parsed = new DOMParser().parseFromString(`<body>${source}</body>`, 'text/html');
+      const isSafeResource = (value) => {
+        const candidate = value.trim();
+        return Boolean(candidate) && (candidate.startsWith('data:') || candidate.startsWith('blob:') || (!candidate.startsWith('/') && !candidate.startsWith('//') && !/^[a-z][a-z0-9+.-]*:/i.test(candidate) && !candidate.split('/').includes('..')));
+      };
+      for (const element of parsed.body.querySelectorAll('base, meta, a[href], area[href], form, img, audio, video, source, track, iframe, embed, object, link')) {
+        if (element.localName === 'base' || (element.localName === 'meta' && element.getAttribute('http-equiv')?.toLowerCase() === 'refresh')) {
+          element.remove();
+          continue;
+        }
+        if (element.localName === 'a' || element.localName === 'area') {
+          element.setAttribute('data-hmd-blocked-href', element.getAttribute('href') || '');
+          element.removeAttribute('href');
+          element.removeAttribute('target');
+          continue;
+        }
+        for (const attribute of ['src', 'srcset', 'poster', 'data', 'href']) {
+          const value = element.getAttribute(attribute);
+          if (!value || (element.localName !== 'link' && isSafeResource(value))) continue;
+          element.setAttribute(`data-hmd-blocked-${attribute}`, value);
+          element.removeAttribute(attribute);
+        }
+        element.removeAttribute('action');
+        if (element.localName === 'form') element.setAttribute('data-hmd-blocked-form', 'true');
+      }
+      for (const element of parsed.body.querySelectorAll('style')) {
+        element.textContent = (element.textContent || '').replace(/url\(\s*(['"]?)(?:https?:|\/\/|\/)[^)]*\1\s*\)/gi, 'url(data:,)');
+      }
+      return parsed.body.innerHTML;
+    }
+
+    function enhanceHybridModals() {
+      for (const modal of document.querySelectorAll('[data-component="modal"]')) {
+        const trigger = modal.querySelector('[data-modal-open]');
+        const dialog = modal.querySelector('[data-modal-dialog]');
+        const close = modal.querySelector('[data-modal-close]');
+        if (!trigger || !dialog || !close || typeof dialog.showModal !== 'function') continue;
+        let restoreFocus = null;
+        const closeDialog = () => { if (dialog.open) dialog.close(); restoreFocus?.focus(); restoreFocus = null; };
+        trigger.addEventListener('click', () => { restoreFocus = document.activeElement; dialog.showModal(); close.focus(); });
+        close.addEventListener('click', closeDialog);
+        dialog.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
+        dialog.addEventListener('close', () => { restoreFocus?.focus(); restoreFocus = null; });
+      }
+    }
+
+    function enhanceHybridSandboxes() {
+      const childCsp = (scripts) => [
+        'default-src \'none\'',
+        `script-src ${scripts ? "'nonce-sandbox'" : "'none'"}`,
+        "style-src 'unsafe-inline'",
+        'img-src data: blob:', 'media-src data: blob:', "connect-src 'none'", "frame-src 'none'",
+        "worker-src 'none'", "object-src 'none'", "base-uri 'none'", "form-action 'none'",
+      ].join('; ');
+      for (const figure of document.querySelectorAll('[data-component="sandbox-html"]')) {
+        const run = figure.querySelector('[data-sandbox-run]');
+        const stop = figure.querySelector('[data-sandbox-stop]');
+        const canvas = figure.querySelector('[data-sandbox-canvas]');
+        const sourceNode = figure.querySelector('[data-sandbox-source]');
+        if (!run || !stop || !canvas || !sourceNode) continue;
+        let url = null;
+        const stopSandbox = () => { canvas.replaceChildren(); if (url) { URL.revokeObjectURL(url); url = null; } run.hidden = false; stop.hidden = true; };
+        run.addEventListener('click', () => {
+          stopSandbox();
+          const scripts = figure.dataset.sandboxScripts === 'true';
+          const source = prepareHybridSandboxSource(sourceNode.textContent || '');
+          const executable = scripts ? source.replace(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/gi, (_match, rawAttributes = '', body = '') => {
+            const attributes = String(rawAttributes).trim();
+            if (attributes && !/^type\s*=\s*["']module["']$/i.test(attributes)) throw new Error('sandbox-html の script 属性は type=module 以外を指定できません');
+            return `<script nonce="sandbox"${attributes ? ` ${attributes}` : ''}>${body}<\/script>`;
+          }) : source;
+          const navigationGuard = scripts ? `<script nonce="sandbox">(() => { const block = (event) => { const target = event.target; if (target instanceof Element && target.closest("a[href], area[href], form")) { event.preventDefault(); event.stopImmediatePropagation(); } }; document.addEventListener("click", block, true); document.addEventListener("auxclick", block, true); document.addEventListener("submit", block, true); try { window.open = () => null; } catch {} })();<\/script>` : '';
+          const documentSource = `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${childCsp(scripts)}"></head><body>${navigationGuard}${executable}</body></html>`;
+          url = URL.createObjectURL(new Blob([documentSource], { type: 'text/html' }));
+          const frame = document.createElement('iframe');
+          frame.className = 'mdx-sandbox-frame'; frame.title = figure.dataset.sandboxTitle || '埋め込みHTMLデモ'; frame.height = figure.dataset.sandboxHeight || '360'; frame.sandbox.value = scripts ? 'allow-scripts' : ''; frame.referrerPolicy = 'no-referrer'; frame.src = url;
+          canvas.append(frame); run.hidden = true; stop.hidden = false;
+        });
+        stop.addEventListener('click', stopSandbox);
+      }
+    }
+
+    function enhanceHybridMarkdown() {
+      enhanceHybridTabs();
+      enhanceHybridToc();
+      enhanceHybridCards();
+      enhanceHybridModals();
+      enhanceHybridSandboxes();
+    }
+
+    async function renderMermaidBlocks() {
+      const blocks = Array.from(document.querySelectorAll('[data-mermaid-block]'));
+      if (window.mermaid && blocks.length > 0) {
+        mermaid.initialize({ startOnLoad: false, theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default', securityLevel: 'strict', htmlLabels: false, flowchart: { htmlLabels: false }, deterministicIds: true });
+        for (const [index, block] of blocks.entries()) {
+          const code = block.querySelector('.mermaid-source')?.textContent || '';
+          if (!code) continue;
+          try {
+            const renderedMermaid = await mermaid.render(`doc-mermaid-${index}`, code);
+            const parsed = new DOMParser().parseFromString(renderedMermaid.svg, 'image/svg+xml');
+            if (parsed.querySelector('parsererror') || parsed.documentElement.localName !== 'svg') throw new Error('Mermaid SVGのルートが不正です');
+            for (const element of [parsed.documentElement, ...parsed.documentElement.querySelectorAll('*')]) {
+              if (['script', 'foreignObject', 'iframe', 'object', 'embed', 'image', 'use', 'a'].includes(element.localName)) throw new Error('Mermaid SVGに許可されない要素があります');
+              for (const attribute of [...element.attributes]) {
+                const name = attribute.name.toLowerCase();
+                if (name.startsWith('on') || ['href', 'xlink:href', 'src'].includes(name) || /(?:javascript|vbscript|data):/i.test(attribute.value)) throw new Error('Mermaid SVGに危険な属性があります');
+                if (name === 'style') element.removeAttribute(attribute.name);
+              }
+            }
+            const canvas = document.createElement('div');
+            canvas.className = 'mermaid-canvas';
+            const svgNode = document.importNode(parsed.documentElement, true);
+            const intrinsicWidth = Number((svgNode.getAttribute('viewBox') || '').trim().split(/[\s,]+/)[2]);
+            if (Number.isFinite(intrinsicWidth) && intrinsicWidth > 0) {
+              canvas.style.setProperty('--mermaid-width', `${Math.round(intrinsicWidth)}px`);
+            }
+            canvas.append(svgNode);
+            block.querySelector('.mermaid-source')?.replaceWith(canvas);
+          } catch (error) {
+            block.dataset.mermaidError = error instanceof Error ? error.message : String(error);
+          }
+        }
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const storedFontScale = localStorage.getItem(fontScaleKey);
+      const parsedFontScale = storedFontScale === null ? fontScaleDefaultIndex : Number.parseInt(storedFontScale, 10);
+      applyFontScale(Number.isFinite(parsedFontScale) ? parsedFontScale : fontScaleDefaultIndex);
+      renderMarkdownMath().catch(() => {});
+      renderMermaidBlocks().catch(() => {});
+      highlightMarkdownCode();
+      bindMarkdownAudioPlayers();
+      labelMarkdownTables();
+      enhanceHybridMarkdown();
+    });
+  </script>
+</body>
+</html>
