@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIが実装を速めるほど問われる、要件・仕様・調整・検証の境界 | Explainer</title>
+  <style>
+
+    :root {
+      color-scheme: light;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "Noto Sans JP", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, "JetBrains Mono", "Roboto Mono", monospace;
+      --bg: #F2F2F7;
+      --bg-warm: #F5F5F7;
+      --surface: #FFFFFF;
+      --surface-2: #F5F5F7;
+      --label: #1D1D1F;
+      --label-2: #6E6E73;
+      --label-3: #8E8E93;
+      --border: rgba(60, 60, 67, 0.14);
+      --separator: rgba(60, 60, 67, 0.22);
+      --fill: rgba(120, 120, 128, 0.12);
+      --fill-2: rgba(120, 120, 128, 0.2);
+      --accent: #C96442;
+      --accent-hover: #B85638;
+      --accent-soft: rgba(201, 100, 66, 0.1);
+      --link: #C96442;
+      --action: #C96442;
+      --on-action: #FFFFFF;
+      --on-accent: #FFFFFF;
+      --star: #FF9F0A;
+      --star-stroke: #C26A00;
+      --success: #248A3D;
+      --danger: #D70015;
+      --nav-bg: rgba(255, 255, 255, 0.78);
+      --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+      --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+      --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+      --radius-control: 10px;
+      --radius-card: 14px;
+      --radius-sheet: 20px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-emphasized: cubic-bezier(0.32, 0.72, 0, 1);
+      /* Editorial aliases for shared widget and Markdown styles */
+      --font-body: var(--font);
+      --font-display: var(--font);
+      --font-mono: var(--mono);
+      --ink: var(--label);
+      --ink-soft: var(--label);
+      --muted: var(--label-2);
+      --primary: var(--label);
+      --secondary: var(--label-2);
+      --tertiary: var(--link);
+      --neutral: var(--fill);
+      --background: var(--bg);
+      --on-primary: #FFFFFF;
+      --on-surface: var(--label);
+      --on-background: var(--label);
+      --shadow-sm: var(--shadow-1);
+      --shadow-md: var(--shadow-2);
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #000000;
+      --bg-warm: #1C1C1E;
+      --surface: #1C1C1E;
+      --surface-2: #2C2C2E;
+      --label: #F5F5F7;
+      --label-2: #98989D;
+      --label-3: #7C7C80;
+      --border: rgba(255, 255, 255, 0.1);
+      --separator: rgba(84, 84, 88, 0.65);
+      --fill: rgba(120, 120, 128, 0.24);
+      --fill-2: rgba(120, 120, 128, 0.36);
+      --accent: #E07A5A;
+      --accent-hover: #F08B6A;
+      --accent-soft: rgba(224, 122, 90, 0.12);
+      --link: #E07A5A;
+      --action: #E07A5A;
+      --on-action: #000000;
+      --on-accent: #FFFFFF;
+      --star: #FFB340;
+      --star-stroke: #FFB340;
+      --success: #30D158;
+      --danger: #FF6961;
+      --nav-bg: rgba(28, 28, 30, 0.78);
+      --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+      --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+      --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #000000;
+        --bg-warm: #1C1C1E;
+        --surface: #1C1C1E;
+        --surface-2: #2C2C2E;
+        --label: #F5F5F7;
+        --label-2: #98989D;
+        --label-3: #7C7C80;
+        --border: rgba(255, 255, 255, 0.1);
+        --separator: rgba(84, 84, 88, 0.65);
+        --fill: rgba(120, 120, 128, 0.24);
+        --fill-2: rgba(120, 120, 128, 0.36);
+        --accent: #E07A5A;
+        --accent-hover: #F08B6A;
+        --accent-soft: rgba(224, 122, 90, 0.12);
+        --link: #E07A5A;
+        --action: #E07A5A;
+        --on-action: #000000;
+        --on-accent: #FFFFFF;
+        --star: #FFB340;
+        --star-stroke: #FFB340;
+        --success: #30D158;
+        --danger: #FF6961;
+        --nav-bg: rgba(28, 28, 30, 0.78);
+        --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+        --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+        --shadow-3: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* App bar: one 52px row. Title block on the left, actions on the right. */
+    .page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: calc(52px + env(safe-area-inset-top));
+      margin: 0;
+      padding: env(safe-area-inset-top) max(12px, env(safe-area-inset-right)) 0 max(8px, env(safe-area-inset-left));
+      border-bottom: 1px solid var(--separator);
+      background: var(--nav-bg);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      color: var(--label);
+      font-family: var(--font);
+    }
+    .page-nav-brand {
+      display: flex;
+      min-width: 0;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      line-height: 1.2;
+    }
+    .app-bar-home {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 2px;
+      height: 36px;
+      padding: 0 10px 0 4px;
+      border-radius: var(--radius-control);
+      color: var(--link);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .app-bar-home:hover { background: var(--fill); }
+    .app-bar-home .app-icon { flex: 0 0 auto; }
+    .app-bar-divider {
+      flex: 0 0 auto;
+      width: 1px;
+      height: 20px;
+      background: var(--separator);
+    }
+    .app-bar-actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 2px;
+    }
+    .app-bar-actions:empty { display: none; }
+    /* Icon buttons: header actions, docked widget buttons and menus share one look. */
+    .app-icon-btn,
+    [data-explainer-dock-slot] > button,
+    [data-explainer-dock-slot] > a {
+      position: relative;
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 150ms var(--ease), color 150ms var(--ease);
+    }
+    .app-icon-btn:hover,
+    [data-explainer-dock-slot] > button:hover,
+    [data-explainer-dock-slot] > a:hover { background: var(--fill); }
+    .app-icon-btn:active,
+    [data-explainer-dock-slot] > button:active { background: var(--fill-2); }
+    .app-icon-btn[aria-expanded="true"],
+    [data-explainer-dock-slot] > button[aria-expanded="true"] { background: var(--fill); color: var(--link); }
+    [data-explainer-dock-slot] > button[data-active="true"] { color: var(--star-stroke); }
+    [data-explainer-dock-slot] > button[data-active="true"] svg { fill: var(--star); }
+    [data-explainer-dock-slot] > button[hidden] { display: none; }
+    [data-explainer-dock-slot] svg { display: block; width: 20px; height: 20px; }
+    :is(.app-icon-btn, .app-bar-home, [data-explainer-dock-slot] > button, .app-menu-item, .app-segmented button):focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    /* Document switcher: the title with a chevron. The title scrolls horizontally so the
+       full text can be read; a transparent native select covers the chevron, so keyboard,
+       screen readers and the mobile picker keep working. */
+    .doc-switcher-wrap {
+      position: relative;
+      display: flex;
+      width: 100%;
+      align-self: flex-start;
+    }
+    .doc-switcher-label:hover {
+      background: var(--fill);
+    }
+    .doc-switcher-wrap:has(.doc-switcher:focus-visible) .doc-switcher-label {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    .doc-switcher-label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 6px;
+      color: var(--label);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .doc-switcher-text {
+      min-width: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .doc-switcher-text::-webkit-scrollbar { display: none; }
+    .doc-switcher-label .app-icon {
+      flex: 0 0 auto;
+      color: var(--label-2);
+      stroke-width: 2.4;
+    }
+    /* タイトルは横スクロールで全文を読めるようにする。ピッカーはシェブロン
+       （右端の透明なセレクト）から開き、タップは JS が同じセレクトへ渡す。
+       WebKit は option の文字列をページ幅に数えるので、overflow: hidden で閉じる。 */
+    .doc-switcher {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 30px;
+      height: 32px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      opacity: 0;
+      font-size: 16px;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+    .app-bar-title-text {
+      overflow: hidden;
+      padding: 0 6px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .markdown-viewer-document {
+      display: flex;
+      max-width: 100%;
+      min-width: 0;
+      align-items: center;
+      padding: 0 6px;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .markdown-viewer-document-copy {
+      overflow: hidden;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .markdown-viewer-document-copy:hover { color: var(--label); }
+    .markdown-viewer-document-copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+    /* Menus (appearance, more). A button toggles a small popover card. */
+    .app-menu { position: relative; flex: 0 0 auto; }
+    .app-menu-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      z-index: 60;
+      display: grid;
+      gap: 4px;
+      width: 272px;
+      max-width: calc(100vw - 24px);
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      -webkit-backdrop-filter: saturate(180%) blur(30px);
+      backdrop-filter: saturate(180%) blur(30px);
+      box-shadow: var(--shadow-3);
+      color: var(--label);
+      font-family: var(--font);
+      transform-origin: top right;
+      animation: app-menu-in 180ms var(--ease-emphasized);
+    }
+    .app-menu-panel[hidden] { display: none; }
+    @keyframes app-menu-in {
+      from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+      to { opacity: 1; transform: none; }
+    }
+    .app-menu-section { display: grid; gap: 6px; padding: 6px 8px 8px; }
+    .app-menu-section + .app-menu-section,
+    .app-menu-list { border-top: 1px solid var(--separator); }
+    .app-menu-section:first-child { border-top: 0; }
+    .app-menu-label {
+      margin: 0;
+      color: var(--label-2);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .app-menu-list { display: grid; padding-top: 4px; }
+    .app-menu-list:first-child { border-top: 0; padding-top: 0; }
+    .app-menu-list:empty { display: none; }
+    .app-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 40px;
+      margin: 0;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      font-size: 0.875rem;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .app-menu-item:hover { background: var(--fill); }
+    .app-menu-item .app-icon, .app-menu-item svg { flex: 0 0 auto; width: 18px; height: 18px; color: var(--label-2); }
+    .app-menu-item:disabled { opacity: 0.5; cursor: wait; }
+    .app-segmented {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      gap: 2px;
+      padding: 2px;
+      border-radius: 9px;
+      background: var(--fill);
+    }
+    .app-segmented button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 30px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--label);
+      font: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .app-segmented button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .app-segmented button[aria-pressed="true"],
+    .app-segmented button[aria-checked="true"] {
+      background: var(--surface);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+      font-weight: 600;
+    }
+    .app-segmented .text-size-control__label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--label-2);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+    @media (max-width: 599px) {
+      .page-nav { gap: 4px; padding-right: max(6px, env(safe-area-inset-right)); padding-left: max(4px, env(safe-area-inset-left)); }
+      .app-bar-home { width: 40px; height: 40px; justify-content: center; padding: 0; }
+      .app-bar-home-label, .app-bar-divider, .markdown-viewer-document { display: none; }
+      .app-icon-btn, [data-explainer-dock-slot] > button, [data-explainer-dock-slot] > a { width: 38px; height: 40px; }
+      .app-bar-actions { gap: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .app-menu-panel { animation: none; }
+    }
+    :root { --markdown-font-scale: 1; --explainer-page-search-top: 62px; }
+    html[data-chrome-hidden="true"] { --explainer-page-search-top: 12px; }
+    * { box-sizing: border-box; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-padding-top: 72px;
+    }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--label);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+    a { color: inherit; }
+    a:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .shell { margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
+    /* Reading surface: a prose column (~44 full-width characters) centred in a wider
+       stage. Tables, diagrams and HMD components break out to the wide column. */
+    .viewer {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 0 max(120px, calc(env(safe-area-inset-bottom) + 104px));
+    }
+    .viewer-chrome {
+      width: min(100%, calc(44em * var(--markdown-font-scale) + 0px));
+      margin: 0 auto 12px;
+      font-size: 1.0625rem;
+    }
+    .viewer-top { display: block; }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+      color: var(--label-2);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.4;
+    }
+    .meta span { min-width: 0; overflow-wrap: anywhere; }
+    .meta-category { color: var(--link); font-weight: 600; }
+    /* WebKit はグリッド内の横スクロール要素（長いコード行など）の中身の幅をページの
+       横幅に数えることがある。本文の外枠で横スクロールを受け止め、ページが横に揺れないようにする。 */
+    .markdown-scroll-stage { min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+    .explainer-companion {
+      display: grid;
+      gap: 4px 16px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      margin: 12px 0 0;
+      padding: 14px 16px;
+      border-radius: var(--radius-card);
+      background: var(--accent-soft);
+      font-size: 0.875rem;
+    }
+    .explainer-companion strong { color: var(--label); }
+    .explainer-companion p { grid-column: 1; margin: 0; color: var(--label-2); }
+    .explainer-companion a {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: var(--action);
+      color: var(--on-action);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    @media (max-width: 599px) {
+      .explainer-companion { grid-template-columns: 1fr; }
+      .explainer-companion a { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 6px; }
+    }
+
+    .markdown-copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(88px, calc(env(safe-area-inset-bottom) + 80px));
+      z-index: 2147483005;
+      max-width: min(360px, calc(100vw - 32px));
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(28, 28, 30, 0.9);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-3);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: center;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .markdown-copy-toast[hidden] { display: none; }
+    .markdown-copy-toast[data-state="error"] { background: rgba(215, 0, 21, 0.92); }
+    
+    .markdown-body {
+      --prose: 44em;
+      display: grid;
+      grid-template-columns:
+        [wide-start] minmax(0, 1fr)
+        [prose-start] minmax(0, var(--prose))
+        [prose-end] minmax(0, 1fr) [wide-end];
+      min-width: 0;
+      max-width: 100%;
+      color: var(--label);
+      font-size: calc(1.0625rem * var(--markdown-font-scale));
+      line-height: 1.8;
+      letter-spacing: 0.01em;
+      overflow-wrap: anywhere;
+      font-feature-settings: "palt" 0;
+    }
+    .markdown-body > * { grid-column: prose; min-width: 0; }
+    .markdown-body > :is(.markdown-table-scroll, .mermaid-shell, .mdx-panes, .mdx-cards, .mdx-board, .mdx-metrics, .mdx-plot, .mdx-svg, .mdx-sandbox, .mdx-tabs, .markdown-embed) {
+      grid-column: wide;
+      justify-self: center;
+      width: fit-content;
+      min-width: min(100%, var(--prose));
+      max-width: 100%;
+    }
+    .markdown-table-scroll {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      border: 1px solid var(--separator);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+    }
+    .markdown-table-scroll > table {
+      width: max-content;
+      min-width: 100%;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+    }
+    /* Phones: a wide comparison table is unreadable behind a horizontal scroll, so each
+       row becomes one card and every field is stacked — label above value, no side-by-side
+       columns. The viewer script copies each header into the data-label of its column.
+       The selectors are qualified with .markdown-body because the later, equally specific
+       `.markdown-body table { width: max-content }` rule would otherwise win and keep
+       the table wider than the screen. */
+    @media (max-width: 640px) {
+      .markdown-body .markdown-table-scroll {
+        overflow-x: visible;
+        border: none;
+        background: transparent;
+      }
+      .markdown-body .markdown-table-scroll > table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        border: none;
+      }
+      .markdown-body .markdown-table-scroll thead { display: none; }
+      .markdown-body .markdown-table-scroll tbody { display: block; }
+      .markdown-body .markdown-table-scroll tr {
+        display: block;
+        margin: 0 0 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface);
+      }
+      .markdown-body .markdown-table-scroll td {
+        display: block;
+        width: auto;
+        padding: 0;
+        border: none;
+        overflow-wrap: anywhere;
+      }
+      .markdown-body .markdown-table-scroll td + td {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .markdown-body .markdown-table-scroll td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        color: var(--muted);
+        font-size: 0.82em;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      .markdown-body .markdown-table-scroll td:not([data-label])::before { content: none; }
+    }
+    /* 読書モード（chrome トグル）: Markdown Viewer 自身の chrome を隠して本文に場所を空ける。
+       注入ウィジェットの浮遊ボタンとトグルは static/library-favorites.css（HTML レポートの
+       iframe でも読み込まれる共有 CSS）が担当する。 */
+    html[data-chrome-hidden="true"] .page-nav,
+    html[data-chrome-hidden="true"] .viewer-chrome,
+    html[data-chrome-hidden="true"] .text-size-control {
+      display: none !important;
+    }
+
+    .markdown-fallback {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+      font-family: var(--mono);
+      font-size: calc(0.92rem * var(--markdown-font-scale));
+    }
+    .markdown-body > *:first-child { margin-top: 0 !important; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+      color: var(--label);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0;
+      margin-top: 2.4em;
+      margin-bottom: 0.6em;
+      scroll-margin-top: 72px;
+    }
+    .markdown-body h1 { margin-top: 0.2em; font-size: 1.9em; line-height: 1.3; letter-spacing: -0.01em; }
+    .markdown-body h2 { padding-bottom: 0.35em; border-bottom: 1px solid var(--separator); font-size: 1.4em; }
+    .markdown-body h3 { font-size: 1.18em; }
+    .markdown-body h4 { font-size: 1em; }
+    .markdown-body strong { font-weight: 700; color: var(--label); }
+    .markdown-body li + li { margin-top: 0.25em; }
+    .markdown-body li > :is(ul, ol) { margin-top: 0.25em; margin-bottom: 0; }
+    .markdown-body p, .markdown-body ul, .markdown-body ol, .markdown-body blockquote, .markdown-body pre, .markdown-body table {
+      margin: 0 0 1rem;
+    }
+    .markdown-body p, .markdown-body li, .markdown-body blockquote, .markdown-body td, .markdown-body th {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .markdown-body ul, .markdown-body ol { padding-left: 1.25rem; }
+    .markdown-body a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    .markdown-body a:hover { text-decoration-thickness: 2px; }
+    .markdown-body blockquote {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-control) var(--radius-control) 0;
+      background: var(--surface-2);
+      color: var(--label);
+    }
+    .markdown-body blockquote > :last-child { margin-bottom: 0; }
+    .markdown-body pre, .markdown-body code {
+      font-family: var(--mono);
+    }
+    .markdown-body pre {
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+      font-size: 0.86em;
+      line-height: 1.6;
+    }
+    .markdown-body pre code {
+      font-size: inherit;
+      background: transparent;
+    }
+    .markdown-body pre code.hljs {
+      padding: 0;
+      background: transparent;
+    }
+    .markdown-body .hljs-comment,
+    .markdown-body .hljs-quote {
+      color: var(--muted);
+      font-style: italic;
+    }
+    .markdown-body .hljs-keyword,
+    .markdown-body .hljs-selector-tag,
+    .markdown-body .hljs-literal,
+    .markdown-body .hljs-section,
+    .markdown-body .hljs-link {
+      color: #6B3FA0;
+    }
+    .markdown-body .hljs-string,
+    .markdown-body .hljs-doctag,
+    .markdown-body .hljs-regexp {
+      color: #3D6B4F;
+    }
+    .markdown-body .hljs-number,
+    .markdown-body .hljs-attr,
+    .markdown-body .hljs-symbol {
+      color: #3D5A80;
+    }
+    .markdown-body .hljs-title,
+    .markdown-body .hljs-title.function_,
+    .markdown-body .hljs-title.class_ {
+      color: #2E6B8A;
+    }
+    .markdown-body .hljs-built_in,
+    .markdown-body .hljs-type,
+    .markdown-body .hljs-params {
+      color: var(--tertiary);
+    }
+    .markdown-body .hljs-variable,
+    .markdown-body .hljs-template-variable,
+    .markdown-body .hljs-name {
+      color: #8A3D5C;
+    }
+    .markdown-body .hljs-meta,
+    .markdown-body .hljs-meta .hljs-keyword {
+      color: #5A4A8A;
+    }
+    .markdown-body pre.markdown-diff {
+      padding: 0;
+    }
+    .markdown-body .markdown-diff code {
+      display: block;
+    }
+    .markdown-body .markdown-diff-line {
+      padding: 0 16px;
+      min-height: 1.45em;
+      white-space: pre;
+    }
+    .markdown-body .markdown-diff-line.is-add {
+      background: #dafbe1;
+      color: #1a7f37;
+    }
+    .markdown-body .markdown-diff-line.is-del {
+      background: #ffebe9;
+      color: #cf222e;
+    }
+    .markdown-body .markdown-diff-line.is-hunk {
+      background: #ddf4ff;
+      color: #0969da;
+    }
+    .markdown-body .markdown-diff-line.is-file {
+      background: var(--bg-warm);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .markdown-body :not(pre) > code {
+      font-size: 0.92em;
+      padding: 0.1em 0.36em;
+      border-radius: 5px;
+      background: var(--fill);
+      white-space: break-spaces;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .markdown-body table {
+      width: max-content;
+      min-width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+    }
+    .markdown-body th, .markdown-body td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--separator);
+      font-size: 0.92em;
+      line-height: 1.6;
+      text-align: left;
+      vertical-align: top;
+    }
+    .markdown-body th { background: var(--surface-2); color: var(--label); font-weight: 600; white-space: nowrap; }
+    .markdown-body tbody tr:last-child td { border-bottom: 0; }
+    .markdown-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+    }
+    .markdown-body svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 1.25rem auto;
+      overflow: visible;
+    }
+    .markdown-body .mdx-plot,
+    .markdown-body .mdx-svg {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+    .markdown-body .mdx-plot > svg {
+      width: max(100%, 520px);
+      max-width: none;
+    }
+    .markdown-body .mdx-svg > svg {
+      width: max(100%, 560px);
+      max-width: none;
+    }
+    .markdown-body hr {
+      margin: 2.4em 0;
+      border: none;
+      border-top: 1px solid var(--separator);
+    }
+    .mermaid-shell {
+      margin: 0 0 1rem;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+    .mermaid-shell figcaption {
+      margin: 0 0 8px;
+      color: var(--label);
+      font-weight: 600;
+    }
+    .mermaid-description {
+      margin: 0 0 8px;
+      color: var(--secondary);
+      font-size: 0.86rem;
+    }
+    .mermaid-canvas {
+      width: 100%;
+    }
+    .mermaid-canvas:has(svg),
+    .explainer-reader-mermaid-zoomable {
+      cursor: zoom-in;
+    }
+    /* サニタイズで style 属性を落とすため Mermaid 自身の幅指定は残らない。
+       固有幅は JS が viewBox から復元して --mermaid-width に入れる。
+       コンテナより広い図は縮小して収め（SVG なので拡大縮小しても粗くならない）、
+       固有幅より大きくは引き伸ばさない。横スクロールはさせない。 */
+    .mermaid-canvas svg {
+      width: 100%;
+      max-width: var(--mermaid-width, 100%);
+      height: auto;
+      margin: 20px 0;
+      overflow: visible;
+    }
+    .markdown-audio {
+      position: relative;
+      margin: 0 0 1.25rem;
+      padding: 14px 16px 16px;
+      border: 0;
+      border-radius: var(--radius-card);
+      background: var(--surface-2);
+    }
+    .markdown-audio figcaption {
+      margin: 0 0 10px;
+      color: var(--secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    /* 再生UIは .markdown-audio-controls。audio 要素は再生だけを担う。
+       1px サイズで DOM に残し、メタデータ読み込みと resume を止めない。 */
+    .markdown-audio audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    /* 再生・時間スキップ・シーク・経過/全体・速度を1行に収める */
+    .markdown-audio-controls {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .markdown-audio-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: var(--fill);
+      color: var(--label);
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .markdown-audio-btn:hover { color: var(--link); }
+    .markdown-audio-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    /* 再生/一時停止は必ずどちらか一方だけ。下のアイコンサイズ指定に負けないよう
+       .markdown-audio を付けて詳細度を上げる（両方表示される事故を防ぐ）。 */
+    .markdown-audio .markdown-audio-btn .markdown-audio-btn__icon--pause { display: none; }
+    .markdown-audio-btn[data-playing="true"] { background: var(--accent-soft); color: var(--link); }
+    .markdown-audio .markdown-audio-btn[data-playing="true"] .markdown-audio-btn__icon--play { display: none; }
+    .markdown-audio .markdown-audio-btn[data-playing="true"] .markdown-audio-btn__icon--pause { display: block; }
+    .markdown-audio-skip {
+      width: auto;
+      min-width: 34px;
+      height: 24px;
+      padding: 0 7px;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .markdown-audio-skip:hover { color: var(--label); }
+    .markdown-audio-seek {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .markdown-audio-seek:disabled { cursor: default; }
+    .markdown-audio-time {
+      flex: 0 0 auto;
+      color: var(--label-2);
+      font-size: 0.6875rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    /* 再生速度（1 → 1.25 → 1.5 → 1.75 → 2 → 1）。現在の倍率を見せる */
+    .markdown-audio-rate {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-height: 24px;
+      padding: 0 7px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--fill);
+      color: var(--label-2);
+      font: inherit;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .markdown-audio-rate:hover { color: var(--label); }
+    .markdown-audio-rate[data-rate]:not([data-rate="1"]) { color: var(--link); }
+    .markdown-audio .markdown-audio-btn__icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+    .markdown-audio .markdown-audio-rate__icon {
+      display: block;
+      width: 13px;
+      height: 13px;
+      margin: 0;
+    }
+    .markdown-audio-rate-value { min-width: 2.4em; text-align: center; font-variant-numeric: tabular-nums; }
+    .markdown-audio-error {
+      margin: 0 0 1rem;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-warm);
+      color: var(--on-surface);
+    }
+    /* 音声に添える折りたたみ（音声原稿・生成メモ）。HMD の軽い1行に揃える */
+    .markdown-body details.markdown-audio-note {
+      margin: 0 0 6px;
+      padding: 0;
+      border: 1px solid transparent;
+      background: transparent;
+    }
+    .markdown-body details.markdown-audio-note[open] {
+      padding: 0 10px 8px;
+      border-color: var(--separator);
+      background: var(--surface);
+    }
+    .markdown-body details.markdown-audio-note > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--label-2);
+    }
+    .markdown-body details.markdown-audio-note > summary::before {
+      width: 6px;
+      height: 6px;
+      margin: 0 3px 0 1px;
+    }
+    .markdown-audio-cost {
+      margin: 10px 0 0;
+      color: var(--label-2);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+    .markdown-audio-note {
+      margin: 10px 0 8px;
+      color: var(--secondary);
+      font-size: 0.82rem;
+    }
+    .markdown-audio-tracks {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: 8px;
+    }
+    .markdown-audio-tracks li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .markdown-audio-track {
+      flex: 1 1 12rem;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--label);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .markdown-audio-track[aria-current="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .markdown-audio-download {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .markdown-body details {
+      margin: 0 0 6px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: var(--radius-control);
+      background: transparent;
+    }
+    .markdown-body details[open] {
+      padding: 0 10px 8px;
+      border-color: var(--separator);
+      background: var(--surface);
+    }
+    .markdown-body details > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      display: block;
+      line-height: 32px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      list-style: none;
+      cursor: pointer;
+      color: var(--label-2);
+    }
+    .markdown-body details > summary::-webkit-details-marker { display: none; }
+    .markdown-body details > summary::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin: 0 3px 0 1px;
+      border-right: 2px solid var(--label-2);
+      border-bottom: 2px solid var(--label-2);
+      transform: rotate(-45deg);
+      transition: transform 180ms var(--ease);
+    }
+    .markdown-body details[open] > summary::before { transform: rotate(45deg); }
+
+    .markdown-embed {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 0 1.25rem;
+      padding: 14px 16px 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .markdown-embed > figcaption {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+    .markdown-embed-twitter {
+      max-width: 550px;
+    }
+    .markdown-embed-twitter .twitter-tweet {
+      margin: 0 auto !important;
+    }
+    .markdown-embed-twitter .twitter-tweet > p {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+    .markdown-embed-video-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-video-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .markdown-embed-video-player {
+      display: block;
+      width: 100%;
+      max-height: min(70vh, 720px);
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-html-frame {
+      display: block;
+      width: 100%;
+      min-height: 320px;
+      height: 480px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--background);
+    }
+    .markdown-embed-fallback {
+      margin: 10px 0 0;
+      color: var(--secondary);
+      font-size: 0.82rem;
+    }
+    .mdx-toc, .mdx-panes, .mdx-cards, .mdx-modal, .mdx-sandbox, .mdx-plot, .mdx-svg {
+      margin: 1.5rem 0;
+    }
+    .mdx-toc {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    /* 小さめの折りたたみ。1行の軽い行にして、開いたときだけ枠を出す。 */
+    .mdx-details.size-sm {
+      margin: 0 0 6px;
+      padding: 0;
+      border-color: transparent;
+      background: transparent;
+    }
+    .mdx-details.size-sm[open] {
+      padding: 0 10px 8px;
+      border-color: var(--border);
+      background: var(--surface);
+    }
+    .mdx-details.size-sm > summary {
+      min-height: 32px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--secondary);
+    }
+    .mdx-details.size-sm > summary::before {
+      width: 6px;
+      height: 6px;
+      margin-right: 2px;
+    }
+    .mdx-toc-collapsible { margin: 1.5rem 0; }
+    .mdx-toc-collapsible > nav.mdx-toc { margin: 0; }
+    .mdx-toc h2, .mdx-panes > h3, .mdx-cards > h3, .mdx-board > h3, .mdx-metrics > h3, .mdx-tabs > h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+    .mdx-callout {
+      --mdx-callout-accent: var(--tertiary);
+      margin: 1.5rem 0;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-inline-start: 5px solid var(--mdx-callout-accent);
+      border-radius: 16px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-callout.is-tip { --mdx-callout-accent: #237A4B; }
+    .mdx-callout.is-warning { --mdx-callout-accent: #A65A00; }
+    .mdx-callout.is-danger { --mdx-callout-accent: #B42318; }
+    .mdx-callout.is-note { --mdx-callout-accent: var(--secondary); }
+    .mdx-callout-kind {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin: 0 0 8px;
+      padding: 2px 9px;
+      border: 1px solid color-mix(in srgb, var(--mdx-callout-accent) 55%, var(--border));
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--mdx-callout-accent) 16%, var(--surface));
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .mdx-callout h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .mdx-callout-body > :first-child { margin-top: 0; }
+    .mdx-callout-body > :last-child { margin-bottom: 0; }
+    .mdx-tabs {
+      margin: 1.5rem 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-tab-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .mdx-tab-button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--on-background); cursor: pointer; font: inherit; }
+    .mdx-tab-button[aria-selected="true"] { border-color: var(--tertiary); background: var(--tertiary); color: var(--bg); }
+    .mdx-tab-panel[hidden] { display: none; }
+    .mdx-tab-panels {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .mdx-tab-panel > :first-child { margin-top: 0; }
+    .mdx-tab-panel > :last-child { margin-bottom: 0; }
+    .mdx-toc-list > ul, .mdx-toc-list > ol { margin: 0; padding-left: 1.25rem; }
+    .mdx-toc-list li + li { margin-top: 2px; }
+    .mdx-toc-list li > ul, .mdx-toc-list li > ol { margin: 2px 0 0; padding-left: 1rem; }
+    .mdx-toc-empty { margin: 0; color: var(--secondary); }
+    .mdx-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin: 0 2px;
+      padding: 2px 8px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .mdx-label.size-sm { font-size: 0.68rem; }
+    .mdx-label.tone-neutral { color: var(--primary); }
+    .mdx-label.tone-accent { color: var(--tertiary); }
+    .mdx-label.tone-positive { color: #237A4B; }
+    .mdx-label.tone-warning { color: #A65A00; }
+    .mdx-label.tone-danger { color: #B42318; }
+    .mdx-label.variant-soft { background: var(--neutral); }
+    .mdx-label.variant-solid { color: var(--on-primary); }
+    .mdx-label.tone-neutral.variant-solid { color: var(--bg); background: var(--primary); border-color: var(--primary); }
+    .mdx-label.tone-accent.variant-solid { background: var(--tertiary); border-color: var(--tertiary); }
+    .mdx-label.tone-positive.variant-solid { background: #237A4B; border-color: #237A4B; }
+    .mdx-label.tone-warning.variant-solid { background: #A65A00; border-color: #A65A00; }
+    .mdx-label.tone-danger.variant-solid { background: #B42318; border-color: #B42318; }
+    .mdx-label.variant-outline { border-color: currentColor; }
+    .mdx-text.color-default { color: var(--on-background); }
+    .mdx-text.color-muted { color: var(--secondary); }
+    .mdx-text.color-accent { color: var(--tertiary); }
+    .mdx-text.color-positive { color: #237A4B; }
+    .mdx-text.color-warning { color: #A65A00; }
+    .mdx-text.color-danger { color: #B42318; }
+    .mdx-text.size-xs { font-size: 0.75rem; }
+    .mdx-text.size-sm { font-size: 0.875rem; }
+    .mdx-text.size-lg { font-size: 1.25rem; }
+    .mdx-text.size-xl { font-size: 1.5rem; }
+    .mdx-metrics {
+      margin: 1.5rem 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .mdx-metrics.columns-2 .mdx-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mdx-metric-inline {
+      display: grid;
+      min-width: 0;
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-areas: "value label" "value unit";
+      align-items: baseline;
+      column-gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-metric-value {
+      grid-area: value;
+      min-width: 2.5ch;
+      color: var(--primary);
+      font-size: 1.45rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .mdx-metric-label {
+      grid-area: label;
+      min-width: 0;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+    .mdx-metric-unit {
+      grid-area: unit;
+      min-width: 0;
+      color: var(--secondary);
+      font-size: 0.78rem;
+      overflow-wrap: anywhere;
+    }
+    .mdx-metric-inline.tone-positive { border-color: color-mix(in srgb, #237A4B 55%, var(--border)); }
+    .mdx-metric-inline.tone-warning { border-color: color-mix(in srgb, #A65A00 55%, var(--border)); }
+    .mdx-metric-inline.tone-negative { border-color: color-mix(in srgb, #B42318 55%, var(--border)); }
+    .mdx-panes, .mdx-cards {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-warm);
+    }
+    .mdx-panes-grid, .mdx-cards-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .mdx-panes.columns-3 .mdx-panes-grid, .mdx-cards.columns-3 .mdx-cards-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mdx-pane, .mdx-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .mdx-pane h4, .mdx-card h4 { margin: 0; font-size: 1rem; }
+    .mdx-pane > :first-child, .mdx-card > :first-child { margin-top: 0; }
+    .mdx-pane > :last-child, .mdx-card > :last-child { margin-bottom: 0; }
+    .mdx-card header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .mdx-card-label { padding: 2px 8px; border-radius: 999px; background: var(--neutral); color: var(--secondary); font-size: 0.72rem; font-weight: 700; }
+    .mdx-cards-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
+    .mdx-cards-controls button, .mdx-modal > button, .mdx-modal-dialog button, .mdx-sandbox-actions button {
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--on-surface);
+      font: inherit;
+      cursor: pointer;
+    }
+    .mdx-modal > button, .mdx-sandbox-actions button:first-child { border-color: var(--tertiary); background: var(--tertiary); color: var(--on-primary); }
+    .mdx-cards-controls button:disabled { opacity: 0.45; cursor: default; }
+    .mdx-modal-dialog {
+      width: min(720px, calc(100vw - 32px));
+      max-width: 720px;
+      max-height: calc(100vh - 32px);
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      color: var(--on-surface);
+    }
+    .mdx-modal-dialog::backdrop { background: rgba(0, 0, 0, 0.42); }
+    .mdx-modal.size-sm .mdx-modal-dialog { width: min(480px, calc(100vw - 32px)); }
+    .mdx-modal.size-lg .mdx-modal-dialog { width: min(960px, calc(100vw - 32px)); max-width: 960px; }
+    .mdx-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    .mdx-modal-header h3 { margin: 0; font-size: 1.1rem; }
+    .mdx-modal-body { max-height: calc(100vh - 12rem); overflow: auto; padding: 16px; }
+    .mdx-modal-body > :first-child { margin-top: 0; }
+    .mdx-modal-body > :last-child { margin-bottom: 0; }
+    .mdx-sandbox, .mdx-plot, .mdx-svg { padding: 14px 16px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg-warm); }
+    .mdx-plot, .mdx-svg { overflow-x: auto; overscroll-behavior-x: contain; }
+    .mdx-sandbox figcaption, .mdx-plot figcaption, .mdx-svg figcaption { margin-bottom: 8px; color: var(--primary); font-weight: 700; }
+    .mdx-svg-caption { display: grid; gap: 4px; }
+    .mdx-svg-caption span { color: var(--secondary); font-size: 0.86rem; font-weight: 400; }
+    .mdx-sandbox-description { margin: 0 0 12px; color: var(--secondary); font-size: 0.86rem; }
+    .mdx-sandbox-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .mdx-sandbox-canvas { min-height: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+    .mdx-sandbox-frame { display: block; width: 100%; min-height: 160px; border: 0; }
+    .mdx-sandbox-source, .mdx-plot-data { margin-top: 12px; border-top: 1px solid var(--border); }
+    .mdx-sandbox-source pre, .mdx-plot-data pre { max-height: 320px; overflow: auto; }
+    .mdx-plot-svg { display: block; width: 100%; min-width: 520px; height: auto; margin: 0; }
+    .mdx-plot-axis { stroke: var(--secondary); stroke-width: 1; }
+    .mdx-plot-line { stroke: var(--tertiary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .mdx-plot-point, .mdx-plot-bar { fill: var(--tertiary); }
+    .mdx-plot-axis-label { fill: var(--on-background); font-size: 12px; }
+    .math.inline {
+      display: inline-block;
+      max-width: 100%;
+      overflow-x: auto;
+      vertical-align: middle;
+    }
+    .math.block {
+      display: block;
+      max-width: 100%;
+      padding: 0.35rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .markdown-body mjx-container { max-width: 100%; }
+    .markdown-body mjx-container[display="true"] {
+      display: block;
+      padding: 0.35rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .mdx-board { padding: 14px 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--bg-warm); }
+    .mdx-board-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(96px, auto); gap: 12px; }
+    .mdx-board.columns-2 .mdx-board-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mdx-board.columns-3 .mdx-board-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mdx-board.columns-4 .mdx-board-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .mdx-board-panel {
+      min-width: 0;
+      grid-column: var(--mdx-panel-x) / span var(--mdx-panel-w);
+      grid-row: var(--mdx-panel-y) / span var(--mdx-panel-h);
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      overflow: auto;
+      overflow-wrap: anywhere;
+    }
+    .mdx-board-panel h4 { margin-top: 0; }
+    @media (max-width: 640px) {
+      .mdx-toc.mobile-hidden, .mdx-toc-collapsible.mobile-hidden { display: none; }
+      .mdx-toc.mobile-visible { display: block; }
+      .mdx-metrics-grid, .mdx-metrics.columns-2 .mdx-metrics-grid, .mdx-panes-grid, .mdx-panes.columns-3 .mdx-panes-grid, .mdx-board-grid { grid-template-columns: 1fr; }
+      .mdx-board.columns-2 .mdx-board-grid, .mdx-board.columns-3 .mdx-board-grid, .mdx-board.columns-4 .mdx-board-grid { grid-template-columns: 1fr; }
+      .mdx-cards-track, .mdx-cards.columns-3 .mdx-cards-track { display: flex; grid-template-columns: none; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; }
+      .mdx-cards-track .mdx-card { flex: 0 0 min(86vw, 320px); scroll-snap-align: start; }
+      .mdx-board-panel[class*="mdx-panel-x"], .mdx-board-panel[class*="mdx-panel-y"] { grid-column: 1 / -1; grid-row: auto; }
+    }
+
+    @media (max-width: 599px) {
+      .shell { padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+      .viewer { padding-top: 18px; }
+      .markdown-body h1 { font-size: 1.6em; }
+      .markdown-body h2 { font-size: 1.3em; }
+    }
+    [data-theme="dark"] {
+      .markdown-body .hljs-keyword,
+      .markdown-body .hljs-selector-tag,
+      .markdown-body .hljs-literal,
+      .markdown-body .hljs-section,
+      .markdown-body .hljs-link { color: #C4A5D4; }
+      .markdown-body .hljs-string,
+      .markdown-body .hljs-doctag,
+      .markdown-body .hljs-regexp { color: #8FBF9F; }
+      .markdown-body .hljs-number,
+      .markdown-body .hljs-attr,
+      .markdown-body .hljs-symbol { color: #8FA8C8; }
+      .markdown-body .hljs-title,
+      .markdown-body .hljs-title.function_,
+      .markdown-body .hljs-title.class_ { color: #7EB6D0; }
+      .markdown-body .hljs-variable,
+      .markdown-body .hljs-template-variable,
+      .markdown-body .hljs-name { color: #E0A0B8; }
+      .markdown-body .hljs-meta,
+      .markdown-body .hljs-meta .hljs-keyword { color: #B8A8E0; }
+      .markdown-body .markdown-diff-line.is-add {
+        background: rgba(46, 160, 67, 0.18);
+        color: #3fb950;
+      }
+      .markdown-body .markdown-diff-line.is-del {
+        background: rgba(248, 81, 73, 0.18);
+        color: #f85149;
+      }
+      .markdown-body .markdown-diff-line.is-hunk {
+        background: rgba(56, 139, 253, 0.15);
+        color: #79c0ff;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      },
+      startup: { typeset: false },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" defer></script>
+  <script>
+    (function () {
+      const themeKey = 'explainer-editorial-theme';
+      const root = document.documentElement;
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      function storedChoice() {
+        try {
+          const value = localStorage.getItem(themeKey);
+          return value === 'dark' || value === 'light' ? value : 'system';
+        } catch {
+          return 'system';
+        }
+      }
+      // data-theme は常に実効値（light / dark）にする。HTML レポートの iframe と
+      // チャットの shadow host はこの属性を写すので、「自動」でも値を持たせる。
+      function applyTheme(announce) {
+        const choice = storedChoice();
+        const next = choice === 'system' ? (media.matches ? 'dark' : 'light') : choice;
+        const changed = root.dataset.theme !== next;
+        root.dataset.theme = next;
+        for (const button of document.querySelectorAll('[data-theme-choice]')) {
+          button.setAttribute('aria-pressed', button.dataset.themeChoice === choice ? 'true' : 'false');
+        }
+        for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+          const label = next === 'dark' ? 'ライトモードに切り替える' : 'ダークモードに切り替える';
+          button.setAttribute('aria-label', label);
+          button.title = label;
+        }
+        if (announce && changed) {
+          window.dispatchEvent(new CustomEvent('explainer-theme-change', { detail: next }));
+        }
+      }
+      function setChoice(choice) {
+        try {
+          if (choice === 'system') localStorage.removeItem(themeKey);
+          else localStorage.setItem(themeKey, choice);
+        } catch { /* storage 不可でも表示は切り替える */ }
+        applyTheme(true);
+      }
+      function closeMenus(except) {
+        for (const menu of document.querySelectorAll('[data-app-menu]')) {
+          if (menu === except) continue;
+          const button = menu.querySelector(':scope > button');
+          const panel = menu.querySelector(':scope > .app-menu-panel');
+          if (panel && !panel.hidden) {
+            panel.hidden = true;
+            button?.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+      function bindChrome() {
+        for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+          if (button.dataset.themeBound === '1') continue;
+          button.dataset.themeBound = '1';
+          button.addEventListener('click', () => setChoice(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+        }
+        for (const button of document.querySelectorAll('[data-theme-choice]')) {
+          if (button.dataset.themeBound === '1') continue;
+          button.dataset.themeBound = '1';
+          button.addEventListener('click', () => setChoice(button.dataset.themeChoice));
+        }
+        for (const menu of document.querySelectorAll('[data-app-menu]')) {
+          if (menu.dataset.menuBound === '1') continue;
+          menu.dataset.menuBound = '1';
+          const button = menu.querySelector(':scope > button');
+          const panel = menu.querySelector(':scope > .app-menu-panel');
+          if (!button || !panel) continue;
+          button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const open = panel.hidden;
+            closeMenus(menu);
+            panel.hidden = !open;
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+          panel.addEventListener('click', (event) => {
+            // 項目を実行したら閉じる。設定（外観・文字サイズ）は続けて操作できるよう残す。
+            if (event.target.closest('.app-menu-item')) {
+              panel.hidden = true;
+              button.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+        applyTheme(false);
+      }
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest?.('[data-app-menu]')) closeMenus(null);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const open = document.querySelector('[data-app-menu] > .app-menu-panel:not([hidden])');
+        if (!open) return;
+        closeMenus(null);
+        open.parentElement.querySelector(':scope > button')?.focus();
+      });
+      media.addEventListener?.('change', () => {
+        if (storedChoice() === 'system') applyTheme(true);
+      });
+      // 読書モードの状態は描画前に戻す（ちらつきを避ける）
+      try {
+        if (localStorage.getItem('explainer-chrome-hidden') === '1') {
+          root.dataset.chromeHidden = 'true';
+        }
+      } catch { /* storage 不可でも続行 */ }
+
+      applyTheme(false);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindChrome);
+      } else {
+        bindChrome();
+      }
+    })();
+  </script>
+</head>
+<body>
+<header class="public-report-header"><a class="public-report-home" href="https://ryoma0622.github.io/public-reports/" aria-label="公開レポートの一覧へ" title="公開レポートの一覧へ"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg></a><span>AIが実装を速めるほど問われる、要件・仕様・調整・検証の境界</span><div role="group" aria-label="外観"><button type="button" data-theme-toggle aria-label="ダークモードに切り替える" title="ダークモードに切り替える"><svg class="public-theme-light" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="public-theme-dark" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button></div></header><style>.public-report-header{box-sizing:border-box;position:sticky;top:0;z-index:1000;height:52px;display:flex;align-items:center;gap:12px;padding:0 12px;border-bottom:1px solid var(--separator,#ddd);background:var(--bg,#fff);color:var(--label,#111);font:14px/1.4 -apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}.public-report-header>a{color:inherit;text-decoration:none;flex:none}.public-report-header>span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0}.public-report-header>div{display:flex;gap:4px;flex:none}.public-report-header button,.public-report-header .public-report-home{display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:40px;height:40px;border:0;border-radius:10px;padding:0;cursor:pointer;color:inherit;background:var(--fill,#eee)}.public-report-header button:hover,.public-report-header .public-report-home:hover{background:var(--fill-2,#ddd)}.public-report-header :focus-visible{outline:2px solid var(--accent,#0066cc);outline-offset:2px}.public-report-header .public-theme-light{display:none}html[data-theme="dark"] .public-report-header .public-theme-light{display:block}html[data-theme="dark"] .public-report-header .public-theme-dark{display:none}@media(max-width:480px){.public-report-header{gap:8px;padding:0 8px}}</style>  <main class="shell">
+    <section class="viewer" aria-label="Markdown document viewer">
+        <div class="viewer-chrome">
+          <div class="viewer-top">
+            <div class="meta">
+              <span class="meta-category">記事要約</span>
+              <span aria-hidden="true">·</span>
+              <time>2026-10-20</time>
+            </div>
+          </div>
+        </div>
+        <div class="markdown-scroll-stage" aria-label="ドキュメント本文">
+          <article class="markdown-body" id="markdown-body">
+
+<figure class="markdown-audio" data-markdown-audio data-component="audio"><figcaption>2人の掛け合いによる内容解説（約28分）</figcaption><div class="markdown-audio-controls"><button type="button" class="markdown-audio-btn markdown-audio-play" aria-label="再生" title="再生" aria-pressed="false"><svg class="markdown-audio-btn__icon markdown-audio-btn__icon--play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><g transform="translate(-2.9 0)"><path d="M8.4 5.2v13.6a1 1 0 0 0 1.53.85l11-6.8a1 1 0 0 0 0-1.7l-11-6.8a1 1 0 0 0-1.53.85Z"/></g></svg><svg class="markdown-audio-btn__icon markdown-audio-btn__icon--pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><rect x="7" y="5" width="3.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="3.5" height="14" rx="1.2"/></svg></button><button type="button" class="markdown-audio-btn markdown-audio-skip" data-skip="-10" aria-label="10秒戻す" title="10秒戻す">-10</button><button type="button" class="markdown-audio-btn markdown-audio-skip" data-skip="10" aria-label="10秒進める" title="10秒進める">+10</button><input type="range" class="markdown-audio-seek" min="0" max="0" step="1" value="0" aria-label="再生位置" disabled><span class="markdown-audio-time"><span class="markdown-audio-elapsed">0:00</span> / <span class="markdown-audio-total">--:--</span></span><button type="button" class="markdown-audio-rate" data-rate="1" aria-label="再生速度 1倍" title="押すと再生速度を切り替える（1 → 1.25 → 1.5 → 1.75 → 2 → 1）"><svg class="markdown-audio-rate__icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg><span class="markdown-audio-rate-value">1×</span></button></div><audio class="markdown-audio-player" preload="metadata" src="assets/daab96ef55d1fba97cdd.mp3" title="2人の掛け合いによる内容解説"><a href="assets/daab96ef55d1fba97cdd.mp3" target="_blank" rel="noopener noreferrer">2人の掛け合いによる内容解説</a></audio></figure><details class="markdown-audio-note">
+<summary>音声原稿</summary>
+<p>Aoi: みなさんこんにちは。10月20日の「AIが実装を速めるほど問われる、要件・仕様・調整・検証の境界」レポート解説です。</p>
+<p>Ken: こんにちは。今回は4本の記事を順番に詳しく見ていきます。まず1本目は、2026年10月19日に公開されたショーン・ゴデッケ氏の記事「What requirements don't you have?」、日本語で言えば「守らなくてよい条件も設計の一部」というテーマです。</p>
+<p>Aoi: 「満たすべき要件」ではなく「守らなくてよい条件」に着目するんですね。これはどういう問題意識から来ているんでしょうか。</p>
+<p>Ken: ソフトウェアの構造を決めているのは、実は「何を実現しなければならないか」という要件だけではありません。「処理の遅さやデータの古さをどこまで許容できるか」という、いわば守らなくてよい条件も同様に構造を左右しているんです。ところが、AIを使ってコードを書くとき、この「守らなくてよい条件」が伝わっていないと、AIが仮想的な要件を勝手に補い続けてしまいます。その結果、正しさを守るための処理が過剰な複雑さを招いてしまう、というのがこの記事の出発点です。</p>
+<p>Aoi: なるほど。でも、そもそも「条件を守らないことで設計が成り立つ」というのは、具体的にどういう仕組みなんですか？</p>
+<p>Ken: 記事で挙げられている3つの具体例を見るとよくわかります。1つ目はクラウドストレージのAmazon S3です。複数のデータを書き換えるとき、すべてが同時に成功するか、あるいはすべて失敗して元に戻るかのどちらかしか許さない性質を「原子的更新」と呼びます。もしS3がこの複数オブジェクトの原子的更新を必須要件にしていたら、別々のストレージをまたいで状態を揃えるための大掛かりな調整処理が必要になってしまいます。S3はあえてこの原子的更新を要求しない、つまり条件から外すことで、ストレージをまたぐ調整を減らしているんです。</p>
+<p>Aoi: あえて厳密な同時更新を保証しないことで、システム全体の調整を軽くしているんですね。</p>
+<p>Ken: そうです。2つ目の例は、システムの数値データを集めるStatsDという仕組みです。通信の方法には、データが届いたかを確認して確実に届ける方式と、確認の手順を省いて一方的に送るUDPという方式があります。StatsDはこのUDPを使うことで、「データが必ず届くという配送保証」の条件を緩め、その代わりに処理の軽さや速さを得ています。そして3つ目の例がエッジキャッシュ、つまり利用者に近い場所にデータを一時保存する仕組みです。これも「常に最新のデータを返す」という条件を緩めて、一時的に古いデータが返ることを許容する代わりに、応答の速さを得ています。これらはすべて、どの条件を守らなくてよいかを決めることで成立している設計なんです。</p>
+<p>Aoi: 確かに、どれも「正しさや確実性を少し緩める代わりに、軽さや速さを取る」という判断ですね。ただ、どこまで緩めていいかを決めるのは難しくないですか？</p>
+<p>Ken: まさにそこが次の重要な論点です。ゴデッケ氏は、どの条件を緩められるかの判断には、技術と事業の双方の視点が欠かせないと説明しています。たとえばデータの古さで言えば、「この仕組みにすると、最大でどれくらい古いデータが返りうるか」を正確に把握するのは技術的な知見です。一方で、「その古さで利用者が困らないか、ビジネスとして許容できるか」を測るのは事業的な知見です。この2つはまったく別の専門性に属しています。</p>
+<p>Aoi: エンジニアだけでも、プロダクトマネージャー、いわゆるPMだけでも決められないということですね。</p>
+<p>Ken: その通りです。ここで組織の人間関係や構造が設計に直接影響してきます。もしエンジニアとPMが互いの判断を検証しにくく、しかもお互いの間に信頼が薄いとどうなるでしょうか。エンジニアは「後からデータがおかしいと責められたくないから、念のため常に最新にする処理を入れておこう」と考えますし、PMも「技術的なリスクがわからないから、絶対に不整合が起きないようにしてほしい」と求めます。つまり、双方が自分の身を守る安全策をとってしまい、条件を一切譲れなくなるんです。逆に、技術と事業の判断が1人の人間に集約されているような小規模な開発では、この両者の交渉を頭の中で短縮できるため、思い切って条件を緩められるという強みがあります。</p>
+<p>Aoi: 組織の信頼関係や規模が、そのままコードの複雑さに跳ね返ってくるんですね。では、そこにAIが入ってくるとどうなるんでしょうか。</p>
+<p>Ken: ゴデッケ氏自身の経験として語られているのが、AIは人間から指示されていない「一貫性」を守るためのコードを勝手につけ足すことがある、という現象です。たとえば、複数の処理が同時にデータへアクセスして内容が壊れるのを防ぐために、一方の処理を待たせる「ミューテックス」という排他制御の仕組みがあります。AIは、誰も求めていないのにこうしたミューテックスを入れたり、データが正しいかを何度も確かめる再確認処理をつけ足したりすることがあるんです。</p>
+<p>Aoi: なぜAIはそんなことをしてしまうんでしょうか。</p>
+<p>Ken: 人間側がAIに対して「間違えないこと」を繰り返し求めるからです。AIにバグを出さないよう厳しく指示し続けると、AIはあらゆる仮想的な失敗パターンを想定して防衛線を張ろうとします。その結果、本来なら小さな変更で済むはずのものが、大量の例外処理や確認処理へと膨れ上がってしまうのです。</p>
+<p>Aoi: 良かれと思って「正しく書いて」と指示することが、不要な安全策の積み重ねを生んでしまうんですね。そうなると、人間がAIのコードを確認するレビューのやり方も変えないといけなくなりそうです。</p>
+<p>Ken: はい。記事の結論として強調されているのは、コードレビューでは単なるバグや不具合を探すだけでなく、「そもそも不要な保証が紛れ込んでいないか」を探す必要があるということです。そしてAIに指示を出す段階でも、「このキャッシュは一時的に古くてもよい」といった具合に、こちらが許容する妥協点をあらかじめ明示して伝えることが、シンプルな設計を保つ鍵になると述べられています。</p>
+<p>Aoi: 「何をするか」だけでなく「何を保証しなくていいか」を明文化してAIに渡す必要がある、というのがよくわかりました。続いて2本目の記事に移りましょう。</p>
+<p>Ken: 2本目は、ハートウィグ・グラボウスキー氏によるarXivの論文「The Spec Growth Engine」です。初版の公開は2026年6月25日で、今回取り上げる第2版、バージョン2は2026年10月9日に更新されたものです。副題にある通り「仕様と実装のずれを、注意力ではなく検査対象にする」ための設計提案です。</p>
+<p>Aoi: AIを使った開発では「まず仕様書をしっかり書いてからAIにコードを生成させよう」とよく言われますが、それだけではうまくいかないということでしょうか。</p>
+<p>Ken: そこがこの論文の出発点です。グラボウスキー氏は、解決すべき課題を2つ挙げています。1つ目は、AIに正確なコードを書かせようとしてリポジトリ全体、つまりプロジェクトのコード全部を見せることで生じる「文脈の膨張」です。AIに渡す情報が多すぎて処理が重くなったり焦点がぼやけたりする問題ですね。2つ目は、最初に仕様を書いても、その後の開発で実装のコードだけが書き換えられてしまい、テストには通っているのに「仕様と実装の乖離」が進行していく問題です。</p>
+<p>Aoi: テストに通っているなら問題なさそうにも見えますが、なぜ仕様と実装がずれると困るんですか？</p>
+<p>Ken: 次に別のAIが作業するとき、そのAIは「古い約束」である書き換え前の仕様書を参照してしまうからです。仕様書をコード生成物の隣にファイルとして置いておくだけでは、人間の注意力に頼ることになるため、文脈の膨張も仕様と実装のずれも継続的には抑えられません。そこで提案されているのが「Spec Growth Engine」という仕組みです。</p>
+<p>Aoi: そのSpec Growth Engineは、どうやって文脈の膨張と仕様のずれを同時に防ぐんでしょうか。</p>
+<p>Ken: まず、プログラムの部品である各モジュールについて、「外部への契約」と「内部設計」を明確に分離します。外部への契約とは、他のモジュールに対して「こういう入力を受け取ってこういう結果を返す」と約束する外向けの仕様のことです。一方、内部設計はそのモジュールの中だけで完結する仕組みです。この分離をした上で、あるモジュールを担当するAIへ渡す文脈を厳密に制限します。</p>
+<p>Aoi: AIには具体的に何を渡して、何を渡さないんですか？</p>
+<p>Ken: 渡すのは、システム全体の上位の制約、そのファイルやモジュールの所有経路、直接利用する依存先モジュールの「外部への契約」、そして担当モジュール自身の仕様とコードだけです。ここで非常に重要なのは、直接の依存先であっても、その「内部実装」のコードまでは既定では読ませない、という点です。</p>
+<p>Aoi: なるほど！隣のモジュールの中身がどう書かれているかは見せず、外向けの約束事だけを見せるんですね。それならAIに渡す情報量が爆発するのを防げます。でも、AIが作業中に「やっぱりこれだけでは情報が足りなくて実装できない」となったらどうするんでしょう。勝手に他のファイルを探しに行ったりしないんですか？</p>
+<p>Ken: そこも厳格なルールがあります。もし必要な文脈が不足していても、AIがコードの探索範囲を無制限に広げることは許しません。文脈が足りないということは、依存先の「外部への契約」の書き方に抜け漏れがあるということです。ですから、探索範囲を広げるのではなく、「欠けている契約自体を修正する」という手順を踏ませます。</p>
+<p>Aoi: 契約書の方を直してから作業を再開するわけですね。では、もう1つの課題だった「仕様と実装のずれ」はどうやって検査するんでしょうか。</p>
+<p>Ken: 仕様書から導かれるモジュール間の関係と、実際のプログラムコードにあるimport文、つまり他の部品を読み込む記述などから抽出される「実際の関係」を機械的に比較します。そして、この検査をコードの変更を本番に合流させる「マージ」の条件、いわゆるゲートとして組み込みます。</p>
+<p>Aoi: 具体的にどういう状態が見つかったらマージを止めるんですか？</p>
+<p>Ken: 論文で挙げられているのは3つです。1つ目は、どの仕様にも紐づいていない「所有者のないコード」があること。2つ目は、仕様書には書かれていないのにコード側で勝手に他の部品を使っている「未宣言の依存」があること。3つ目は、隣のモジュールの外向けの契約を通さず、裏口から中身を直接覗き見するような「隣接モジュールの内部への直接参照」があることです。これらが検出されたらマージを止め、仕様とコードを必ず「同一の変更」の中で一緒に更新させます。これにより、コードだけが変わって仕様が置き去りになるのを防ぐわけです。</p>
+<p>Aoi: 仕様の更新を忘れたら絶対にマージできない仕組みにしてしまうんですね。ただ、すべてを厳格に止めると開発が遅くなりそうですが、人間の確認と自動処理はどう使い分けるんでしょうか。</p>
+<p>Ken: そこもリスクに応じて分けられています。システム全体の不変条件、つまり絶対に破ってはいけない大原則に関わる変更や、他のモジュールとの約束を壊すような「破壊的な契約変更」については、人間が承認します。一方で、モジュールの内部にとどまる局所的で、問題があればすぐに元に戻しやすい内部変更については、自動化して進める設計になっています。</p>
+<p>Aoi: 外部に影響する契約の変更だけ人間がしっかり見るんですね。この仕組みを実際に使う上での条件や限界についても触れられていますか？</p>
+<p>Ken: はい、2つの条件と限界が明記されています。まず技術的な条件として、プログラムの実行時に初めてどの部品を使うかが決まる「動的な依存注入」や、後から機能を追加する「プラグイン構造」を使っている場合、コードのimport文を見ているだけでは実際の依存関係がわかりません。そのため、こうした構造には人間やツールが追加の注釈をつける必要があります。また、マージを止めるゲートを運用すること自体の負担も生じます。なお、グラボウスキー氏自身が論文内で明確に断っている通り、この論文が提示しているのはあくまでアーキテクチャの設計と実装可能な検査方式の提案であり、実際に組織全体へ導入してどれくらい改善したかという改善率を測った実験結果ではありません。</p>
+<p>Aoi: 実験データではなく、論理的な設計と検査の仕組みを提案した論文ということですね。では3本目の記事に進みましょう。</p>
+<p>Ken: 3本目は、2026年10月19日にLeadDevで公開されたリズ・デ・モル氏の記事「Long live the engineering manager」、つまり「組織図を平らにしても依存関係は残る」という記事です。</p>
+<p>Aoi: AIの普及やツールの進化で、進捗管理などを自動化してマネージャーを減らす、いわゆる「組織のフラット化」という話をよく耳にするようになりました。この記事はそれに対してどういう見方をしているんでしょうか。</p>
+<p>Ken: デ・モル氏の主張は明確です。進捗の集約といった定型業務をどれだけ自動化しても、期待値の調整、優先順位づけ、人材の育成、そして部門間の翻訳といったマネジメントの本質的な業務は消えない、ということです。もし管理職という役職を廃止するなら、それらの仕事が消えるのではなく「誰へ移り、何を圧迫するのか」を見極める必要があると警鐘を鳴らしています。</p>
+<p>Aoi: 管理職をなくしても仕事自体が蒸発するわけではない、と。そう言い切れる根拠として、何か具体的な事例が挙げられているんでしょうか。</p>
+<p>Ken: デ・モル氏自身が育児休暇を取った際の実体験が挙げられています。彼女のチームは非常に自律的で、育休に入る前には十分な引き継ぎも行いました。つまり、マネージャーがいなくても自走できるはずの理想的な条件が整っていたんです。ところが実際に彼女が抜けてみると、徐々に周囲との期待値や業務の整合性が曖昧になっていきました。</p>
+<p>Aoi: 自律的なチームで引き継ぎも万全だったのに、なぜそうなってしまったんでしょう。</p>
+<p>Ken: もちろん、チームが完全に崩壊するような重大なトラブルは起きませんでした。しかし、マネージャーが担っていた調整の空白を埋めるために、現場のエンジニアたちは本来の開発から「調整業務」へと引き戻され、逆に彼女の上司にあたる上位のリーダーたちは、本来見るべき全体戦略から「実行の細部」へと引き戻されてしまったのです。</p>
+<p>Aoi: なるほど。マネージャーを置かないと、結局エンジニアが調整に時間を取られ、上のリーダーが現場の細かい確認に追われて、それぞれの本来の仕事が圧迫されるんですね。</p>
+<p>Ken: ええ。管理業務を複数のメンバーに分散させること自体は可能です。しかし、役職者の人数を減らすだけでは仕事量は減りません。それどころか、AIによってコード生成が速くなればなるほど、作ったものの間に生じる「不整合」を解消するための時間的猶予はむしろ短くなります。つまり、調整の重要性は減るどころか増しているんです。さらにデ・モル氏は、AI時代だからこそ継続的な「育成」と「翻訳」が必要になる理由を詳しく説明しています。</p>
+<p>Aoi: AIがコードを書いてくれるようになると、育成の手間は減るようにも思えますが、何が課題になるんでしょうか。</p>
+<p>Ken: ベテランの熟練者と若手の双方に、これまでとは違う難しさが生まれるからです。まず熟練したエンジニアには、「自分で手を動かしてコードを書くこと」に価値を見出す段階から、「AIが生成したものを含めた成果物全体に責任を持つこと」へと、意識の転換が求められます。一方、経験の浅い若手には、AIを使って気軽にいろいろ試してみる「実験」と、そのコードが本当に安全で妥当かを見極める「責任ある判断」との間でバランスを取ることが求められます。どちらも一朝一夕にできることではなく、マネージャーによる継続的な育成が必要な課題です。</p>
+<p>Aoi: 確かに、AIを使うからこそ求められる判断力の育て方は新しい課題ですね。もう1つの「翻訳」というのはどういうことですか？</p>
+<p>Ken: 経営陣の意図を現場の具体的な行動基準に噛み砕く作業のことです。たとえば経営陣が「AIで開発を加速するぞ」と号令をかけたとします。これをそのまま現場に下ろすと、エンジニアたちは「とにかくAIツールを使えという単なる押し付けだ」と受け取りかねません。そこでマネージャーが間に入り、「この機能は試行錯誤を許す領域だからAIでどんどん実験していい」「こちらの基盤システムは信頼性を最優先する領域だから、これまで通り厳密な検証を通す」といった具合に、経営の言葉を現場の文脈に合わせて具体化する「翻訳」が不可欠になるのです。</p>
+<p>Aoi: どこでアクセルを踏んで、どこでブレーキを意識するかを具体的に翻訳するわけですね。</p>
+<p>Ken: そして最後に、チーム間の「依存関係」の問題があります。記事では、互いに依存関係にある5つのチームが動くケースが示されています。もし5つのチームが、マネージャーによる横の連携なしに、それぞれのチーム内で「自分たちにとって最も合理的だ」と思う形で全社戦略を解釈して動いたらどうなるでしょうか。</p>
+<p>Aoi: それぞれのチームは正しいと思って動いているわけですよね。それでも問題が起きるんですか？</p>
+<p>Ken: はい。各自が合理的に動いていても、チーム間で技術やルールの「標準のずれ」が生じたり、同じような機能を別々に作ってしまう「重複」が起きたり、あるいは「実はあのチームのシステム変更が自分たちに影響する」という「依存関係の発見遅れ」が必ず生じます。デ・モル氏は、将来的に役職の名前が変わったり管理職の人数が変わったりすることはあっても、こうした組織と組織の間をつなぐ「接続」を担う仕事そのものは決してなくならず、残り続けると結論づけています。</p>
+<p>Aoi: 1本目の記事でもエンジニアとPMの間の調整の話がありましたが、組織の中でもチーム間や階層間の翻訳・接続はAIでコードが速くなるほど重要になる、ということですね。では最後の4本目の記事をお願いします。</p>
+<p>Ken: 4本目は、2026年10月19日にCloudflareのブログで公開されたライアン・スキッドモア氏の記事「Cutting our inference bill by 68% by being obsessive about optimization」です。副題の通り「費用削減とレビュー品質を別々に測る」取り組みを詳しく報告しています。</p>
+<p>Aoi: AIの推論費用、つまりAIを動かすコストを68%削減したという非常に具体的な数字が出ていますね。これは何にAIを使っていたケースなんですか？</p>
+<p>Ken: 人間が書いたコードの変更案に対してAIが自動でチェックを行う「AIコードレビュー」です。CloudflareはこのAIレビューの1回あたりの平均費用を、2.43ドルから0.77ドルへと68%削減しました。ただ、この記事が優れているのは「安くしました」で終わらず、コストを削った結果、レビューの質が落ちて重要な問題を見逃すようになっていないかを、まったく別の指標で厳密に検証している点です。</p>
+<p>Aoi: まずはどうやって2.43ドルから0.77ドルまで費用を下げたのか、その仕組みから教えてください。AIモデルの単価が安いものに切り替えたんでしょうか。</p>
+<p>Ken: いえ、記事が指摘しているのは、AIレビューの費用を膨らませているのはモデルの単価だけではなく、「毎回AIに送信する文脈の量」と「AIを呼び出す回数」だという点です。Cloudflareではもともと、一度送った指示文を再利用して計算代を浮かせる「プロンプトキャッシュ」という仕組みを使っており、そのキャッシュ命中率は97%に達していました。</p>
+<p>Aoi: 97%もキャッシュが効いているなら、もう無駄はなさそうに思えますが、なぜ費用が膨らんでいたんですか？</p>
+<p>Ken: まず単純に、やり取りで扱うトークン、つまり文字データの総数が増えれば、いくら割引が効いても支払額は増えます。さらに調査してみると、キャッシュの仕組みに落とし穴がありました。複数のリポジトリで共通して使う「共有プロンプト」の一番最後に、その時々の「作業ディレクトリ名」や「日付」といった毎回変わる文字が入っており、その直後にしかキャッシュの区切り、つまりキャッシュ境界が設定されていなかったのです。</p>
+<p>Aoi: あっ、せっかく前半が共通の文章なのに、最後の1行に日付や場所の名前が入っているせいで、システムからは「毎回違う文章だ」と判定されて、別のリポジトリで再利用できなくなっていたんですね！</p>
+<p>Ken: その通りです。そこで彼らは、毎回変わらない固定部分を独立させて確実にキャッシュが効くように切り分けました。さらに、無駄なデータ送信や呼び出しを徹底的に削りました。具体的には、その場面では利用不能なツールの定義データを送るのをやめ、コードに実質的な変更がない場合の再レビューを止め、AIがレビューコメントを投稿した後に惰性で続いていた不要なやり取りのターンを削減しました。また、エラー対策も見直しています。処理が時間切れになったケースと、AIプロバイダー側のシステム障害が起きたケースを明確に区別し、時間切れになった重い処理に対して、まったく同じ時間制限のまま無意味なやり直し、つまりリトライを繰り返すのも減らしました。</p>
+<p>Aoi: キャッシュの境界直しから、不要なツール定義の削除、無駄な再実行の停止まで、本当に細かい通信の無駄を一つずつ潰していったんですね。それで費用が68%下がった後、レビューの品質にはどんな変化が起きたんでしょうか。</p>
+<p>Ken: 最適化を行った後、AIが「重大である」と判定して出す指摘の数が減少したのです。ここでスキッドモア氏たちは立ち止まりました。重大な指摘が減ったのは、これまで出ていた的外れな「雑音」が減ってスッキリしたからなのか、それともコスト削減のせいで本当に危険なバグの「見逃し」が増えたからなのか。指摘件数の増減だけでは、この2つを区別できません。</p>
+<p>Aoi: 確かに！指摘が減ったからといって「品質が落ちた」とも「精度が上がった」ともすぐには言えないですね。どうやってそれを見分けたんですか？</p>
+<p>Ken: 2つの方法を組み合わせました。1つ目は、人間の実際の行動を基準にする方法です。AIが指摘した箇所が、開発者による次のコード更新、つまり「次のpush」で実際に書き換えられた割合を測りました。本当に役立つ指摘なら、人間がそれを見てコードを直すはずだからです。2つ目は、AIによる客観的なブラインド評価です。最適化の前後の期間であることを伏せた状態で、合計657件の指摘事項を集め、別のモデルにその指摘の妥当性を評価させました。</p>
+<p>Aoi: 人間が実際に直したかという行動の事実と、いつのものか伏せた657件のモデル評価の2本立てでチェックしたんですね。その結果、何がわかったんでしょうか。</p>
+<p>Ken: AIがどれくらい深く考えてから答えるかという「推論量」の設定によって、レビューの役割ごとに結果が分かれました。まず「コード品質レビュー」という役割では、推論量を中程度のmediumにするよりも、高い設定である「high」にした方が、開発者の実際の修正につながる有益な指摘を多く得られることがわかりました。そのため、コード品質レビューでは費用が多少かかっても推論量highを採用することに決めました。</p>
+<p>Aoi: ただ安ければいいというわけではなく、実際にコードが直される効果を見てhighを選んだんですね。他の役割ではどうだったんですか？</p>
+<p>Ken: 処理速度などの問題をチェックする「性能レビュー」という役割では、推論量をmediumに下げたところ、重要な指摘が減ってしまうという結果が出ました。そのため、性能レビューについては推論量highでの検証を課題として残しています。つまりこの記事の結論は、「指摘数が減ったから品質が悪化した」とか「費用が減ったから大成功だ」と短絡的に決めつけるのではなく、またすべてのレビューの役割を同じ設定に揃えるのでもなく、役割ごとに費用と成果の関係を別々に測り直すアプローチが必要だ、ということになります。</p>
+<p>Aoi: 4本の記事をすべて見てきました。ここで全体のつながりを振り返ってみたいと思います。今回の4本は、AIがコードを書くスピードを上げれば上げるほど、その前後にある「人間の判断や仕組みの境界」が浮き彫りになるという点で深くつながっていますね。</p>
+<p>Ken: はい。4本を並べてみると、ソフトウェア開発の入口から出口までの流れとして整理できます。まず入口の「要件」の段階では、1本目のゴデッケ氏の記事が示したように、AIに「間違えるな」とだけ言うと過剰な防衛コードが積み上がるため、人間側が技術と事業の視点をつないで「どこまで古さや遅さを許すか」という守らなくてよい条件を定義する必要がありました。</p>
+<p>Aoi: そして要件が決まって「仕様と実装」の段階に入ると、2本目のグラボウスキー氏の論文につながりますね。</p>
+<p>Ken: そうです。AIにリポジトリ全体を見せると文脈が膨張し、コードだけを直すと仕様書が古い約束になってしまう。だからこそ、モジュールの外向けの契約と内部設計を切り分け、AIに渡す文脈を制限しつつ、仕様とコードの実際の依存関係がずれていたらマージを止めるという機械的な検査の境界が必要になります。</p>
+<p>Aoi: さらに、そうやって作られるソフトウェアを複数のチームで動かしていく「組織と調整」の段階が、3本目のデ・モル氏の記事でした。</p>
+<p>Ken: ええ。AIで実装が速くなるほど、チーム間の不整合を直す時間的猶予は短くなります。マネージャーを減らしても、期待値の調整や経営意図の翻訳、若手と熟練者それぞれの育成、そして複数チーム間の接続という仕事自体は消えず、誰かが担わなければエンジニアや上位リーダーの本来の仕事を圧迫してしまいます。</p>
+<p>Aoi: そして最後の「検証と運用コスト」の段階が、4本目のCloudflareの事例ですね。</p>
+<p>Ken: はい。AIにレビューを任せる際も、共有プロンプトの末尾にある日付や作業ディレクトリのせいでキャッシュが効かなくなるような構造上の無駄を省きつつ、コストを下げた結果として本当に価値のある指摘が残っているかを、次のpushでの修正率や期間を伏せた評価によって、役割ごとに検証し直す必要がありました。AIが実装を速める時代だからこそ、要件の妥協点、仕様とコードの一致、組織間の翻訳と調整、そして費用対効果の検証という4つの境界を、人間がより自覚的に設計しなければならないと言えます。</p>
+<p>Aoi: それぞれの現場で何が起き、どういう仕組みで対処しようとしているのかがよくわかりました。それでは、本日の解説はここまでです。みなさん、ありがとうございました。</p>
+<p>Ken: ありがとうございました。</p>
+<p class="markdown-audio-cost">原稿 gemini-4-argon-contributor: 3,353 + 5,700 = 9,053 トークン / $0.1274（OpenCode Go 利用枠消費の概算（追加請求額ではありません））・再利用（再課金なし） / 音声 gemini-3.8-flash-lite-tts（Flex）: 入力 5,749 / 音声 42,176 トークン / $0.1280（list price 概算） / 合計 $0.2554</p></details>
+<h1 id="aiが実装を速めるほど問われる要件仕様調整検証の境界">AIが実装を速めるほど問われる、要件・仕様・調整・検証の境界</h1>
+<p><img src="assets/aa77680ecd063bac989e.png" alt="不要な保証、仕様と実装の境界、管理職の調整、レビュー費用と品質を6パネルで示した手描き図解。" /></p>
+<p>対象期間：2026年9月20日〜10月20日／記事数：4本</p>
+<h2 id="ピックアップ">ピックアップ</h2>
+<h3 id="1-what-requirements-dont-you-have-守らなくてよい条件も設計の一部-s1">1. What requirements don't you have? — 守らなくてよい条件も設計の一部 <a href="https://www.seangoedecke.com/what-requirements-dont-you-have/" target="_blank" rel="noopener noreferrer">S1</a></h3>
+<p>公開日：2026-10-19／原文言語：英語／著者・媒体：Sean Goedecke</p>
+<p><strong>概要</strong></p>
+<p>ソフトウェアの構造を決めるのは、満たすべき要件だけでなく、遅さやデータの古さをどこまで許容できるかという「守らなくてよい条件」である。AIが仮想的な要件を勝手に補い続けると、正しさを守るための処理が過剰な複雑さを招いてしまう。</p>
+<p><strong>要約</strong></p>
+<ul>
+<li>S3は複数オブジェクトの原子的更新を要求しないことで、ストレージをまたぐ調整を減らしている。StatsDのUDP利用やエッジキャッシュも、配送保証や常時最新という条件を緩めることで軽さや速さを得ている。</li>
+<li>どの条件を緩められるかの判断には、技術と事業双方の視点が欠かせない。どれほど古いデータが返りうるかを把握する技術的知見と、その古さを利用者が許容できるかを測る事業的知見は、別の専門性に属する。</li>
+<li>エンジニアとPMが互いの判断を検証しにくく信頼が薄いと、双方が安全策をとって条件を譲れなくなる。一方、技術と事業の判断が一人に集約される小規模開発には、この交渉を短縮できる強みがある。</li>
+<li>Goedeckeの経験では、AIは指示されていない一貫性を守るためにmutexや再確認処理をつけ足すことがある。「間違えないこと」を繰り返し求めると、小さな変更が大量の例外処理へと膨れ上がる。</li>
+<li>レビューでは不具合だけでなく、そもそも不要な保証が紛れ込んでいないかを探す必要がある。キャッシュが一時的に古くてもよいと明示するなど、許容する妥協点を伝えることが設計を保つ鍵となる。</li>
+</ul>
+<h3 id="2-the-spec-growth-engine-仕様と実装のずれを注意力ではなく検査対象にする-s4">2. The Spec Growth Engine — 仕様と実装のずれを、注意力ではなく検査対象にする <a href="https://arxiv.org/abs/2606.27045v2" target="_blank" rel="noopener noreferrer">S4</a></h3>
+<p>初版公開：2026-06-25／対象版更新：2026-10-09 16:19:41 UTC（v2）／原文言語：英語／著者・媒体：Hartwig Grabowski / arXiv</p>
+<p><strong>概要</strong></p>
+<p>仕様を先に書いても、実装のコードだけが書き換えられれば、次のAIは古い約束（仕様）を参照してしまう。Spec Growth Engineは、モジュールの外部契約と内部設計を分離し、AIへ渡す文脈とマージ条件にその境界を組み込む設計提案である。</p>
+<p><strong>要約</strong></p>
+<ul>
+<li>解決すべき課題は、リポジトリ全体を見せることによる文脈の膨張と、テストに通っていても進行する仕様と実装の乖離である。仕様書を生成物の隣に置くだけでは、どちらも継続的には抑えられない。</li>
+<li>外部への契約と内部設計を分け、担当モジュールへは上位の制約、所有経路、直接の依存先の契約、および自身の仕様とコードだけを渡す。依存先の内部実装まで読ませることは既定にしない。</li>
+<li>仕様から導かれる関係と、コードのimportなどから抽出される実際の関係を比較する。所有者のないコード、未宣言の依存、隣接モジュールの内部への直接参照などがあればマージを止め、仕様とコードを同一の変更で更新させる。</li>
+<li>全体の不変条件や破壊的な契約変更は人間が承認し、局所的で戻しやすい内部変更は自動化する。必要な文脈が不足していても探索範囲を無制限には広げず、欠けている契約自体を修正する。</li>
+<li>動的な依存注入やプラグイン構造には追加の注釈が必要となり、ゲート運用の負担も生じる。なお、本稿が提示するのは設計と実装可能な検査方式であり、組織全体の改善率を測った実験結果ではない。</li>
+</ul>
+<h3 id="3-long-live-the-engineering-manager-組織図を平らにしても依存関係は残る-s2">3. Long live the engineering manager — 組織図を平らにしても依存関係は残る <a href="https://leaddev.com/management/long-live-the-engineering-manager" target="_blank" rel="noopener noreferrer">S2</a></h3>
+<p>公開日：2026-10-19／原文言語：英語／著者・媒体：Liz de Moll / LeadDev</p>
+<p><strong>概要</strong></p>
+<p>進捗の集約を自動化しても、期待値の調整、優先順位づけ、育成、部門間の翻訳といった業務は消えない。管理職を廃止する際には、それらの仕事が誰へ移り、何を圧迫するのかを見極める必要がある。</p>
+<p><strong>要約</strong></p>
+<ul>
+<li>de Mollは自身の育児休暇中、十分に引き継ぎを行った自律的なチームであっても、期待値や整合性が曖昧になった経験を挙げる。重大な崩壊こそ起きなかったものの、エンジニアは調整業務へ、上位のリーダーは実行の細部へと引き戻された。</li>
+<li>管理業務を分散させること自体は可能だが、役職者を減らすだけでは仕事量は減らない。むしろコード生成が速くなるほど、不整合を解消するための時間的猶予は短くなる。</li>
+<li>熟練者には「自分で書く」から「AIを含む成果物に責任を持つ」への意識転換が求められ、若手には実験と責任ある判断の均衡が求められる。いずれも継続的な育成を要する課題である。</li>
+<li>経営陣の「AIで加速する」という意図は、現場では単なるツールの押し付けとして受け取られかねない。試行錯誤を許す領域と信頼性を優先する領域を具体化する「翻訳」が不可欠となる。</li>
+<li>依存関係にある五つのチームが各自で合理的に戦略を解釈しても、標準のずれや重複、依存関係の発見遅れが生じる。役職名や管理職の人数は変わっても、こうした組織間の接続を担う仕事は残り続ける。</li>
+</ul>
+<h3 id="4-cutting-our-inference-bill-by-68-費用削減とレビュー品質を別々に測る-s3">4. Cutting our inference bill by 68% — 費用削減とレビュー品質を別々に測る <a href="https://blog.cloudflare.com/obsessive-inference-optimization/" target="_blank" rel="noopener noreferrer">S3</a></h3>
+<p>公開日：2026-10-19／原文言語：英語／著者・媒体：Ryan Skidmore / Cloudflare</p>
+<p><strong>概要</strong></p>
+<p>AIレビューの費用は、モデル単価だけでなく、毎回送信する文脈の量と呼び出し回数によって膨らむ。Cloudflareは平均費用を2.43ドルから0.77ドルへ削減したが、節約後も重要な問題を発見できているかを別途検証し、レビューの役割に応じて推論量を変えた。</p>
+<p><strong>要約</strong></p>
+<ul>
+<li>キャッシュ命中率が97%に達していても、扱うトークン総数が増えれば支払額は増える。共有プロンプトの末尾に作業ディレクトリや日付が入り、その直後にしかキャッシュ境界がないと、別リポジトリで共有部分を再利用できなかった。</li>
+<li>そこで固定部分を独立してキャッシュし、利用不能なツール定義、変更のない再レビュー、コメント投稿後の不要なターンを削減した。また、時間切れとプロバイダー障害を区別し、同じ時間制限での無意味なやり直しも減らした。</li>
+<li>最適化後、重大と判定される指摘が減少した。これが「雑音の削減」か「見逃しの増加」かを区別するため、指摘箇所が次のpushで実際に変更された割合と、期間を伏せた657件の指摘に対するモデル評価を組み合わせて検証した。</li>
+<li>コード品質レビューでは、推論量highの方が実際の修正につながる指摘を多く得られたため、highを採用した。単に指摘数が減ったから品質悪化、費用が減ったから成功とは決めつけていない。</li>
+<li>性能レビューはmediumで重要な指摘が減り、highでの検証を残す。すべての役割を同一設定に揃えるのではなく、役割ごとに費用と成果の関係を測り直すアプローチが結論となっている。</li>
+</ul>
+<h2 id="参考文献">参考文献</h2>
+<p><a href="https://www.seangoedecke.com/what-requirements-dont-you-have/" target="_blank" rel="noopener noreferrer">S1</a> Sean Goedecke. “What requirements don't you have?” 2026-10-19.</p>
+<p><a href="https://leaddev.com/management/long-live-the-engineering-manager" target="_blank" rel="noopener noreferrer">S2</a> Liz de Moll. “Long live the engineering manager.” LeadDev, 2026-10-19.</p>
+<p><a href="https://blog.cloudflare.com/obsessive-inference-optimization/" target="_blank" rel="noopener noreferrer">S3</a> Ryan Skidmore. “Cutting our inference bill by 68% by being obsessive about optimization.” Cloudflare, 2026-10-19.</p>
+<p><a href="https://arxiv.org/abs/2606.27045v2" target="_blank" rel="noopener noreferrer">S4</a> Hartwig Grabowski. “The Spec Growth Engine: Spec-Anchored, Code-Coupled, Drift-Enforced Architecture for AI-Assisted Software Development.” arXiv:2606.27045v2, 2026-10-09. PDF表紙の日付は10月12日、公開版の更新日時はarXiv履歴に従った。</p>
+<hr />
+<h2 id="作成情報">作成情報</h2>
+<p>本文下書き：dot。Mac日本語推敲の実施結果と使用量は工程別の記録を参照。本文生成のモデル・レポート別トークン・費用は、権威ある計測ソースを取得できず不明。後処理の使用量とは区別する。</p>
+
+<div class="markdown-table-scroll"><table>
+<thead>
+<tr>
+<th>工程</th>
+<th>モデル</th>
+<th>トークン</th>
+<th>コスト</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本文生成</td>
+<td>未取得</td>
+<td>未取得</td>
+<td>算出不可・計測不能: Dots cloud authoring has no authoritative report-scoped model, input, output, cache-token or billing measurement source; publishing-session usage is excluded.</td>
+</tr>
+<tr>
+<td>推敲</td>
+<td>gemini-4-argon-contributor</td>
+<td>入力 2,264 + 出力 2,394 = 4,658</td>
+<td>$0.0569（OpenCode Go 利用枠消費の概算（追加請求額ではありません））</td>
+</tr>
+<tr>
+<td>音声解説</td>
+<td>gemini-4-argon-contributor＋gemini-3.8-flash-lite-tts</td>
+<td>原稿 9,053 + 音声 47,925 = 56,978</td>
+<td>$0.2554（原稿 OpenCode Go 利用枠消費の概算（追加請求額ではありません）・音声 Flex list price 概算）・再利用（再課金なし） API価格換算。実請求額・月額契約料とは別。本文・画像・対応マッピングは別工程。</td>
+</tr>
+<tr>
+<td>画像生成</td>
+<td>未取得</td>
+<td>未取得</td>
+<td>算出不可・実モデル・品質・画像usage未取得。画像寸法から単価を推測しない。</td>
+</tr>
+<tr>
+<td><strong>算出済み部分合計</strong></td>
+<td></td>
+<td>61,636</td>
+<td><strong>約 $0.3123（算出可能な分の合計）</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+          </article>
+        </div>
+    </section>
+  </main>
+  <div class="markdown-copy-toast" id="markdown-copy-toast" role="status" aria-live="polite" hidden></div>
+  <script>
+
+    const fontScaleKey = "explainer-markdown-font-scale";
+    const fontScaleSteps = [0.25, 0.325, 0.4, 0.475, 0.5, 0.575, 0.65, 0.725, 0.8, 0.85, 0.925, 1.0, 1.075, 1.15, 1.225, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0];
+    const fontScaleDefaultIndex = 11;
+    const textSizeDecrease = document.querySelector('#text-size-decrease');
+    const textSizeIncrease = document.querySelector('#text-size-increase');
+    const textSizeLabel = document.querySelector('#text-size-label');
+    let fontScaleIndex = fontScaleDefaultIndex;
+
+    function applyFontScale(index) {
+      fontScaleIndex = Math.max(0, Math.min(fontScaleSteps.length - 1, index));
+      const scale = fontScaleSteps[fontScaleIndex];
+      document.documentElement.style.setProperty('--markdown-font-scale', String(scale));
+      if (textSizeLabel) {
+        textSizeLabel.textContent = `${Math.round(scale * 100)}%`;
+      }
+      if (textSizeDecrease) {
+        textSizeDecrease.disabled = fontScaleIndex === 0;
+      }
+      if (textSizeIncrease) {
+        textSizeIncrease.disabled = fontScaleIndex === fontScaleSteps.length - 1;
+      }
+      localStorage.setItem(fontScaleKey, String(fontScaleIndex));
+    }
+
+    if (textSizeDecrease && textSizeIncrease) {
+      textSizeDecrease.addEventListener('click', () => applyFontScale(fontScaleIndex - 1));
+      textSizeIncrease.addEventListener('click', () => applyFontScale(fontScaleIndex + 1));
+    }
+    
+
+    const markdownCopyToast = document.querySelector('#markdown-copy-toast');
+    let markdownCopyToastTimer = null;
+
+    function showMarkdownCopyToast(message, state = 'success') {
+      if (!markdownCopyToast) return;
+      markdownCopyToast.textContent = message;
+      markdownCopyToast.dataset.state = state;
+      markdownCopyToast.hidden = false;
+      if (markdownCopyToastTimer) {
+        clearTimeout(markdownCopyToastTimer);
+      }
+      markdownCopyToastTimer = window.setTimeout(() => {
+        markdownCopyToast.hidden = true;
+        markdownCopyToast.textContent = '';
+        markdownCopyToast.dataset.state = '';
+        markdownCopyToastTimer = null;
+      }, 2200);
+    }
+
+    async function copyMarkdownText(value) {
+      const text = typeof value === 'string' ? value : '';
+      if (!text.trim()) throw new Error('コピーできるテキストがありません');
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      if (!ok) throw new Error('copy failed');
+    }
+
+    document.querySelectorAll('button[data-markdown-document-copy]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const label = button.dataset.markdownDocumentCopy === 'path' ? 'パス' : 'タイトル';
+        void copyMarkdownText(button.dataset.copyValue || button.textContent || '')
+          .then(() => showMarkdownCopyToast(`${label}をコピーしました`))
+          .catch(() => showMarkdownCopyToast(`${label}のコピーに失敗しました`, 'error'));
+      });
+    });
+    
+
+    const markdownHighlightSkip = new Set([
+      'mermaid', 'audio', 'diff', 'patch', 'svg', 'plot', 'sandbox-html', 'embed',
+    ]);
+
+    function highlightMarkdownCode() {
+      const hljs = window.hljs;
+      if (!hljs) return;
+      const blocks = document.querySelectorAll('#markdown-body pre code[class*="language-"]');
+      for (const block of blocks) {
+        if (block.closest('.markdown-diff, .mermaid-shell, .markdown-audio, .mdx-svg, .mdx-plot')) {
+          continue;
+        }
+        const languageClass = [...block.classList].find((name) => name.startsWith('language-'));
+        const language = languageClass ? languageClass.slice('language-'.length).toLowerCase() : '';
+        if (markdownHighlightSkip.has(language)) continue;
+        hljs.highlightElement(block);
+      }
+    }
+
+
+    // スマホでは表をカード表示にする（CSS @media max-width:640px）。そのとき各セルの
+    // 先頭に見出しをラベルとして出すため、ヘッダー行の文字を data-label として配る。
+    function labelMarkdownTables() {
+      const tables = document.querySelectorAll('#markdown-body table');
+      for (const table of tables) {
+        const headers = [...table.querySelectorAll('thead th')].map((cell) =>
+          (cell.textContent || '').trim(),
+        );
+        if (headers.length < 2) continue;
+        for (const row of table.querySelectorAll('tbody tr')) {
+          [...row.children].forEach((cell, index) => {
+            const label = headers[index] || '';
+            if (label) cell.setAttribute('data-label', label);
+          });
+        }
+      }
+    }
+
+
+    const markdownAudioRates = [1, 1.25, 1.5, 1.75, 2];
+    let markdownAudioRateIndex = 0;
+
+    function formatMarkdownAudioTime(seconds) {
+      const total = Math.max(0, Math.floor(Number(seconds) || 0));
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const rest = total % 60;
+      const pad = (value) => String(value).padStart(2, '0');
+      return hours ? `${hours}:${pad(minutes)}:${pad(rest)}` : `${minutes}:${pad(rest)}`;
+    }
+
+    // 再生速度は図ごとのプレイヤーで共通。1 → 1.25 → 1.5 → 1.75 → 2 → 1 と巡回する。
+    function applyMarkdownAudioRate() {
+      const rate = markdownAudioRates[markdownAudioRateIndex];
+      for (const audio of document.querySelectorAll('audio.markdown-audio-player')) {
+        // load() で戻らないよう defaultPlaybackRate も揃える
+        audio.defaultPlaybackRate = rate;
+        audio.playbackRate = rate;
+      }
+      for (const button of document.querySelectorAll('button.markdown-audio-rate')) {
+        button.dataset.rate = String(rate);
+        button.setAttribute('aria-label', `再生速度 ${rate}倍`);
+        button.title = `再生速度 ${rate}倍（押すと切り替え）`;
+        const value = button.querySelector('.markdown-audio-rate-value');
+        if (value) value.textContent = `${rate}×`;
+      }
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('button.markdown-audio-rate')) return;
+      event.preventDefault();
+      markdownAudioRateIndex = (markdownAudioRateIndex + 1) % markdownAudioRates.length;
+      applyMarkdownAudioRate();
+    });
+
+    function bindMarkdownAudio(root) {
+      const player = root.querySelector('audio.markdown-audio-player');
+      if (!player) return;
+      const buttons = Array.from(
+        root.querySelectorAll('button.markdown-audio-track[data-audio-src]')
+      );
+      const playButton = root.querySelector('button.markdown-audio-play');
+      const skipButtons = Array.from(root.querySelectorAll('button.markdown-audio-skip[data-skip]'));
+      const seek = root.querySelector('input.markdown-audio-seek');
+      const elapsed = root.querySelector('.markdown-audio-elapsed');
+      const total = root.querySelector('.markdown-audio-total');
+      let index = 0;
+
+      function setPlayState(playing) {
+        if (!playButton) return;
+        playButton.dataset.playing = playing ? 'true' : 'false';
+        playButton.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        const label = playing ? '一時停止' : '再生';
+        playButton.setAttribute('aria-label', label);
+        playButton.title = label;
+      }
+
+      function updateProgress() {
+        const duration = Number.isFinite(player.duration) && player.duration > 0 ? player.duration : 0;
+        if (elapsed) elapsed.textContent = formatMarkdownAudioTime(player.currentTime);
+        if (total && duration > 0) total.textContent = formatMarkdownAudioTime(duration);
+        if (!seek) return;
+        if (duration > 0) {
+          seek.max = String(Math.round(duration));
+          seek.disabled = false;
+        }
+        if (!seek.disabled) seek.value = String(Math.round(player.currentTime));
+      }
+
+      function startPlayback() {
+        const playResult = player.play();
+        if (playResult && typeof playResult.catch === 'function') playResult.catch(() => {});
+      }
+
+      function setCurrent(nextIndex, shouldPlay) {
+        if (nextIndex < 0 || nextIndex >= buttons.length) return;
+        index = nextIndex;
+        const src = buttons[index].getAttribute('data-audio-src') || '';
+        if (!src) return;
+        buttons.forEach((button, i) => {
+          if (i === index) button.setAttribute('aria-current', 'true');
+          else button.removeAttribute('aria-current');
+        });
+        if (player.getAttribute('src') !== src) {
+          player.setAttribute('src', src);
+          player.load();
+        }
+        if (shouldPlay) startPlayback();
+        updateProgress();
+      }
+
+      if (playButton) {
+        playButton.addEventListener('click', () => {
+          if (player.paused) startPlayback();
+          else player.pause();
+        });
+      }
+      skipButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const delta = Number(button.dataset.skip) || 0;
+          const duration = Number.isFinite(player.duration) && player.duration > 0 ? player.duration : 0;
+          const next = Math.max(0, player.currentTime + delta);
+          try {
+            player.currentTime = duration > 0 ? Math.min(duration, next) : next;
+          } catch (error) {
+            /* メタデータ未読込の間はシークできない */
+          }
+          updateProgress();
+        });
+      });
+      if (seek) {
+        seek.addEventListener('input', () => {
+          const value = Number(seek.value);
+          if (Number.isFinite(value)) player.currentTime = value;
+        });
+      }
+      player.addEventListener('play', () => setPlayState(true));
+      player.addEventListener('pause', () => setPlayState(false));
+      for (const name of ['loadedmetadata', 'durationchange', 'timeupdate', 'seeked', 'emptied']) {
+        player.addEventListener(name, updateProgress);
+      }
+
+      buttons.forEach((button, i) => {
+        button.addEventListener('click', () => setCurrent(i, true));
+      });
+      player.addEventListener('ended', () => {
+        setPlayState(false);
+        if (index + 1 < buttons.length) setCurrent(index + 1, true);
+      });
+      if (buttons.length) setCurrent(0, false);
+      applyMarkdownAudioRate();
+      updateProgress();
+    }
+
+    function bindMarkdownAudioPlayers() {
+      document.querySelectorAll('figure[data-markdown-audio]').forEach(bindMarkdownAudio);
+    }
+
+
+    async function renderMarkdownMath() {
+      const root = document.querySelector('#markdown-body');
+      const mathJax = window.MathJax;
+      const mathNodes = root
+        ? Array.from(root.querySelectorAll('.math[data-math-format="tex"]'))
+        : [];
+      if (!root || !mathNodes.length || !mathJax?.typesetPromise) return;
+
+      for (const node of mathNodes) {
+        if (node.dataset.mathPrepared === 'true') continue;
+        const tex = node.textContent || '';
+        node.textContent = node.classList.contains('block')
+          ? `\\[${tex}\\]`
+          : `\\(${tex}\\)`;
+        node.dataset.mathPrepared = 'true';
+      }
+
+      try {
+        await mathJax.typesetPromise([root]);
+      } catch (error) {
+        root.dataset.mathError = error instanceof Error ? error.message : String(error);
+      }
+    }
+
+    function enhanceHybridTabs() {
+      for (const group of document.querySelectorAll('[data-component="tabs"]')) {
+        const list = group.querySelector('[role="tablist"]');
+        const panels = Array.from(group.querySelectorAll('[data-component="tab"]'));
+        const tabsId = group.dataset.tabsId;
+        if (!list || !tabsId || panels.length < 2) continue;
+        const buttons = [];
+        const activate = (index) => {
+          buttons.forEach((button, buttonIndex) => {
+            const selected = buttonIndex === index;
+            button.setAttribute('aria-selected', String(selected));
+            button.tabIndex = selected ? 0 : -1;
+          });
+          panels.forEach((panel, panelIndex) => { panel.hidden = panelIndex !== index; });
+        };
+        panels.forEach((panel, index) => {
+          const tabId = panel.dataset.tabId;
+          const label = panel.dataset.tabLabel;
+          if (!tabId || !label) return;
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'mdx-tab-button';
+          button.id = `tab-${tabsId}-${tabId}`;
+          button.setAttribute('role', 'tab');
+          button.setAttribute('aria-controls', `panel-${tabsId}-${tabId}`);
+          button.textContent = label;
+          panel.id = `panel-${tabsId}-${tabId}`;
+          panel.setAttribute('role', 'tabpanel');
+          panel.setAttribute('aria-labelledby', button.id);
+          button.addEventListener('click', () => activate(index));
+          button.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter', ' '].includes(event.key)) return;
+            event.preventDefault();
+            if (event.key === 'Enter' || event.key === ' ') { activate(index); return; }
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+            buttons[next]?.focus();
+          });
+          buttons.push(button);
+          list.append(button);
+        });
+        if (buttons.length === panels.length) activate(0);
+      }
+    }
+
+    function enhanceHybridToc() {
+      for (const toc of document.querySelectorAll('[data-component="toc"]')) {
+        const host = toc.querySelector('[data-toc="list"]');
+        if (!host) continue;
+        const minLevel = Number(toc.dataset.tocMinLevel || '2');
+        const maxLevel = Number(toc.dataset.tocMaxLevel || '4');
+        const listTag = toc.dataset.tocOrdered === 'true' ? 'ol' : 'ul';
+        const headings = Array.from(document.querySelectorAll('#markdown-body h1, #markdown-body h2, #markdown-body h3, #markdown-body h4, #markdown-body h5, #markdown-body h6')).filter((heading) => {
+          const level = Number(heading.tagName.slice(1));
+          return level >= minLevel && level <= maxLevel && !toc.contains(heading) && heading.dataset.rendererHeading !== 'true' && heading.id;
+        });
+        // 見出しの階層を入れ子リストで表す。各項目は「直前にある、自分より浅い見出し」の子にし、
+        // レベルが飛んでいても同じ規則で深い方へぶら下げる（平坦な一列には戻さない）。
+        const root = { level: 0, item: null, sublist: document.createElement(listTag) };
+        const stack = [root];
+        headings.forEach((heading) => {
+          if (!heading.id) return;
+          const level = Number(heading.tagName.slice(1));
+          while (stack.length > 1 && level <= stack[stack.length - 1].level) stack.pop();
+          const parent = stack[stack.length - 1];
+          if (!parent.sublist) {
+            parent.sublist = document.createElement(listTag);
+            parent.item.append(parent.sublist);
+          }
+          const item = document.createElement('li');
+          item.dataset.tocLevel = String(level);
+          const link = document.createElement('a');
+          link.href = `#${encodeURIComponent(heading.id)}`;
+          // 目次は同一ページ内のスクロール。別タブで開くと先頭が表示されるだけになる。
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const target = document.getElementById(heading.id);
+            if (!target) return;
+            // 折りたたみの中にある見出しは、開かないと位置が定まらない
+            for (let node = target.parentElement; node; node = node.parentElement) {
+              if (node.tagName === 'DETAILS') node.open = true;
+            }
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+            history.replaceState(null, '', `#${encodeURIComponent(heading.id)}`);
+          });
+          link.textContent = heading.textContent || heading.id;
+          item.append(link);
+          parent.sublist.append(item);
+          stack.push({ level, item, sublist: null });
+        });
+        if (headings.length) host.replaceChildren(root.sublist);
+        else { const empty = document.createElement('p'); empty.className = 'mdx-toc-empty'; empty.textContent = '見出しはありません。'; host.replaceChildren(empty); }
+      }
+    }
+
+    function enhanceHybridCards() {
+      const update = () => {
+        const mobile = window.matchMedia('(max-width: 640px)').matches;
+        for (const group of document.querySelectorAll('[data-component="cards"]')) {
+          const track = group.querySelector('[data-card="track"]');
+          const controls = group.querySelector('.mdx-cards-controls');
+          const cards = Array.from(group.querySelectorAll('[data-card="item"]'));
+          if (!track || !controls || cards.length < 2) continue;
+          controls.hidden = !mobile;
+          if (!mobile) continue;
+          const previous = controls.querySelector('[data-card="previous"]');
+          const next = controls.querySelector('[data-card="next"]');
+          const statusNode = controls.querySelector('[data-card="status"]');
+          let current = Number(track.dataset.cardCurrent || '0');
+          const setCurrent = (index, scroll) => {
+            current = Math.max(0, Math.min(cards.length - 1, index));
+            track.dataset.cardCurrent = String(current);
+            statusNode.textContent = `${current + 1} / ${cards.length}`;
+            previous.disabled = current === 0;
+            next.disabled = current === cards.length - 1;
+            if (scroll) cards[current].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest', inline: 'start' });
+          };
+          const syncCurrent = () => {
+            const trackLeft = track.getBoundingClientRect().left;
+            let nearest = 0;
+            let distance = Number.POSITIVE_INFINITY;
+            cards.forEach((card, index) => {
+              const distanceToStart = Math.abs(card.getBoundingClientRect().left - trackLeft);
+              if (distanceToStart < distance) {
+                distance = distanceToStart;
+                nearest = index;
+              }
+            });
+            setCurrent(nearest, false);
+          };
+          if (track.dataset.cardScrollBound !== 'true') {
+            track.addEventListener('scroll', syncCurrent, { passive: true });
+            track.dataset.cardScrollBound = 'true';
+          }
+          previous.onclick = () => setCurrent(current - 1, true);
+          next.onclick = () => setCurrent(current + 1, true);
+          setCurrent(current, false);
+        }
+      };
+      update();
+      window.addEventListener('resize', update, { passive: true });
+    }
+
+    function prepareHybridSandboxSource(source) {
+      const parsed = new DOMParser().parseFromString(`<body>${source}</body>`, 'text/html');
+      const isSafeResource = (value) => {
+        const candidate = value.trim();
+        return Boolean(candidate) && (candidate.startsWith('data:') || candidate.startsWith('blob:') || (!candidate.startsWith('/') && !candidate.startsWith('//') && !/^[a-z][a-z0-9+.-]*:/i.test(candidate) && !candidate.split('/').includes('..')));
+      };
+      for (const element of parsed.body.querySelectorAll('base, meta, a[href], area[href], form, img, audio, video, source, track, iframe, embed, object, link')) {
+        if (element.localName === 'base' || (element.localName === 'meta' && element.getAttribute('http-equiv')?.toLowerCase() === 'refresh')) {
+          element.remove();
+          continue;
+        }
+        if (element.localName === 'a' || element.localName === 'area') {
+          element.setAttribute('data-hmd-blocked-href', element.getAttribute('href') || '');
+          element.removeAttribute('href');
+          element.removeAttribute('target');
+          continue;
+        }
+        for (const attribute of ['src', 'srcset', 'poster', 'data', 'href']) {
+          const value = element.getAttribute(attribute);
+          if (!value || (element.localName !== 'link' && isSafeResource(value))) continue;
+          element.setAttribute(`data-hmd-blocked-${attribute}`, value);
+          element.removeAttribute(attribute);
+        }
+        element.removeAttribute('action');
+        if (element.localName === 'form') element.setAttribute('data-hmd-blocked-form', 'true');
+      }
+      for (const element of parsed.body.querySelectorAll('style')) {
+        element.textContent = (element.textContent || '').replace(/url\(\s*(['"]?)(?:https?:|\/\/|\/)[^)]*\1\s*\)/gi, 'url(data:,)');
+      }
+      return parsed.body.innerHTML;
+    }
+
+    function enhanceHybridModals() {
+      for (const modal of document.querySelectorAll('[data-component="modal"]')) {
+        const trigger = modal.querySelector('[data-modal-open]');
+        const dialog = modal.querySelector('[data-modal-dialog]');
+        const close = modal.querySelector('[data-modal-close]');
+        if (!trigger || !dialog || !close || typeof dialog.showModal !== 'function') continue;
+        let restoreFocus = null;
+        const closeDialog = () => { if (dialog.open) dialog.close(); restoreFocus?.focus(); restoreFocus = null; };
+        trigger.addEventListener('click', () => { restoreFocus = document.activeElement; dialog.showModal(); close.focus(); });
+        close.addEventListener('click', closeDialog);
+        dialog.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
+        dialog.addEventListener('close', () => { restoreFocus?.focus(); restoreFocus = null; });
+      }
+    }
+
+    function enhanceHybridSandboxes() {
+      const childCsp = (scripts) => [
+        'default-src \'none\'',
+        `script-src ${scripts ? "'nonce-sandbox'" : "'none'"}`,
+        "style-src 'unsafe-inline'",
+        'img-src data: blob:', 'media-src data: blob:', "connect-src 'none'", "frame-src 'none'",
+        "worker-src 'none'", "object-src 'none'", "base-uri 'none'", "form-action 'none'",
+      ].join('; ');
+      for (const figure of document.querySelectorAll('[data-component="sandbox-html"]')) {
+        const run = figure.querySelector('[data-sandbox-run]');
+        const stop = figure.querySelector('[data-sandbox-stop]');
+        const canvas = figure.querySelector('[data-sandbox-canvas]');
+        const sourceNode = figure.querySelector('[data-sandbox-source]');
+        if (!run || !stop || !canvas || !sourceNode) continue;
+        let url = null;
+        const stopSandbox = () => { canvas.replaceChildren(); if (url) { URL.revokeObjectURL(url); url = null; } run.hidden = false; stop.hidden = true; };
+        run.addEventListener('click', () => {
+          stopSandbox();
+          const scripts = figure.dataset.sandboxScripts === 'true';
+          const source = prepareHybridSandboxSource(sourceNode.textContent || '');
+          const executable = scripts ? source.replace(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/gi, (_match, rawAttributes = '', body = '') => {
+            const attributes = String(rawAttributes).trim();
+            if (attributes && !/^type\s*=\s*["']module["']$/i.test(attributes)) throw new Error('sandbox-html の script 属性は type=module 以外を指定できません');
+            return `<script nonce="sandbox"${attributes ? ` ${attributes}` : ''}>${body}<\/script>`;
+          }) : source;
+          const navigationGuard = scripts ? `<script nonce="sandbox">(() => { const block = (event) => { const target = event.target; if (target instanceof Element && target.closest("a[href], area[href], form")) { event.preventDefault(); event.stopImmediatePropagation(); } }; document.addEventListener("click", block, true); document.addEventListener("auxclick", block, true); document.addEventListener("submit", block, true); try { window.open = () => null; } catch {} })();<\/script>` : '';
+          const documentSource = `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${childCsp(scripts)}"></head><body>${navigationGuard}${executable}</body></html>`;
+          url = URL.createObjectURL(new Blob([documentSource], { type: 'text/html' }));
+          const frame = document.createElement('iframe');
+          frame.className = 'mdx-sandbox-frame'; frame.title = figure.dataset.sandboxTitle || '埋め込みHTMLデモ'; frame.height = figure.dataset.sandboxHeight || '360'; frame.sandbox.value = scripts ? 'allow-scripts' : ''; frame.referrerPolicy = 'no-referrer'; frame.src = url;
+          canvas.append(frame); run.hidden = true; stop.hidden = false;
+        });
+        stop.addEventListener('click', stopSandbox);
+      }
+    }
+
+    function enhanceHybridMarkdown() {
+      enhanceHybridTabs();
+      enhanceHybridToc();
+      enhanceHybridCards();
+      enhanceHybridModals();
+      enhanceHybridSandboxes();
+    }
+
+    async function renderMermaidBlocks() {
+      const blocks = Array.from(document.querySelectorAll('[data-mermaid-block]'));
+      if (window.mermaid && blocks.length > 0) {
+        mermaid.initialize({ startOnLoad: false, theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default', securityLevel: 'strict', htmlLabels: false, flowchart: { htmlLabels: false }, deterministicIds: true });
+        for (const [index, block] of blocks.entries()) {
+          const code = block.querySelector('.mermaid-source')?.textContent || '';
+          if (!code) continue;
+          try {
+            const renderedMermaid = await mermaid.render(`doc-mermaid-${index}`, code);
+            const parsed = new DOMParser().parseFromString(renderedMermaid.svg, 'image/svg+xml');
+            if (parsed.querySelector('parsererror') || parsed.documentElement.localName !== 'svg') throw new Error('Mermaid SVGのルートが不正です');
+            for (const element of [parsed.documentElement, ...parsed.documentElement.querySelectorAll('*')]) {
+              if (['script', 'foreignObject', 'iframe', 'object', 'embed', 'image', 'use', 'a'].includes(element.localName)) throw new Error('Mermaid SVGに許可されない要素があります');
+              for (const attribute of [...element.attributes]) {
+                const name = attribute.name.toLowerCase();
+                if (name.startsWith('on') || ['href', 'xlink:href', 'src'].includes(name) || /(?:javascript|vbscript|data):/i.test(attribute.value)) throw new Error('Mermaid SVGに危険な属性があります');
+                if (name === 'style') element.removeAttribute(attribute.name);
+              }
+            }
+            const canvas = document.createElement('div');
+            canvas.className = 'mermaid-canvas';
+            const svgNode = document.importNode(parsed.documentElement, true);
+            const intrinsicWidth = Number((svgNode.getAttribute('viewBox') || '').trim().split(/[\s,]+/)[2]);
+            if (Number.isFinite(intrinsicWidth) && intrinsicWidth > 0) {
+              canvas.style.setProperty('--mermaid-width', `${Math.round(intrinsicWidth)}px`);
+            }
+            canvas.append(svgNode);
+            block.querySelector('.mermaid-source')?.replaceWith(canvas);
+          } catch (error) {
+            block.dataset.mermaidError = error instanceof Error ? error.message : String(error);
+          }
+        }
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const storedFontScale = localStorage.getItem(fontScaleKey);
+      const parsedFontScale = storedFontScale === null ? fontScaleDefaultIndex : Number.parseInt(storedFontScale, 10);
+      applyFontScale(Number.isFinite(parsedFontScale) ? parsedFontScale : fontScaleDefaultIndex);
+      renderMarkdownMath().catch(() => {});
+      renderMermaidBlocks().catch(() => {});
+      highlightMarkdownCode();
+      bindMarkdownAudioPlayers();
+      labelMarkdownTables();
+      enhanceHybridMarkdown();
+    });
+  </script>
+</body>
+</html>
