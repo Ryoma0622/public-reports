@@ -1,0 +1,6 @@
+.public-mapped-audio { max-width:100%; min-width:0; }
+.public-audio-links { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 16px; }
+.public-audio-jump, .public-audio-timestamp { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:44px; padding:6px 10px; border:1px solid currentColor; border-radius:9px; background:transparent; color:var(--accent,var(--c-accent,inherit)); font:inherit; font-size:13px; line-height:1.4; cursor:pointer; }
+.public-audio-paragraph { position:relative; padding-left:66px; min-height:44px; }
+.public-audio-paragraph > .public-audio-timestamp { position:absolute; left:0; top:0; width:58px; padding:6px 0; font-variant-numeric:tabular-nums; }
+.public-audio-jump:focus-visible, .public-audio-timestamp:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
