@@ -9,7 +9,6 @@
 body{font-variant-numeric:tabular-nums}
 .sec-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:5;background:transparent}.sec-progress span{display:block;height:100%;width:0;background:var(--accent);transform-origin:left}
 .sec-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}.sec-meta li{display:inline-flex;align-items:center;gap:7px;padding:4px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);font-size:13.5px;color:var(--mute)}.sec-meta i{color:var(--accent)}
-.sec-subtitle{font:600 clamp(17px,2.4vw,20px)/1.7 'Shippori Mincho B1','Hiragino Mincho ProN',serif;color:var(--mute);margin:-6px 0 18px}
 .sec-toc a{gap:8px;color:var(--ink);transition:border-color .15s,background .15s}.sec-toc a i{color:var(--accent);width:16px;text-align:center}.sec-toc a:hover{border-color:var(--accent);background:var(--accent-soft)}
 .audio-explainer{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:16px 20px}.audio-explainer details{border:0;padding:0;margin-top:10px;background:none}.audio-explainer details[open]{max-height:60vh;overflow:auto}
 section{border-bottom:0;border-top:2px solid var(--ink);padding:22px 0 30px;margin-top:56px}.sec-chapter{padding-top:22px}.sec-chapter>h2{border-left:0;padding:0}main>section:first-child{margin-top:40px}
@@ -45,7 +44,6 @@ pre{position:relative;padding-right:64px}.sec-copy{position:absolute;top:10px;ri
 <div class="sec-masthead" id="top">
 <ul class="sec-meta" aria-label="レポート情報"><li><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>技術詳説・対応判断ガイド</li><li><i class="fa-regular fa-calendar" aria-hidden="true"></i>2026年10月21日調査</li><li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>公開後の公式アドバイザリを反映</li><li><i class="fa-solid fa-headphones" aria-hidden="true"></i>音声解説つき</li></ul>
 <h1 id="phpemudhranodejs-脆弱性調査レポート">PHP・eMudhra・Node.js 脆弱性調査レポート</h1>
-<p class="sec-subtitle">メモリ管理、証明書の鍵、名前の解釈。3つの境界で崩れた前提と、更新を「実体」まで届ける方法</p>
 <p class="sec-lead">PHPはリクエスト処理のメモリ管理、eMudhraは中間CA証明書の鍵生成、Node.jsは名前の解釈・証明書検証・圧縮処理などで、深刻な欠陥が見つかった。3件とも、アプリケーションのコードを直すだけでは片づかない。稼働中のランタイム、信頼ストア、常駐プロセス、配布済みの成果物まで確かめる必要がある。</p>
 <p>本稿は3つの事案を章ごとに分け、原因、成立条件、確認された影響、修正内容、運用上の対応の順に解説する。PHPとNode.jsは事前予告の段階を過ぎ、すでに修正版が出ている。<a class="cite-link" href="https://www.php.net/">[P1]</a> <a class="cite-link" href="https://nodejs.org/en/blog/vulnerability/october-2026-security-releases">[N1]</a></p>
 <nav class="sec-toc" aria-label="レポート目次"><a href="#summary"><i class="fa-solid fa-bolt" aria-hidden="true"></i>要点</a><a href="#overview"><i class="fa-solid fa-map" aria-hidden="true"></i>全体像</a><a href="#php"><i class="fa-brands fa-php" aria-hidden="true"></i>PHPの詳説</a><a href="#emudhra"><i class="fa-solid fa-certificate" aria-hidden="true"></i>eMudhraの詳説</a><a href="#node"><i class="fa-brands fa-node-js" aria-hidden="true"></i>Node.jsの詳説</a><a href="#operations"><i class="fa-solid fa-list-check" aria-hidden="true"></i>対応と確認</a><a href="#references"><i class="fa-solid fa-book" aria-hidden="true"></i>出典</a></nav>
