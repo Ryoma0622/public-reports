@@ -10,13 +10,13 @@
     "published_at": "2026-10-21T16:34:34.176119+00:00"
   },
   {
-    "slug": "20261021_php-emudhra-nodejs-security-b195ddbf10",
-    "title": "PHP・eMudhra・Node.js 脆弱性調査レポート",
-    "published_at": "2026-10-21T16:34:52.958785+00:00"
-  },
-  {
     "slug": "20261020_article-pickup-summary_dot-222d9098db",
     "title": "AIが実装を速めるほど問われる、要件・仕様・調整・検証の境界",
     "published_at": "2026-10-21T16:35:25.095027+00:00"
+  },
+  {
+    "slug": "20261021_php-emudhra-nodejs-security-b195ddbf10",
+    "title": "PHP・eMudhra・Node.js 脆弱性調査レポート",
+    "published_at": "2026-10-21T16:40:33.666695+00:00"
   }
 ]
