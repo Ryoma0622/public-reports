@@ -1,0 +1,124 @@
+{
+  "key": "nodejs",
+  "title": "Node.js：10件のCVEと更新の届け先",
+  "intro": "修正版22.23.4・24.22.1・26.12.1。High 4件、Medium 3件、Low 3件を、壊れた境界ごとに読む。",
+  "groups": [
+    "名前と証明書の照合",
+    "Brotliのメモリ境界",
+    "Keep-aliveの応答対応",
+    "起動状態と乱数キャッシュ",
+    "ZIPの不正入力と内部状態",
+    "Permission Modelの権限境界"
+  ],
+  "sources": "[N1] Node.js公式セキュリティ告知　[N2〜N4] 各系列のリリース　[N6〜N13] 公式修正・資料。2026年10月22日確認。",
+  "units": [
+    {
+      "group": 0,
+      "heading": "同じ名前を、各層が違って解釈した",
+      "explanation": "名前をDNSへ渡す処理、IPかを判断する処理、TLS証明書と照合する処理の間で、表記の解釈がそろっていなかった。NULで名前が途切れたり、全角数字や非標準IP表記が別の形に変わったりすると、意図と違う相手を認証し得る。",
+      "notes": [
+        "CVE-2026-105482は、DNS名のNULによる切り詰めを修正。",
+        "105483は全角数字のIP表記で、24系・26系が対象。",
+        "106069は、緩くIPに解釈されるホスト名の検証を修正。",
+        "106072は、非標準IPv4へDNS SANを使う誤認証を修正。",
+        "OS、IDNA変換、net.isIP()の解釈差が問題になる。",
+        "修正は曖昧な表記を検出し、誤った照合を拒否する。"
+      ],
+      "point": "接続先の解釈と、証明書を照合する名前を一致させる。",
+      "draw": "Same hostname passes DNS, IDNA/IP classification and TLS SAN gates with mismatched interpretations; rejected noncanonical branch; canonical path explicitly separate.",
+      "avoid": "Do not imply any valid fullwidth domain is rejected or all four affect same lines; fullwidth issue only24/26."
+    },
+    {
+      "group": 1,
+      "heading": "圧縮データが、書き込み境界を越える",
+      "explanation": "CVE-2026-111497は、Node.jsが含むBrotliデコーダーの境界外書き込みである。攻撃者が用意した圧縮データを処理すると、RCEにつながり得る。公式はHighとして扱うが、公開資料から細かな攻撃条件までは断定できない。",
+      "notes": [
+        "Brotliは、HTTPの応答などにも使われる圧縮方式。",
+        "問題となるのは、圧縮データを展開する側の処理である。",
+        "書き込みが許されたメモリ領域の外へ出る欠陥である。",
+        "22系・24系・26系のセキュリティ更新が対象となる。",
+        "HTTPクライアント以外のBrotli利用箇所も点検する。",
+        "修正コミットと回帰テストを、完全な攻撃コードと混同しない。"
+      ],
+      "point": "公開されていない成立条件や成功率を推測で補わない。",
+      "draw": "Attacker-supplied compressed file enters Brotli decoder; write crosses memory buffer fence, corrected decoder stays within boundary; application exposure dependency shown.",
+      "avoid": "Do not provide exploit bytes, invented offset or reliable exploitation rate; no implication every Brotli use is automatically exploitable."
+    },
+    {
+      "group": 2,
+      "heading": "要求を送る前の応答を、次の要求へ使う",
+      "explanation": "CVE-2026-105481は、再利用されるHTTP接続の応答対応の問題である。Keep-aliveで待機中のソケットに、次の要求より先にデータが届いていると、それを後の要求の応答として処理し得る。要求と応答の対応が崩れる。",
+      "notes": [
+        "Keep-aliveは、接続を閉じずに次の通信へ再利用する。",
+        "待機中に届いたデータは、次の要求への正当な応答ではない。",
+        "ソケットを引き渡す時点で、OS側の未読データを確認する。",
+        "修正は、先行データがある接続を破棄して再利用を避ける。",
+        "22系・24系・26系に修正が提供された。",
+        "TLSの名前照合とは別の、通信状態の境界の問題である。"
+      ],
+      "point": "接続を再利用しても、先に届いた応答は引き継がない。",
+      "draw": "Time-sequence client idle socket, server premature response, next request; bad response misassociation versus fixed OS pending-data check destroys socket.",
+      "avoid": "Do not draw premature response as legitimate response after request; exact temporal order essential."
+    },
+    {
+      "group": 3,
+      "heading": "起動用の保存状態に、乱数の材料まで残る",
+      "explanation": "CVE-2026-106074は、crypto.randomUUID()やrandomInt()のエントロピーキャッシュが、ユーザーのstartup snapshotやSEAに保存される問題である。同じ保存物から起動した複数のプロセスが、同じ値を繰り返し得る。",
+      "notes": [
+        "キャッシュは、乱数生成のために事前確保した材料である。",
+        "起動状態を複製すると、その材料まで複製されてしまう。",
+        "プロセスが別でも、保存された同じ並びを消費し得る。",
+        "修正は、保存・復元の境界でキャッシュをリセットする。",
+        "22系・24系・26系に修正が提供された。",
+        "古いsnapshotやSEAは、修正版で再生成し、再配布する。"
+      ],
+      "point": "ランタイムの入れ替えだけでは、保存済みの状態は直らない。",
+      "draw": "Snapshot image includes filled entropy cache copied into two new processes producing repeated values; fixed boundary clears cache; rebuild SEA artifact.",
+      "avoid": "Do not imply OS RNG itself broken or every ordinary Node process repeats random values; conditional on saved cache."
+    },
+    {
+      "group": 4,
+      "heading": "検証に失敗したZIPの状態が残る",
+      "explanation": "CVE-2026-106070は、Node.jsのZipFileでZIPヘッダーの検証に失敗した後も、不適切な状態が残る問題である。後の読み出しで、攻撃者が用意した先頭側のバイト列を返し得る。26系の更新で修正された。",
+      "notes": [
+        "不正なZIPヘッダーは、検証エラーとして扱われるべきである。",
+        "エラー後の内部キャッシュが、後の読み出しに影響する。",
+        "成功していない入力の情報を、確定済みの状態として残さない。",
+        "修正は、検証が済む前に状態を確定させないようにする。",
+        "Lowでも、アプリが読み出す内容の前提を崩し得る。",
+        "このCVEの修正対象を、22系や24系へ一律に広げない。"
+      ],
+      "point": "エラーを返すだけでなく、失敗前の状態へ戻れることが必要。",
+      "draw": "ZIP file fails header validation, invalid cached state persists then later read yields attacker prefix; fixed gate validates before state commit.",
+      "avoid": "Do not imply common filesystem ZIP extraction traversal or all release lines affected; no invented RCE consequence."
+    },
+    {
+      "group": 5,
+      "heading": "許可した範囲と、実際のアクセスがずれる",
+      "explanation": "Permission Modelには、ワイルドカード検索による権限の過剰付与と、fs.realpathSyncによる権限回避があった。権限を指定したつもりでも、実際のパスの解決や照合で境界が崩れる。更新後もアプリが使う権限の動作を確かめる。",
+      "notes": [
+        "CVE-2026-106071は、ワイルドカードのradix検索を修正。",
+        "106071は26系に修正が提供された。",
+        "CVE-2026-106073は、fs.realpathSyncの権限回避を修正。",
+        "106073は22系・24系・26系が対象となる。",
+        "修正版で再起動し、コンテナや同梱バイナリも作り直す。",
+        "同じ更新には、eMudhra中間鍵のSPKI拒否も含まれる。"
+      ],
+      "point": "設定した許可と、稼働中の実装が認めるアクセスを照合する。",
+      "draw": "Permission fence for allowed path, wildcard radix matcher and realpathSync resolver as separate gates; patched runtime deployment; separate small eMudhra certificate block note.",
+      "avoid": "Do not imply both permission CVEs only26, or conflation of eMudhra block with filesystem permission checks."
+    }
+  ],
+  "role": "standalone detailed chapter infographic",
+  "audience": "Japanese software engineers and operators",
+  "language": "ja",
+  "aspect_ratio": "9:16",
+  "proofreading": {
+    "status": "not required after user instruction",
+    "attempt": "opencode-go/gemini-4-argon-contributor thorough full",
+    "error": "HTTP 429: Upstream request failed: Endpoint is unavailable. Original copy retained and source-reviewed in this session."
+  },
+  "verified_at": "2026-10-22T00:41:30.431043+09:00",
+  "display_character_count": 2207,
+  "rendered_limitation": "CVE-2026-106073 notes are duplicated into ZIP visual area; they describe Permission Model, not ZIP. The report caption clarifies this. User accepted the placement without regeneration."
+}

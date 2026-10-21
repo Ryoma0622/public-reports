@@ -1,0 +1,118 @@
+{
+  "key": "emudhra",
+  "title": "eMudhra：弱い中間CA鍵と信頼の連鎖",
+  "intro": "P-384の秘密値が256未満。公開情報から復元できた8本の鍵が、証明書の検証と更新に何を突きつけたか。",
+  "groups": [
+    "eMudhra中間CA鍵の危殆化"
+  ],
+  "sources": "[E1] Mozilla Bugzilla 2083449　[E2] Mozilla　[E3] Scott Helme　[E4] eMudhra　[E7] 対応状況。2026年10月22日確認。",
+  "units": [
+    {
+      "group": 0,
+      "heading": "暗号化されていても、相手が偽物になり得る",
+      "explanation": "TLSは通信を暗号化するだけでなく、接続先が正しい相手かを証明書で確かめる。ルートCAから中間CA、サイト証明書へと署名をたどる。中間CAの秘密鍵を第三者が持てば、偽のサイト証明書に正規の形式で署名できる。",
+      "notes": [
+        "利用者は、接続先の名前と証明書の名前を照合する。",
+        "信頼ストアのルートCAが、検証の起点となる。",
+        "中間CAは、サイトの証明書を発行する役割を担う。",
+        "偽証明書でも、署名が通れば信頼の連鎖に乗り得る。",
+        "通信経路に介入できる攻撃者は、偽の相手へ接続させ得る。",
+        "受け入れの可否は、CTや失効など追加の検証にも依存する。"
+      ],
+      "point": "TLSの暗号化と、通信相手が正当であることは別の条件。",
+      "draw": "Root certificate in trust store signs intermediate; intermediate signs forged server cert; client name gate and CT/revocation gates between attacker on network and client.",
+      "avoid": "Do not imply private key alone intercepts arbitrary traffic without network position or client acceptance."
+    },
+    {
+      "group": 0,
+      "heading": "公開鍵から、小さい秘密値を探せた",
+      "explanation": "楕円曲線の公開鍵はQ=dGで表される。通常は巨大な候補の中から秘密値dを探せないが、今回の8本はすべて256未満だった。候補から計算した公開鍵を証明書の公開鍵と照合すると、秘密鍵を容易に復元できた。",
+      "notes": [
+        "P-384という暗号方式そのものが破られたわけではない。",
+        "対象はTLS用6本とコード署名用2本の中間CA鍵。",
+        "EM OV TLS CA - G3Cの秘密値は4だった。",
+        "公開鍵は証明書に記載され、誰でも取得できる。",
+        "認証局の内部へ侵入して、鍵を盗み出す必要はなかった。",
+        "相互署名版も、同じ弱い公開鍵と秘密鍵を共有する。"
+      ],
+      "point": "鍵の見かけの長さではなく、生成された秘密値が弱かった。",
+      "draw": "Public certificate Q and candidate d values feeding Q=dG match; actual example d=4; two differently signed intermediate certificates share key.",
+      "avoid": "No brute-force attack against generic P-384, no scaled entropy pie or magnitude chart, no assertion root private key compromised."
+    },
+    {
+      "group": 0,
+      "heading": "HSMがあっても、工程の誤りは残る",
+      "explanation": "eMudhraはFIPS 140-2 Level 3認証のHSMを使ったと説明する。中間報告では、鍵のwrap／unwrap工程で弱い第2の鍵が生じ、似たラベルからCSR用に誤選択されたという。根本原因の確定と、工程全体の評価はなお調査中である。",
+      "notes": [
+        "該当鍵は、2025年4月の鍵生成セレモニーに由来する。",
+        "HSMは専用装置だが、工程すべての正しさを保証しない。",
+        "元の強い鍵とは別に、弱い鍵が生成されたという説明である。",
+        "誤った鍵からCSRを作り、署名・相互署名へ進んだ。",
+        "同社は、対象の中間CAから末端証明書を発行していないとする。",
+        "ルートCAの秘密鍵が漏れた、と読み替えてはいけない。"
+      ],
+      "point": "装置の認証と、鍵生成・選択の手順の健全性を分ける。",
+      "draw": "HSM ceremony, original strong key and weak second key after wrap/unwrap; similar labels cause wrong key selected for CSR then CA signatures; dashed provisional explanation label.",
+      "avoid": "Do not portray final forensic root cause or claim no HSM was used; end-entity non-issuance attributed to CA."
+    },
+    {
+      "group": 0,
+      "heading": "早い遮断とCTが、ブラウザを守った",
+      "explanation": "研究者は10月17日に問題を報告し、ブラウザ側は弱い中間鍵を遮断した。eMudhraは10月18日に8本を失効させた。遮断前に対象中間CAの証明書がCTログに見つからなかったことも、CTを必須とするブラウザの保護につながった。",
+      "notes": [
+        "FirefoxはOneCRL、ChromeはCRLSetで対応した。",
+        "CTは、公開ログに証明書を記録する仕組みである。",
+        "CTを要求する検証では、未記録の偽証明書を拒否できる。",
+        "ブラウザ外の通信では、CTが必須とは限らない。",
+        "既知の悪用がないという説明は、悪用の不在の証明ではない。",
+        "コード署名とTLSでは、検証の用途や実装も異なる。"
+      ],
+      "point": "ブラウザで守られた条件を、すべての通信へ一般化しない。",
+      "draw": "Short dated event track Oct17 report/browser block, Oct18 CA revocation, CT log gate on browser path; separate non-CT client path retaining risk.",
+      "avoid": "Do not assign all browser actions same time or imply every TLS implementation enforces CT; no claim no abuse ever occurred."
+    },
+    {
+      "group": 0,
+      "heading": "別のルート経路も、同じ弱い鍵へ合流する",
+      "explanation": "中間証明書には、eMudhra側のルートへつながるものに加え、SectigoのAAA Certificate Servicesから相互署名されたものもあった。信頼ストアから片方のルートを除くだけでは、別経路を検証する実装に弱い鍵が残る可能性がある。",
+      "notes": [
+        "証明書の署名者が違っても、中間CAの公開鍵は同じである。",
+        "SPKIは、公開鍵とその方式などを表す情報である。",
+        "SPKI単位の拒否は、同じ鍵を持つ複数の証明書に効く。",
+        "Node.jsは、証明書チェーン中の対象SPKIを拒否する。",
+        "NSSのルート更新と、弱い中間鍵の拒否は別の対策である。",
+        "クライアントが実際にたどる経路まで確かめる必要がある。"
+      ],
+      "point": "証明書1枚の削除だけで、すべての信頼経路は断てない。",
+      "draw": "Two root chains signed differently converge to one weak intermediate public key; SPKI block gate across both; root-store removal shown separately.",
+      "avoid": "Do not conflate SPKI block with revocation fetching or promise root removal from one store blocks all alternative chains."
+    },
+    {
+      "group": 0,
+      "heading": "サーバーと同梱ストアまで更新する",
+      "explanation": "ブラウザやOSの更新だけでは、独自のCAバンドルを持つソフトウェアに修正が届かない。実際の証明書検証器、信頼ストア、同梱ランタイムを調べる。更新後は必要なプロセスを再起動し、コンテナや配布バイナリも作り直す。",
+      "notes": [
+        "Node.jsは22.23.4／24.22.1／26.12.1で対応する。",
+        "Goは1.27.3／1.26.10、certifiは2026.10.19。",
+        "NSSは3.131.1、curlのCAバンドルは2026-10-20。",
+        "OSと別のバンドルを読むPythonやコンテナも確認する。",
+        "公開テストサイトは、証明書エラーで拒否されることを確かめる。",
+        "証明書検証を無効化すると、この確認は成立しない。"
+      ],
+      "point": "更新するのは保管場所だけでなく、検証に使う稼働物。",
+      "draw": "Engineer inventories actual client verifier and trust-store bags for Node, Go, Python, containers; update/rebuild/restart then certificate rejection at test endpoint.",
+      "avoid": "Do not imply HTTP200 is expected success or use insecure verification bypass; versions are text only, not implied latest forever."
+    }
+  ],
+  "role": "standalone detailed chapter infographic",
+  "audience": "Japanese software engineers and operators",
+  "language": "ja",
+  "aspect_ratio": "9:16",
+  "proofreading": {
+    "status": "not required after user instruction",
+    "attempt": "opencode-go/gemini-4-argon-contributor thorough full",
+    "error": "HTTP 429: Upstream request failed: Endpoint is unavailable. Original copy retained and source-reviewed in this session."
+  },
+  "verified_at": "2026-10-22T00:41:30.430672+09:00",
+  "display_character_count": 2097
+}

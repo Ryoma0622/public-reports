@@ -1,0 +1,120 @@
+{
+  "key": "overview",
+  "title": "PHP・eMudhra・Node.js 脆弱性調査",
+  "intro": "3つの事案を、壊れた前提・成立条件・修正の届け先から読み解く。2026年10月22日確認。",
+  "groups": [
+    "PHP：リクエストの寿命を越える状態",
+    "eMudhra：弱い鍵から崩れる認証の連鎖",
+    "Node.js：入力・状態・権限の境界を修復"
+  ],
+  "sources": "[P2・P3] PHP公式アドバイザリ　[E1・E2] Mozilla　[N1] Node.js公式。本文の出典に対応。",
+  "units": [
+    {
+      "group": 0,
+      "heading": "メモリ不足が終了処理まで壊す",
+      "explanation": "PHPはメモリ不足の際、longjmp()で処理を中断していた。初期化途中の構造が残ると、終了処理が不正な状態を参照する。別の欠陥では、前のリクエストの解放済みメモリを同じワーカーの次の処理が使ってしまう。",
+      "notes": [
+        "CVE-2026-109618は、OOMで初期化途中から脱出する。",
+        "mod_phpではアプリ実行前の認証なしRCEが確認された。",
+        "FPMは起動失敗時に子を終了し、この経路を遮断する。",
+        "CVE-2026-109619は、要求を越えて古い状態が残る。",
+        "前の要求が状態を残し、同じワーカーの次の要求が読む。",
+        "FPMでもセッション経路のRCEは確認されている。"
+      ],
+      "point": "FPMだから安全、と2件を一括して扱わない。",
+      "draw": "Cutaway of one PHP worker, request A heap freed then request B early consumer touches stale pointer; separate OOM startup branch mod_php to shutdown versus FPM child exit.",
+      "avoid": "Do not imply a complete FPM exploit was demonstrated for CVE-2026-109618; the confirmed FPM RCE belongs to CVE-2026-109619."
+    },
+    {
+      "group": 0,
+      "heading": "更新は実際のWebワーカーまで届ける",
+      "explanation": "公式修正はOOMの扱いと状態の初期化・解放を改める。上流の修正版へ更新し、動き続ける全ワーカーを再起動する。公式の回帰テストは不具合の再発を検証する資料であり、そのまま完全なRCE攻撃コードになるわけではない。",
+      "notes": [
+        "修正版は8.2.35／8.3.36／8.4.27／8.5.12。",
+        "CLIの版だけでなく、Webが使う実体も確かめる。",
+        "配布元のバックポートは、パッケージの改訂番号で判断する。",
+        "アップロード進捗の無効化は、一部経路の暫定策となる。",
+        "memory_limit=-1でも、OSの割当失敗は残る。",
+        "第三者PoCには訂正があり、公式の成立条件を優先する。"
+      ],
+      "point": "完全な対策は修正適用。設定変更だけで完了しない。",
+      "draw": "Engineer replaces package then restarts every web worker; original and new process badges; official advisory and regression-test sheets kept distinct from exploit claim.",
+      "avoid": "Do not represent temporary settings as complete mitigation or regression tests as a complete RCE exploit."
+    },
+    {
+      "group": 1,
+      "heading": "強い暗号でも、秘密の数が小さすぎた",
+      "explanation": "eMudhraの中間CAに使われたP-384の秘密値は、8本すべてが256未満だった。公開鍵に対し小さい候補を照合すれば秘密鍵を復元できる。攻撃者は認証局に侵入せず、偽の証明書へ署名できる状態にあった。",
+      "notes": [
+        "問題はP-384の数学的破綻ではなく、鍵生成の工程にある。",
+        "対象はTLS用6本とコード署名用2本の中間CA鍵。",
+        "公開鍵Qと、候補dから計算するdGを照合できる。",
+        "弱い鍵は、認証済みHSMを使った工程から生じた。",
+        "wrap／unwrap工程の不具合という中間説明がある。",
+        "根本原因は調査中で、ルート秘密鍵の漏えいとは別である。"
+      ],
+      "point": "証明書の形式が正しくても、鍵の生成品質は保証されない。",
+      "draw": "Public certificate exposes Q; researcher checks small d candidates using Q=dG; restored intermediate signing key stamps forged server certificate; HSM and flawed ceremony as separate process.",
+      "avoid": "Do not imply P-384 is cryptographically broken, root private keys leaked, or final root cause is established."
+    },
+    {
+      "group": 1,
+      "heading": "ブラウザ外にも、拒否の判断を配る",
+      "explanation": "FirefoxやChromeは失効リストなどで弱い中間鍵を拒否した。ただし、証明書透明性の確認や失効確認をしないクライアントもある。OSだけでなく、ランタイムやアプリに同梱された信頼ストアにも更新を届ける必要がある。",
+      "notes": [
+        "CT確認を行うブラウザの保護を、全クライアントに一般化しない。",
+        "相互署名があると、別のルートから同じ弱い鍵へ到達する。",
+        "SPKI単位の拒否は、同じ公開鍵を持つ経路をまとめて止める。",
+        "Node.jsも中間鍵の拒否とNSS由来のルート更新を含む。",
+        "Go、certifi、コンテナ、独自CAバンドルも別々に点検する。",
+        "既知の悪用なしという説明は、悪用が皆無だった証明ではない。"
+      ],
+      "point": "更新対象は、証明書を検証する実際のクライアント。",
+      "draw": "Two certificate chains via different roots converge at same intermediate public key, blocked at SPKI gate; browser and server/Go/Python/container clients with separate trust-store bags.",
+      "avoid": "Do not imply every client enforces CT or consumes revocation, nor that root removal alone covers all chains."
+    },
+    {
+      "group": 2,
+      "heading": "名前・圧縮・キャッシュの境界に欠陥",
+      "explanation": "Node.jsの更新は10件のCVEを修正した。ホスト名の解釈差は証明書検証をすり抜け、Brotliの境界外書き込みはRCEにつながる。接続の再利用や起動状態の保存では、前の状態を次へ持ち越す危険が問題となった。",
+      "notes": [
+        "重要度はHighが4件、Mediumが3件、Lowが3件。",
+        "DNSのNULと非標準IP表記は、名前の解釈をずらす。",
+        "Brotliの細かな攻撃条件は、公開情報だけでは断定できない。",
+        "Keep-aliveでは、要求前に届いた応答を取り違え得る。",
+        "snapshot／SEAに乱数キャッシュを保存すると値が再現する。",
+        "ZIPとPermission Modelにも、別の境界違反がある。"
+      ],
+      "point": "同じランタイムでも、各CVEの成立条件は異なる。",
+      "draw": "Node worker cutaway with TLS identity gate, Brotli decoder boundary, reusable socket, saved snapshot entropy; ZIP file and permission fence as separate issues.",
+      "avoid": "Do not imply all ten flaws affect every release line or that a complete Brotli exploit is publicly documented."
+    },
+    {
+      "group": 2,
+      "heading": "パッケージ更新から、稼働物の置換へ",
+      "explanation": "修正版は22.23.4、24.22.1、26.12.1である。更新済みのNode.jsを入れただけでは、すでに動くプロセスや同梱バイナリは変わらない。プロセスを再起動し、コンテナやSEAを再作成して、実際の検証経路で修正を確認する。",
+      "notes": [
+        "使っている系列に対応する修正版を選ぶ。",
+        "ZIPとワイルドカード権限の修正は26系が対象。",
+        "snapshotやSEAは、修正版で再生成して配布する。",
+        "TLSでは接続名と証明書の照合を実際の経路で確かめる。",
+        "eMudhra対策も、このNode.js更新に含まれている。",
+        "3事案とも、更新済みファイルと稼働中の実体を区別する。"
+      ],
+      "point": "対策の完了は、修正が稼働中の実体へ届いた時点。",
+      "draw": "Deployment flow from fixed Node version through rebuild container and SEA, restart process, verify actual TLS path; eMudhra SPKI check in same runtime update.",
+      "avoid": "Do not imply installing npm packages alone updates Node itself, or that old SEA automatically inherits the replacement runtime."
+    }
+  ],
+  "role": "whole-report infographic",
+  "audience": "Japanese software engineers and operators",
+  "language": "ja",
+  "aspect_ratio": "9:16",
+  "proofreading": {
+    "status": "not required after user instruction",
+    "attempt": "opencode-go/gemini-4-argon-contributor thorough full",
+    "error": "HTTP 429: Upstream request failed: Endpoint is unavailable. Original copy retained and source-reviewed in this session."
+  },
+  "verified_at": "2026-10-22T00:41:30.429189+09:00",
+  "display_character_count": 2086
+}
