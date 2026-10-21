@@ -4,3 +4,6 @@
 .public-audio-paragraph { position:relative; padding-left:66px; min-height:44px; }
 .public-audio-paragraph > .public-audio-timestamp { position:absolute; left:0; top:0; width:58px; padding:6px 0; font-variant-numeric:tabular-nums; }
 .public-audio-jump:focus-visible, .public-audio-timestamp:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
+.public-audio-links > button.public-audio-jump { position:relative; display:inline-flex; flex:none; align-items:center; gap:5px; box-sizing:border-box; height:32px; min-height:32px; width:auto; padding:4px 8px; margin:0; border:0; border-radius:6px; background:var(--fill-3,#8881); font-size:12px; line-height:20px; white-space:nowrap; }
+.public-audio-links > button.public-audio-jump::before { content:''; position:absolute; inset:-6px 0; }
+.public-audio-links > button.public-audio-jump > svg { display:block; flex:0 0 12px; width:12px; min-width:12px; max-width:12px; height:12px; margin:0; }
