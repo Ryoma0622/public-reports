@@ -18,5 +18,10 @@
     "slug": "20261021_php-emudhra-nodejs-security-b195ddbf10",
     "title": "PHP・eMudhra・Node.js 脆弱性調査レポート",
     "published_at": "2026-10-21T16:48:55.182200+00:00"
+  },
+  {
+    "slug": "20261022_java-tomcat-gitlab-security-0e64c42389",
+    "title": "Java・Apache Tomcat・GitLabの脆弱性解析と更新指針｜2026年10月22日",
+    "published_at": "2026-10-22T07:00:42.827624+00:00"
   }
 ]
